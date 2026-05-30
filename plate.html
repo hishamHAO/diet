@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Plate">
+<meta name="theme-color" content="#f6f1e7">
+<title>Plate — Diet Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍎%3C/text%3E%3C/svg%3E">
+
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+  html, body { width: 100%; }
+  body {
+    font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+    background-color: #f6f1e7;
+    color: #2d3a2e;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(196,104,58,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 100%, rgba(45,58,46,0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    -webkit-font-smoothing: antialiased;
+    overflow-y: auto;
+  }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  button:disabled { cursor: default; }
+  input, textarea { font-family: inherit; font-size: 16px; }
+  input:focus, textarea:focus { outline: none; }
+
+  .app { max-width: 480px; margin: 0 auto; padding: 32px 20px 100px; }
+
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .logo { display: flex; align-items: center; gap: 8px; }
+  .logo-text { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .badge { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; display: flex; align-items: center; gap: 10px; }
+  .settings-btn { padding: 6px; border-radius: 50%; color: #8a8975; transition: background 0.2s; }
+  .settings-btn:hover { background: rgba(0,0,0,0.05); }
+
+  .datebar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; background: rgba(255,255,255,0.6); border-radius: 999px;
+    padding: 6px 8px; border: 1px solid #e8e0d0; backdrop-filter: blur(8px);
+  }
+  .datebar button { padding: 8px; border-radius: 50%; color: #2d3a2e; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .datebar button:hover { background: rgba(0,0,0,0.05); }
+  .datebar button:disabled { opacity: 0.3; }
+  .date-label { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; font-style: italic; }
+
+  .card { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 1px 2px rgba(45,58,46,0.04), 0 8px 24px rgba(45,58,46,0.06); position: relative; overflow: hidden; }
+  .totals { margin-bottom: 24px; }
+  .totals::after {
+    content: ''; position: absolute; top: 0; right: 0; width: 128px; height: 128px;
+    border-radius: 50%; background: #c4683a; opacity: 0.04; transform: translate(30%, -30%);
+  }
+  .totals-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 8px; }
+  .totals-big { display: flex; align-items: baseline; gap: 8px; margin-bottom: 20px; }
+  .totals-big .num { font-family: 'Fraunces', serif; font-size: 64px; font-weight: 500; line-height: 1; letter-spacing: -0.03em; }
+  .totals-big .unit { font-size: 14px; color: #8a8975; }
+  .macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 16px; border-top: 1px solid #ede5d3; }
+  .macro-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 4px; }
+  .macro-value { display: flex; align-items: baseline; gap: 2px; }
+  .macro-value .n { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; }
+  .macro-value .u { font-size: 10px; color: #8a8975; }
+
+  .input-section { margin: 24px 0; }
+  .mic-wrap { display: flex; flex-direction: column; align-items: center; }
+  .mic-btn {
+    position: relative; width: 96px; height: 96px; border-radius: 50%;
+    background: #2d3a2e; color: #f6f1e7;
+    box-shadow: 0 8px 20px rgba(45,58,46,0.25);
+    transition: transform 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mic-btn:active { transform: scale(0.95); }
+  .mic-btn:disabled { opacity: 0.5; }
+  .mic-btn.listening {
+    background: #c4683a;
+    box-shadow: 0 0 0 12px rgba(196,104,58,0.15), 0 0 0 24px rgba(196,104,58,0.08);
+  }
+  .mic-btn .ping {
+    position: absolute; inset: 0; border-radius: 50%; background: #c4683a; opacity: 0.3;
+    animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+  }
+  @keyframes ping { 75%, 100% { transform: scale(1.5); opacity: 0; } }
+
+  .mic-status { margin-top: 16px; text-align: center; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 0 16px; font-size: 14px; }
+  .mic-status .italic { font-family: 'Fraunces', serif; font-style: italic; color: #6b6a5c; }
+  .mic-status .live { font-family: 'Fraunces', serif; font-style: italic; color: #2d3a2e; }
+  .mic-status .muted { color: #6b6a5c; }
+  .mic-status .warn { color: #c4683a; }
+
+  .mode-row { display: flex; gap: 8px; margin-top: 8px; }
+  .mode-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px; font-size: 12px; color: #6b6a5c;
+    background: rgba(255,255,255,0.55); transition: background 0.2s;
+  }
+  .mode-btn:hover { background: rgba(255,255,255,0.85); }
+  .mode-btn:disabled { opacity: 0.4; }
+
+  .text-card { background: white; border-radius: 24px; padding: 20px; border: 1px solid #e8e0d0; }
+  .text-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .text-card-head .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; }
+  .back-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #6b6a5c; background: #f6f1e7; padding: 6px 12px; border-radius: 999px; }
+  .text-input {
+    width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #e8e0d0;
+    background: #faf7f0; color: #2d3a2e; font-size: 15px; resize: none;
+  }
+  .text-input:focus { border-color: #2d3a2e; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .form-field { display: flex; flex-direction: column; }
+  .form-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #8a8975; margin-bottom: 4px; padding-left: 4px; }
+  .form-input {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #e8e0d0;
+    background: #faf7f0; color: #2d3a2e; font-size: 14px;
+  }
+  .form-input:focus { border-color: #2d3a2e; }
+  .primary-btn {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px; border-radius: 999px; background: #2d3a2e; color: #f6f1e7;
+    font-size: 14px; font-weight: 500; margin-top: 12px; transition: transform 0.15s;
+  }
+  .primary-btn:active { transform: scale(0.97); }
+  .primary-btn:disabled { opacity: 0.4; }
+
+  .pending {
+    background: white; border-radius: 24px; padding: 20px;
+    border: 2px solid #c4683a; box-shadow: 0 8px 24px rgba(196,104,58,0.15);
+  }
+  .pending-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #c4683a; margin-bottom: 8px; }
+  .pending-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; line-height: 1.25; }
+  .pending-cal { display: flex; align-items: baseline; gap: 8px; margin-top: 14px; }
+  .pending-cal .n { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 500; line-height: 1; }
+  .pending-cal .u { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; }
+  .pending-macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; text-align: center; }
+  .pending-macro { background: #f6f1e7; border-radius: 12px; padding: 10px 4px; }
+  .pending-macro .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #8a8975; }
+  .pending-macro .val { font-size: 14px; font-weight: 500; margin-top: 2px; }
+  .breakdown { margin-top: 14px; padding-top: 14px; border-top: 1px dashed #ede5d3; }
+  .breakdown-item { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: #6b6a5c; }
+  .breakdown-item .nm { font-family: 'Fraunces', serif; font-style: italic; }
+  .pending-warn { margin-top: 12px; font-size: 12px; color: #c4683a; background: rgba(196,104,58,0.08); padding: 8px 12px; border-radius: 10px; }
+  .pending-heard { font-size: 12px; font-style: italic; color: #a0a08e; margin-top: 10px; }
+  .pending-actions { display: flex; gap: 8px; margin-top: 18px; }
+  .secondary-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px; border-radius: 999px; border: 1px solid #e8e0d0; color: #6b6a5c;
+    font-size: 14px; font-weight: 500; transition: transform 0.15s; background: white;
+  }
+  .secondary-btn:active { transform: scale(0.97); }
+  .pending-actions .primary-btn { margin-top: 0; flex: 1; }
+
+  .error { display: flex; align-items: flex-start; gap: 8px; padding: 12px 16px; border-radius: 16px; background: rgba(196,104,58,0.1); margin-top: 16px; }
+  .error-text { font-size: 12px; color: #8a4a2a; }
+
+  .list-header { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 12px; padding: 0 4px; }
+  .empty { text-align: center; padding: 40px 24px; border-radius: 24px; background: rgba(255,255,255,0.4); }
+  .empty p { font-family: 'Fraunces', serif; font-style: italic; color: #8a8975; }
+  .entries-list { display: flex; flex-direction: column; gap: 8px; }
+  .entry {
+    background: white; border-radius: 16px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 12px; border: 1px solid rgba(232,224,208,0.6);
+  }
+  .entry-main { flex: 1; min-width: 0; }
+  .entry-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .entry-sub { display: flex; gap: 8px; margin-top: 2px; font-size: 12px; color: #8a8975; }
+  .entry-cal { text-align: right; }
+  .entry-cal .n { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; }
+  .entry-cal .u { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #8a8975; }
+  .icon-btn { padding: 8px; border-radius: 50%; color: #a0a08e; transition: background 0.2s; }
+  .icon-btn:hover { background: rgba(0,0,0,0.05); }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(45,58,46,0.4); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100;
+    animation: fadein 0.2s;
+  }
+  @keyframes fadein { from { opacity: 0; } }
+  .modal {
+    background: white; border-radius: 24px; padding: 24px; max-width: 380px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2); max-height: 80vh; overflow-y: auto;
+  }
+  .modal-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+  .modal-desc { font-size: 14px; color: #6b6a5c; line-height: 1.5; margin-bottom: 16px; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 16px; }
+  .modal-section { margin-bottom: 16px; }
+  .modal-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 8px; }
+  .danger-btn {
+    width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(196,104,58,0.3);
+    color: #c4683a; background: rgba(196,104,58,0.05); font-size: 14px; font-weight: 500;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  }
+
+  .icon { display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+'use strict';
+
+// ============================================================
+// FOOD DATABASE — per default portion shown in 'unit'
+// ============================================================
+const FOODS = [
+  // Fruits
+  { keys: ['apple', 'apples'], display: 'Apple', unit: 'medium', cal: 95, c: 25, p: 0.5, f: 0.3, scalable: true },
+  { keys: ['banana', 'bananas'], display: 'Banana', unit: 'medium', cal: 105, c: 27, p: 1.3, f: 0.4, scalable: true },
+  { keys: ['orange', 'oranges'], display: 'Orange', unit: 'medium', cal: 62, c: 15, p: 1.2, f: 0.2, scalable: true },
+  { keys: ['pear', 'pears'], display: 'Pear', unit: 'medium', cal: 100, c: 27, p: 0.6, f: 0.3, scalable: true },
+  { keys: ['peach', 'peaches'], display: 'Peach', unit: 'medium', cal: 60, c: 15, p: 1.4, f: 0.4, scalable: true },
+  { keys: ['plum', 'plums'], display: 'Plum', unit: 'medium', cal: 30, c: 7.5, p: 0.5, f: 0.2, scalable: true },
+  { keys: ['mango', 'mangos', 'mangoes'], display: 'Mango', unit: 'medium', cal: 200, c: 50, p: 2.8, f: 1.3, scalable: true },
+  { keys: ['kiwi', 'kiwis', 'kiwifruit'], display: 'Kiwi', unit: 'medium', cal: 42, c: 10, p: 0.8, f: 0.4, scalable: true },
+  { keys: ['avocado', 'avocados'], display: 'Avocado', unit: 'medium', cal: 240, c: 12, p: 3, f: 22, scalable: true },
+  { keys: ['lemon', 'lemons'], display: 'Lemon', unit: 'medium', cal: 17, c: 5.4, p: 0.6, f: 0.2, scalable: true },
+  { keys: ['grapefruit'], display: 'Grapefruit', unit: 'half', cal: 52, c: 13, p: 0.9, f: 0.2, scalable: true },
+  { keys: ['cherries', 'cherry'], display: 'Cherries', unit: 'cup', cal: 87, c: 22, p: 1.5, f: 0.3, scalable: true },
+  { keys: ['grapes', 'grape'], display: 'Grapes', unit: 'cup', cal: 100, c: 27, p: 1, f: 0.2, scalable: true },
+  { keys: ['strawberries', 'strawberry'], display: 'Strawberries', unit: 'cup', cal: 49, c: 12, p: 1, f: 0.5, scalable: true },
+  { keys: ['blueberries', 'blueberry'], display: 'Blueberries', unit: 'cup', cal: 84, c: 21, p: 1.1, f: 0.5, scalable: true },
+  { keys: ['raspberries', 'raspberry'], display: 'Raspberries', unit: 'cup', cal: 64, c: 15, p: 1.5, f: 0.8, scalable: true },
+  { keys: ['watermelon'], display: 'Watermelon', unit: 'cup', cal: 46, c: 11.5, p: 0.9, f: 0.2, scalable: true },
+  { keys: ['melon', 'cantaloupe', 'honeydew'], display: 'Melon', unit: 'cup', cal: 60, c: 14, p: 1.5, f: 0.3, scalable: true },
+  { keys: ['pineapple'], display: 'Pineapple', unit: 'cup', cal: 82, c: 22, p: 0.9, f: 0.2, scalable: true },
+  { keys: ['raisins'], display: 'Raisins', unit: 'small handful', cal: 90, c: 24, p: 1, f: 0.1, scalable: true },
+  { keys: ['dates', 'date'], display: 'Dates', unit: '3 pieces', cal: 200, c: 53, p: 1.8, f: 0.3, scalable: true },
+  { keys: ['figs', 'fig'], display: 'Figs', unit: '2 medium', cal: 75, c: 19, p: 0.8, f: 0.3, scalable: true },
+
+  // Vegetables
+  { keys: ['carrot', 'carrots'], display: 'Carrot', unit: 'medium', cal: 25, c: 6, p: 0.6, f: 0.1, scalable: true },
+  { keys: ['tomato', 'tomatoes'], display: 'Tomato', unit: 'medium', cal: 22, c: 5, p: 1.1, f: 0.2, scalable: true },
+  { keys: ['cucumber', 'cucumbers'], display: 'Cucumber', unit: 'half', cal: 16, c: 4, p: 0.8, f: 0.1, scalable: true },
+  { keys: ['bell pepper', 'capsicum'], display: 'Bell pepper', unit: 'medium', cal: 30, c: 7, p: 1, f: 0.3, scalable: true },
+  { keys: ['onion', 'onions'], display: 'Onion', unit: 'medium', cal: 44, c: 10, p: 1.2, f: 0.1, scalable: true },
+  { keys: ['broccoli'], display: 'Broccoli', unit: 'cup', cal: 31, c: 6, p: 2.5, f: 0.3, scalable: true },
+  { keys: ['cauliflower'], display: 'Cauliflower', unit: 'cup', cal: 25, c: 5, p: 2, f: 0.3, scalable: true },
+  { keys: ['spinach'], display: 'Spinach', unit: 'cup', cal: 7, c: 1, p: 0.9, f: 0.1, scalable: true },
+  { keys: ['lettuce'], display: 'Lettuce', unit: 'cup', cal: 5, c: 1, p: 0.5, f: 0.1, scalable: true },
+  { keys: ['salad'], display: 'Salad', unit: 'bowl', cal: 150, c: 12, p: 5, f: 8, scalable: true },
+  { keys: ['mixed vegetables', 'veggies', 'vegetables'], display: 'Vegetables', unit: 'cup', cal: 60, c: 12, p: 3, f: 0.5, scalable: true },
+  { keys: ['baked potato', 'potato', 'potatoes'], display: 'Potato', unit: 'medium', cal: 160, c: 37, p: 4.3, f: 0.2, scalable: true },
+  { keys: ['mashed potato', 'mash'], display: 'Mashed potato', unit: 'cup', cal: 240, c: 35, p: 4, f: 9, scalable: true },
+  { keys: ['sweet potato'], display: 'Sweet potato', unit: 'medium', cal: 112, c: 26, p: 2, f: 0.1, scalable: true },
+  { keys: ['chips', 'french fries', 'fries'], display: 'Chips', unit: 'medium portion', cal: 365, c: 48, p: 4, f: 17, scalable: true },
+  { keys: ['mushrooms', 'mushroom'], display: 'Mushrooms', unit: 'cup', cal: 15, c: 2, p: 2, f: 0.2, scalable: true },
+  { keys: ['corn', 'sweetcorn'], display: 'Corn', unit: 'cup', cal: 130, c: 30, p: 5, f: 1.5, scalable: true },
+  { keys: ['peas'], display: 'Peas', unit: 'cup', cal: 120, c: 21, p: 8, f: 0.4, scalable: true },
+  { keys: ['baked beans', 'beans'], display: 'Baked beans', unit: 'half can', cal: 160, c: 30, p: 10, f: 0.6, scalable: true },
+  { keys: ['lentils'], display: 'Lentils', unit: 'cup cooked', cal: 230, c: 40, p: 18, f: 0.8, scalable: true },
+  { keys: ['chickpeas'], display: 'Chickpeas', unit: 'cup cooked', cal: 270, c: 45, p: 15, f: 4, scalable: true },
+
+  // Grains
+  { keys: ['wholemeal bread', 'whole wheat bread', 'brown bread', 'whole grain bread'], display: 'Wholemeal bread', unit: 'slice', cal: 70, c: 12, p: 4, f: 1, scalable: true },
+  { keys: ['white bread', 'slice of bread', 'bread', 'toast'], display: 'Bread', unit: 'slice', cal: 80, c: 15, p: 3, f: 1, scalable: true },
+  { keys: ['bagel'], display: 'Bagel', unit: 'whole', cal: 280, c: 55, p: 10, f: 1.5, scalable: true },
+  { keys: ['pita bread', 'pita'], display: 'Pita bread', unit: 'whole', cal: 165, c: 33, p: 5.5, f: 0.7, scalable: true },
+  { keys: ['naan bread', 'naan'], display: 'Naan', unit: 'whole', cal: 260, c: 45, p: 8, f: 5, scalable: true },
+  { keys: ['bread roll', 'dinner roll', 'roll'], display: 'Bread roll', unit: 'whole', cal: 130, c: 24, p: 4, f: 2, scalable: true },
+  { keys: ['baguette', 'french bread'], display: 'Baguette', unit: '70g portion', cal: 200, c: 38, p: 7, f: 1.5, scalable: true },
+  { keys: ['brown rice'], display: 'Brown rice', unit: 'cup cooked', cal: 215, c: 45, p: 5, f: 1.8, scalable: true },
+  { keys: ['basmati rice', 'jasmine rice', 'white rice', 'rice'], display: 'Rice', unit: 'cup cooked', cal: 205, c: 45, p: 4, f: 0.4, scalable: true },
+  { keys: ['pasta', 'spaghetti', 'penne', 'fusilli'], display: 'Pasta', unit: 'cup cooked', cal: 220, c: 43, p: 8, f: 1.3, scalable: true },
+  { keys: ['noodles', 'noodle'], display: 'Noodles', unit: 'cup cooked', cal: 220, c: 40, p: 7, f: 3, scalable: true },
+  { keys: ['oatmeal', 'oats', 'porridge'], display: 'Porridge', unit: 'cup cooked', cal: 158, c: 27, p: 6, f: 3.2, scalable: true },
+  { keys: ['cornflakes', 'breakfast cereal', 'cereal'], display: 'Cereal', unit: 'cup', cal: 110, c: 24, p: 3, f: 0.5, scalable: true },
+  { keys: ['muesli', 'granola'], display: 'Muesli', unit: 'cup', cal: 290, c: 50, p: 8, f: 8, scalable: true },
+  { keys: ['croissant'], display: 'Croissant', unit: 'whole', cal: 230, c: 26, p: 5, f: 12, scalable: true },
+  { keys: ['quinoa'], display: 'Quinoa', unit: 'cup cooked', cal: 222, c: 39, p: 8, f: 3.5, scalable: true },
+  { keys: ['couscous'], display: 'Couscous', unit: 'cup cooked', cal: 175, c: 36, p: 6, f: 0.3, scalable: true },
+  { keys: ['tortilla', 'flatbread'], display: 'Tortilla', unit: 'whole', cal: 140, c: 24, p: 4, f: 3, scalable: true },
+
+  // Proteins
+  { keys: ['boiled egg', 'fried egg', 'scrambled egg', 'eggs', 'egg'], display: 'Egg', unit: 'medium', cal: 72, c: 0.4, p: 6.3, f: 4.8, scalable: true },
+  { keys: ['chicken breast', 'chicken'], display: 'Chicken breast', unit: '100g', cal: 165, c: 0, p: 31, f: 3.6, scalable: true },
+  { keys: ['chicken thigh'], display: 'Chicken thigh', unit: '100g', cal: 209, c: 0, p: 26, f: 11, scalable: true },
+  { keys: ['roast chicken', 'roasted chicken'], display: 'Roast chicken', unit: '100g', cal: 190, c: 0, p: 29, f: 8, scalable: true },
+  { keys: ['salmon'], display: 'Salmon', unit: 'fillet (150g)', cal: 312, c: 0, p: 30, f: 20, scalable: true },
+  { keys: ['canned tuna', 'tuna'], display: 'Tuna', unit: 'half can (75g)', cal: 100, c: 0, p: 22, f: 1, scalable: true },
+  { keys: ['cod', 'haddock', 'white fish'], display: 'White fish', unit: 'fillet (150g)', cal: 130, c: 0, p: 28, f: 1, scalable: true },
+  { keys: ['steak', 'beef steak'], display: 'Steak', unit: '150g', cal: 405, c: 0, p: 39, f: 27, scalable: true },
+  { keys: ['beef mince', 'ground beef', 'mince'], display: 'Beef mince', unit: '100g', cal: 250, c: 0, p: 26, f: 15, scalable: true },
+  { keys: ['pork chop', 'pork'], display: 'Pork', unit: '100g', cal: 231, c: 0, p: 26, f: 14, scalable: true },
+  { keys: ['lamb'], display: 'Lamb', unit: '100g', cal: 294, c: 0, p: 25, f: 21, scalable: true },
+  { keys: ['bacon'], display: 'Bacon', unit: '2 rashers', cal: 130, c: 0.2, p: 9, f: 10, scalable: true },
+  { keys: ['sausages', 'sausage'], display: 'Sausage', unit: 'piece', cal: 200, c: 2, p: 11, f: 17, scalable: true },
+  { keys: ['ham'], display: 'Ham', unit: '2 slices', cal: 60, c: 1, p: 10, f: 2, scalable: true },
+  { keys: ['turkey'], display: 'Turkey', unit: '100g', cal: 135, c: 0, p: 30, f: 1, scalable: true },
+  { keys: ['tofu'], display: 'Tofu', unit: '100g', cal: 76, c: 1.9, p: 8, f: 4.8, scalable: true },
+  { keys: ['prawns', 'shrimp'], display: 'Prawns', unit: '100g', cal: 99, c: 0.2, p: 24, f: 0.3, scalable: true },
+  { keys: ['hummus'], display: 'Hummus', unit: '2 tbsp', cal: 70, c: 4, p: 2, f: 5, scalable: true },
+
+  // Dairy
+  { keys: ['skimmed milk', 'skim milk', 'semi skimmed milk'], display: 'Skimmed milk', unit: '250ml', cal: 90, c: 12, p: 8, f: 1.5, scalable: true },
+  { keys: ['oat milk', 'almond milk', 'soy milk', 'plant milk'], display: 'Plant milk', unit: '250ml', cal: 80, c: 9, p: 3, f: 4, scalable: true },
+  { keys: ['glass of milk', 'milk'], display: 'Milk', unit: '250ml', cal: 150, c: 12, p: 8, f: 8, scalable: true },
+  { keys: ['greek yogurt', 'greek yoghurt'], display: 'Greek yogurt', unit: 'pot (150g)', cal: 130, c: 6, p: 17, f: 5, scalable: true },
+  { keys: ['yogurt', 'yoghurt'], display: 'Yogurt', unit: 'pot (150g)', cal: 150, c: 17, p: 8, f: 5, scalable: true },
+  { keys: ['cheese slice', 'cheddar', 'cheese'], display: 'Cheese', unit: '30g', cal: 113, c: 0.4, p: 7, f: 9, scalable: true },
+  { keys: ['mozzarella'], display: 'Mozzarella', unit: '30g', cal: 85, c: 1, p: 6, f: 6, scalable: true },
+  { keys: ['feta'], display: 'Feta', unit: '30g', cal: 75, c: 1, p: 4, f: 6, scalable: true },
+  { keys: ['butter'], display: 'Butter', unit: 'tablespoon', cal: 102, c: 0, p: 0.1, f: 11.5, scalable: true },
+  { keys: ['cream cheese'], display: 'Cream cheese', unit: 'tablespoon', cal: 50, c: 1, p: 1, f: 5, scalable: true },
+  { keys: ['cottage cheese'], display: 'Cottage cheese', unit: 'half cup', cal: 110, c: 5, p: 12, f: 5, scalable: true },
+
+  // Beverages
+  { keys: ['coffee with milk', 'flat white', 'cappuccino', 'latte'], display: 'Coffee with milk', unit: 'cup', cal: 50, c: 5, p: 3, f: 2, scalable: true },
+  { keys: ['black coffee', 'americano', 'espresso'], display: 'Black coffee', unit: 'cup', cal: 5, c: 0, p: 0.3, f: 0, scalable: true },
+  { keys: ['coffee'], display: 'Coffee with milk', unit: 'cup', cal: 50, c: 5, p: 3, f: 2, scalable: true },
+  { keys: ['tea with milk', 'milk tea'], display: 'Tea with milk', unit: 'cup', cal: 35, c: 3, p: 2, f: 1.5, scalable: true },
+  { keys: ['black tea', 'green tea', 'herbal tea', 'tea'], display: 'Tea', unit: 'cup', cal: 2, c: 0.5, p: 0, f: 0, scalable: true },
+  { keys: ['orange juice', 'oj'], display: 'Orange juice', unit: 'glass', cal: 112, c: 26, p: 2, f: 0.5, scalable: true },
+  { keys: ['apple juice'], display: 'Apple juice', unit: 'glass', cal: 115, c: 28, p: 0.2, f: 0.3, scalable: true },
+  { keys: ['water'], display: 'Water', unit: 'glass', cal: 0, c: 0, p: 0, f: 0, scalable: true },
+  { keys: ['diet coke', 'diet cola', 'zero sugar cola'], display: 'Diet cola', unit: 'can', cal: 1, c: 0, p: 0, f: 0, scalable: true },
+  { keys: ['coca cola', 'coke', 'cola', 'pepsi'], display: 'Cola', unit: 'can', cal: 140, c: 39, p: 0, f: 0, scalable: true },
+  { keys: ['lemonade'], display: 'Lemonade', unit: 'glass', cal: 110, c: 28, p: 0, f: 0, scalable: true },
+  { keys: ['beer', 'lager', 'ale'], display: 'Beer', unit: 'pint', cal: 200, c: 17, p: 2, f: 0, scalable: true },
+  { keys: ['red wine', 'white wine', 'wine'], display: 'Wine', unit: 'glass', cal: 150, c: 4, p: 0, f: 0, scalable: true },
+  { keys: ['smoothie'], display: 'Smoothie', unit: 'glass', cal: 200, c: 40, p: 5, f: 2, scalable: true },
+  { keys: ['hot chocolate'], display: 'Hot chocolate', unit: 'cup', cal: 190, c: 32, p: 8, f: 5, scalable: true },
+
+  // Meals
+  { keys: ['pizza slice', 'slice of pizza', 'pizza'], display: 'Pizza slice', unit: 'slice', cal: 285, c: 36, p: 12, f: 10, scalable: true },
+  { keys: ['cheeseburger'], display: 'Cheeseburger', unit: 'whole', cal: 600, c: 40, p: 30, f: 35, scalable: true },
+  { keys: ['chicken burger'], display: 'Chicken burger', unit: 'whole', cal: 470, c: 42, p: 28, f: 19, scalable: true },
+  { keys: ['burger', 'hamburger'], display: 'Burger', unit: 'whole', cal: 540, c: 40, p: 25, f: 30, scalable: true },
+  { keys: ['sandwich', 'sandwiches'], display: 'Sandwich', unit: 'whole', cal: 350, c: 35, p: 15, f: 15, scalable: true },
+  { keys: ['chicken wrap', 'wrap'], display: 'Wrap', unit: 'whole', cal: 420, c: 45, p: 22, f: 16, scalable: true },
+  { keys: ['hot dog'], display: 'Hot dog', unit: 'whole', cal: 290, c: 21, p: 11, f: 18, scalable: true },
+  { keys: ['lentil soup'], display: 'Lentil soup', unit: 'bowl', cal: 230, c: 36, p: 18, f: 1, scalable: true },
+  { keys: ['tomato soup'], display: 'Tomato soup', unit: 'bowl', cal: 170, c: 22, p: 4, f: 7, scalable: true },
+  { keys: ['chicken soup'], display: 'Chicken soup', unit: 'bowl', cal: 180, c: 18, p: 14, f: 5, scalable: true },
+  { keys: ['mushroom soup'], display: 'Mushroom soup', unit: 'bowl', cal: 200, c: 18, p: 4, f: 13, scalable: true },
+  { keys: ['vegetable soup', 'minestrone'], display: 'Vegetable soup', unit: 'bowl', cal: 130, c: 22, p: 5, f: 3, scalable: true },
+  { keys: ['soup'], display: 'Soup', unit: 'bowl', cal: 180, c: 22, p: 7, f: 6, scalable: true },
+  { keys: ['chicken curry', 'curry'], display: 'Curry', unit: 'bowl', cal: 450, c: 25, p: 25, f: 25, scalable: true },
+  { keys: ['stir fry'], display: 'Stir fry', unit: 'plate', cal: 350, c: 30, p: 20, f: 15, scalable: true },
+  { keys: ['omelette', 'omelet'], display: 'Omelette', unit: '2-egg', cal: 280, c: 2, p: 19, f: 22, scalable: true },
+  { keys: ['scrambled eggs'], display: 'Scrambled eggs', unit: '2-egg', cal: 200, c: 2, p: 14, f: 15, scalable: true },
+  { keys: ['pancakes', 'pancake'], display: 'Pancakes', unit: '3 pieces', cal: 350, c: 50, p: 8, f: 12, scalable: true },
+  { keys: ['waffle', 'waffles'], display: 'Waffle', unit: 'piece', cal: 220, c: 25, p: 5, f: 11, scalable: true },
+  { keys: ['full english', 'english breakfast', 'fry up'], display: 'Full English', unit: 'plate', cal: 800, c: 50, p: 35, f: 50, scalable: true },
+  { keys: ['fish and chips'], display: 'Fish and chips', unit: 'portion', cal: 840, c: 90, p: 35, f: 38, scalable: true },
+  { keys: ['sushi'], display: 'Sushi', unit: 'roll (8 pieces)', cal: 350, c: 60, p: 12, f: 6, scalable: true },
+  { keys: ['risotto'], display: 'Risotto', unit: 'plate', cal: 500, c: 70, p: 12, f: 18, scalable: true },
+  { keys: ['lasagne', 'lasagna'], display: 'Lasagne', unit: 'portion', cal: 450, c: 35, p: 25, f: 22, scalable: true },
+  { keys: ['shepherds pie', 'cottage pie'], display: "Shepherd's pie", unit: 'portion', cal: 450, c: 35, p: 25, f: 22, scalable: true },
+  { keys: ['kebab', 'doner', 'shawarma'], display: 'Kebab', unit: 'whole', cal: 650, c: 50, p: 35, f: 30, scalable: true },
+  { keys: ['paella'], display: 'Paella', unit: 'plate', cal: 500, c: 60, p: 25, f: 15, scalable: true },
+  { keys: ['chicken and rice', 'rice and chicken'], display: 'Chicken & rice', unit: 'plate', cal: 500, c: 60, p: 35, f: 10, scalable: true },
+  { keys: ['fried rice'], display: 'Fried rice', unit: 'plate', cal: 350, c: 50, p: 10, f: 12, scalable: true },
+
+  // Snacks
+  { keys: ['chocolate bar'], display: 'Chocolate bar', unit: '40g', cal: 220, c: 25, p: 3, f: 12, scalable: true },
+  { keys: ['piece of chocolate', 'square of chocolate', 'chocolate'], display: 'Chocolate', unit: 'square', cal: 50, c: 6, p: 0.6, f: 3, scalable: true },
+  { keys: ['biscuits', 'cookies', 'biscuit', 'cookie'], display: 'Biscuit', unit: 'piece', cal: 80, c: 12, p: 1, f: 4, scalable: true },
+  { keys: ['packet of crisps', 'potato chips', 'crisps'], display: 'Crisps', unit: 'small bag (30g)', cal: 150, c: 15, p: 2, f: 10, scalable: true },
+  { keys: ['popcorn'], display: 'Popcorn', unit: 'cup', cal: 30, c: 6, p: 1, f: 0.4, scalable: true },
+  { keys: ['pretzels'], display: 'Pretzels', unit: '30g', cal: 110, c: 23, p: 2.5, f: 1, scalable: true },
+  { keys: ['mixed nuts', 'nuts'], display: 'Mixed nuts', unit: 'handful (30g)', cal: 180, c: 6, p: 6, f: 16, scalable: true },
+  { keys: ['almonds'], display: 'Almonds', unit: 'handful (30g)', cal: 170, c: 6, p: 6, f: 15, scalable: true },
+  { keys: ['peanuts'], display: 'Peanuts', unit: 'handful (30g)', cal: 170, c: 6, p: 8, f: 14, scalable: true },
+  { keys: ['walnuts'], display: 'Walnuts', unit: 'handful (30g)', cal: 200, c: 4, p: 5, f: 20, scalable: true },
+  { keys: ['cashews'], display: 'Cashews', unit: 'handful (30g)', cal: 165, c: 9, p: 5, f: 13, scalable: true },
+  { keys: ['granola bar', 'cereal bar', 'protein bar'], display: 'Granola bar', unit: 'bar', cal: 130, c: 22, p: 3, f: 4, scalable: true },
+  { keys: ['ice cream'], display: 'Ice cream', unit: 'scoop', cal: 137, c: 16, p: 2.3, f: 7.3, scalable: true },
+  { keys: ['donut', 'doughnut'], display: 'Donut', unit: 'piece', cal: 250, c: 30, p: 3, f: 14, scalable: true },
+  { keys: ['slice of cake', 'cake'], display: 'Cake', unit: 'slice', cal: 350, c: 50, p: 4, f: 15, scalable: true },
+  { keys: ['muffin'], display: 'Muffin', unit: 'piece', cal: 280, c: 40, p: 5, f: 12, scalable: true },
+  { keys: ['cupcake'], display: 'Cupcake', unit: 'piece', cal: 200, c: 28, p: 2, f: 10, scalable: true },
+  { keys: ['brownie'], display: 'Brownie', unit: 'piece', cal: 200, c: 27, p: 2.5, f: 10, scalable: true },
+  { keys: ['scone'], display: 'Scone', unit: 'piece', cal: 250, c: 35, p: 5, f: 10, scalable: true },
+  { keys: ['danish pastry', 'pastry'], display: 'Pastry', unit: 'piece', cal: 260, c: 28, p: 4, f: 14, scalable: true },
+
+  // Condiments
+  { keys: ['ketchup'], display: 'Ketchup', unit: 'tablespoon', cal: 17, c: 4, p: 0.2, f: 0, scalable: true },
+  { keys: ['mayonnaise', 'mayo'], display: 'Mayonnaise', unit: 'tablespoon', cal: 95, c: 0.1, p: 0.1, f: 10.5, scalable: true },
+  { keys: ['olive oil'], display: 'Olive oil', unit: 'tablespoon', cal: 120, c: 0, p: 0, f: 14, scalable: true },
+  { keys: ['honey'], display: 'Honey', unit: 'tablespoon', cal: 64, c: 17, p: 0.1, f: 0, scalable: true },
+  { keys: ['jam', 'jelly'], display: 'Jam', unit: 'tablespoon', cal: 50, c: 13, p: 0.1, f: 0, scalable: true },
+  { keys: ['peanut butter'], display: 'Peanut butter', unit: 'tablespoon', cal: 95, c: 3.5, p: 4, f: 8, scalable: true },
+  { keys: ['nutella'], display: 'Nutella', unit: 'tablespoon', cal: 100, c: 12, p: 1, f: 6, scalable: true },
+  { keys: ['sugar'], display: 'Sugar', unit: 'teaspoon', cal: 16, c: 4, p: 0, f: 0, scalable: true },
+];
+
+// ============================================================
+// Matching logic
+// ============================================================
+const NUMBER_WORDS = {
+  'a': 1, 'an': 1, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+  'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10, 'half': 0.5,
+  'couple': 2, 'few': 3,
+};
+const SIZE_WORDS = {
+  'tiny': 0.5, 'mini': 0.5, 'small': 0.7, 'little': 0.7, 'smallish': 0.7,
+  'medium': 1.0, 'regular': 1.0, 'normal': 1.0, 'average': 1.0,
+  'large': 1.4, 'big': 1.4, 'biggish': 1.3, 'huge': 1.8, 'massive': 2.0, 'jumbo': 1.7,
+};
+
+function normalize(text) {
+  return text.toLowerCase()
+    .replace(/[.,!?;:'"()]/g, '')
+    .replace(/-/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const ALL_KEYS = [];
+for (const food of FOODS) {
+  for (const key of food.keys) {
+    const norm = normalize(key);
+    ALL_KEYS.push({ food, key: norm, keyWords: norm.split(' ') });
+  }
+}
+ALL_KEYS.sort((a, b) => b.keyWords.length - a.keyWords.length || b.key.length - a.key.length);
+
+function findModifiers(modWords) {
+  let quantity = 1, size = 1.0, sizeWord = null, qtyWord = null;
+  for (let i = modWords.length - 1; i >= 0; i--) {
+    const w = modWords[i];
+    if (qtyWord == null) {
+      if (/^\d+(\.\d+)?$/.test(w)) { quantity = parseFloat(w); qtyWord = w; }
+      else if (NUMBER_WORDS[w] != null) { quantity = NUMBER_WORDS[w]; qtyWord = w; }
+    }
+    if (sizeWord == null && SIZE_WORDS[w] != null) {
+      size = SIZE_WORDS[w]; sizeWord = w;
+    }
+  }
+  return { quantity, size, sizeWord, qtyWord };
+}
+
+function matchFoods(text) {
+  const normalized = normalize(text);
+  const words = normalized.split(/\s+/).filter(Boolean);
+  if (words.length === 0) return { matches: [], unmatched: [] };
+
+  const consumed = new Array(words.length).fill(false);
+  const matches = [];
+
+  for (let i = 0; i < words.length; i++) {
+    if (consumed[i]) continue;
+    let best = null;
+    for (const { food, keyWords } of ALL_KEYS) {
+      if (i + keyWords.length > words.length) continue;
+      let ok = true;
+      for (let j = 0; j < keyWords.length; j++) {
+        if (consumed[i + j] || words[i + j] !== keyWords[j]) { ok = false; break; }
+      }
+      if (ok) { best = { food, keyWords, start: i, end: i + keyWords.length }; break; }
+    }
+    if (!best) continue;
+
+    const modWords = [];
+    for (let k = Math.max(0, best.start - 4); k < best.start; k++) {
+      if (!consumed[k]) modWords.push(words[k]);
+    }
+    const { quantity, size, sizeWord, qtyWord } = findModifiers(modWords);
+    const sizeMult = best.food.scalable !== false ? size : 1.0;
+    const mult = quantity * sizeMult;
+
+    matches.push({
+      food: best.food,
+      sizeWord: best.food.scalable !== false ? sizeWord : null,
+      quantity,
+      cal: best.food.cal * mult,
+      c: best.food.c * mult,
+      p: best.food.p * mult,
+      f: best.food.f * mult,
+    });
+
+    for (let k = best.start; k < best.end; k++) consumed[k] = true;
+    for (let k = Math.max(0, best.start - 4); k < best.start; k++) {
+      const w = words[k];
+      if (w === sizeWord || w === qtyWord || /^\d+(\.\d+)?$/.test(w)) consumed[k] = true;
+    }
+    i = best.end - 1;
+  }
+
+  const stopwords = new Set(['i','had','have','has','ate','eat','eating','just','today','then','and','with','plus','also','a','an','the','some','of','on','in','at','for','my','mine','breakfast','lunch','dinner','snack','meal','was','were','still','only','no','this','that','it','its','to','from','about','around','via','quick','fresh','tasty','nice','good','really','very','bit','piece','pieces','glass','cup','bowl','plate']);
+  const unmatched = [];
+  for (let i = 0; i < words.length; i++) {
+    if (consumed[i]) continue;
+    const w = words[i];
+    if (stopwords.has(w)) continue;
+    if (NUMBER_WORDS[w] != null) continue;
+    if (SIZE_WORDS[w] != null) continue;
+    if (w.length <= 1) continue;
+    unmatched.push(w);
+  }
+  return { matches, unmatched };
+}
+
+// ============================================================
+// State
+// ============================================================
+const state = {
+  entries: [],
+  selectedDate: todayISO(),
+  pending: null,
+  manualDraft: null,
+  isListening: false,
+  mode: 'voice',
+  liveTranscript: '',
+  error: '',
+  showSettings: false,
+  supported: true,
+  textInputValue: '',
+};
+
+function set(patch) { Object.assign(state, patch); render(); }
+
+// ============================================================
+// Storage
+// ============================================================
+const STORAGE_ENTRIES = 'plate-entries-v2';
+function loadEntries() {
+  try { const raw = localStorage.getItem(STORAGE_ENTRIES); return raw ? JSON.parse(raw) : []; }
+  catch { return []; }
+}
+function saveEntries(es) { try { localStorage.setItem(STORAGE_ENTRIES, JSON.stringify(es)); } catch {} }
+
+// ============================================================
+// Date helpers
+// ============================================================
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function entryDate(ts) {
+  const d = new Date(ts);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function formatTime(ts) { return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+function formatDateLabel(iso) {
+  const today = todayISO();
+  const y = new Date(); y.setDate(y.getDate() - 1);
+  const yISO = `${y.getFullYear()}-${String(y.getMonth()+1).padStart(2,'0')}-${String(y.getDate()).padStart(2,'0')}`;
+  if (iso === today) return 'Today';
+  if (iso === yISO) return 'Yesterday';
+  return new Date(iso + 'T00:00:00').toLocaleDateString([], { weekday: 'long', month: 'short', day: 'numeric' });
+}
+function shiftDate(delta) {
+  const d = new Date(state.selectedDate + 'T00:00:00');
+  d.setDate(d.getDate() + delta);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// ============================================================
+// Speech recognition
+// ============================================================
+let recognition = null;
+let finalText = '';
+
+function setupSpeech() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { state.supported = false; return; }
+  recognition = new SR();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = (event) => {
+    let final = '', interim = '';
+    for (let i = 0; i < event.results.length; i++) {
+      const t = event.results[i][0].transcript;
+      if (event.results[i].isFinal) final += t; else interim += t;
+    }
+    if (final.trim()) finalText = final.trim();
+    set({ liveTranscript: (final || interim).trim() });
+  };
+  recognition.onend = () => {
+    const txt = finalText.trim();
+    finalText = '';
+    set({ isListening: false });
+    if (txt) processFood(txt);
+  };
+  recognition.onerror = (e) => {
+    let msg = `Mic error: ${e.error}`;
+    if (e.error === 'no-speech') msg = "Didn't catch that — try again.";
+    else if (e.error === 'not-allowed') msg = 'Microphone blocked. In Safari: tap "AA" in address bar → Website Settings → Microphone → Allow.';
+    set({ isListening: false, error: msg });
+  };
+}
+
+function startListening() {
+  if (!recognition || state.isListening) return;
+  finalText = '';
+  set({ error: '', liveTranscript: '' });
+  try { recognition.start(); set({ isListening: true }); }
+  catch { set({ error: 'Could not start mic. Try again.' }); }
+}
+function stopListening() { if (recognition && state.isListening) { try { recognition.stop(); } catch {} } }
+
+// ============================================================
+// Process food (local matching, no API)
+// ============================================================
+function processFood(text) {
+  const { matches, unmatched } = matchFoods(text);
+
+  if (matches.length === 0) {
+    set({
+      manualDraft: { name: text.trim().replace(/\b\w/g, c => c.toUpperCase()), cal: '', c: '', p: '', f: '' },
+      mode: 'manual',
+      liveTranscript: '',
+      error: '',
+    });
+    return;
+  }
+
+  const totalCal = matches.reduce((a, m) => a + m.cal, 0);
+  const totalC = matches.reduce((a, m) => a + m.c, 0);
+  const totalP = matches.reduce((a, m) => a + m.p, 0);
+  const totalF = matches.reduce((a, m) => a + m.f, 0);
+
+  const name = matches.map(m => {
+    const sz = m.sizeWord ? m.sizeWord.charAt(0).toUpperCase() + m.sizeWord.slice(1) + ' ' : '';
+    const qty = m.quantity !== 1 ? `${m.quantity === 0.5 ? 'Half ' : m.quantity + 'x '}` : '';
+    return (qty + sz + m.food.display).trim();
+  }).join(' + ');
+
+  set({
+    pending: {
+      id: Date.now().toString(),
+      timestamp: Date.now(),
+      spoken: text,
+      name,
+      calories: Math.round(totalCal),
+      carbs: Math.round(totalC * 10) / 10,
+      protein: Math.round(totalP * 10) / 10,
+      fat: Math.round(totalF * 10) / 10,
+      breakdown: matches.map(m => ({
+        name: (m.sizeWord ? m.sizeWord + ' ' : '') + (m.quantity !== 1 ? m.quantity + 'x ' : '') + m.food.display,
+        cal: Math.round(m.cal),
+        unit: m.food.unit,
+      })),
+      unmatched,
+    },
+    liveTranscript: '',
+    error: '',
+  });
+}
+
+// ============================================================
+// Actions
+// ============================================================
+function confirmEntry() {
+  if (!state.pending) return;
+  const newEntries = [state.pending, ...state.entries];
+  saveEntries(newEntries);
+  set({ entries: newEntries, pending: null, mode: 'voice' });
+}
+function cancelEntry() { set({ pending: null }); }
+function deleteEntry(id) {
+  const ne = state.entries.filter(e => e.id !== id);
+  saveEntries(ne);
+  set({ entries: ne });
+}
+function submitText() {
+  const v = state.textInputValue.trim();
+  if (!v) return;
+  state.textInputValue = '';
+  processFood(v);
+}
+function saveManual() {
+  const d = state.manualDraft;
+  if (!d) return;
+  const name = d.name.trim() || 'Unnamed';
+  const cal = parseFloat(d.cal) || 0;
+  if (cal <= 0) { set({ error: 'Please enter calories.' }); return; }
+  const entry = {
+    id: Date.now().toString(),
+    timestamp: Date.now(),
+    spoken: name,
+    name,
+    calories: Math.round(cal),
+    carbs: Math.round((parseFloat(d.c) || 0) * 10) / 10,
+    protein: Math.round((parseFloat(d.p) || 0) * 10) / 10,
+    fat: Math.round((parseFloat(d.f) || 0) * 10) / 10,
+    breakdown: [],
+    unmatched: [],
+  };
+  const newEntries = [entry, ...state.entries];
+  saveEntries(newEntries);
+  set({ entries: newEntries, manualDraft: null, mode: 'voice', error: '' });
+}
+function startManual() {
+  set({ manualDraft: { name: '', cal: '', c: '', p: '', f: '' }, mode: 'manual', error: '' });
+}
+function clearAllData() {
+  if (!confirm('Delete ALL entries? This cannot be undone.')) return;
+  saveEntries([]);
+  set({ entries: [], showSettings: false });
+}
+
+// ============================================================
+// Icons
+// ============================================================
+const icons = {
+  mic: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>',
+  micSm: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>',
+  apple: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4683a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>',
+  chevL: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>',
+  chevR: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
+  kbd: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/></svg>',
+  plus: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  send: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>',
+  checkSm: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  xSm: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  trash: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  alert: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c4683a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  cog: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+};
+
+// ============================================================
+// Rendering
+// ============================================================
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderTotals() {
+  const day = state.entries.filter(e => entryDate(e.timestamp) === state.selectedDate);
+  const t = day.reduce((a, e) => ({
+    calories: a.calories + (e.calories || 0),
+    carbs: a.carbs + (e.carbs || 0),
+    protein: a.protein + (e.protein || 0),
+    fat: a.fat + (e.fat || 0),
+  }), { calories: 0, carbs: 0, protein: 0, fat: 0 });
+  const fmt = v => v < 10 ? v.toFixed(1) : Math.round(v).toString();
+  return `
+    <div class="card totals">
+      <div class="totals-label">calories</div>
+      <div class="totals-big"><span class="num">${Math.round(t.calories)}</span><span class="unit">kcal</span></div>
+      <div class="macros">
+        <div><div class="macro-label">carbs</div><div class="macro-value"><span class="n" style="color:#c4683a">${fmt(t.carbs)}</span><span class="u">g</span></div></div>
+        <div><div class="macro-label">protein</div><div class="macro-value"><span class="n" style="color:#5a7a3a">${fmt(t.protein)}</span><span class="u">g</span></div></div>
+        <div><div class="macro-label">fat</div><div class="macro-value"><span class="n" style="color:#b8924a">${fmt(t.fat)}</span><span class="u">g</span></div></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderInput() {
+  if (state.selectedDate !== todayISO()) return '';
+
+  if (state.pending) {
+    const p = state.pending;
+    return `
+      <div class="input-section">
+        <div class="pending">
+          <div class="pending-label">estimated</div>
+          <div class="pending-name">${escapeHtml(p.name)}</div>
+          <div class="pending-cal"><span class="n">${p.calories}</span><span class="u">kcal</span></div>
+          <div class="pending-macros">
+            <div class="pending-macro"><div class="lbl">carbs</div><div class="val">${p.carbs}g</div></div>
+            <div class="pending-macro"><div class="lbl">protein</div><div class="val">${p.protein}g</div></div>
+            <div class="pending-macro"><div class="lbl">fat</div><div class="val">${p.fat}g</div></div>
+          </div>
+          ${p.breakdown.length > 1 ? `<div class="breakdown">${p.breakdown.map(b => `<div class="breakdown-item"><span class="nm">${escapeHtml(b.name)} <span style="color:#a0a08e">· ${escapeHtml(b.unit)}</span></span><span>${b.cal} kcal</span></div>`).join('')}</div>` : ''}
+          ${p.unmatched.length > 0 ? `<div class="pending-warn">Didn't recognise: ${p.unmatched.map(escapeHtml).join(', ')}. Save anyway, or discard and add manually.</div>` : ''}
+          <div class="pending-heard">Heard: "${escapeHtml(p.spoken)}"</div>
+          <div class="pending-actions">
+            <button class="secondary-btn" onclick="cancelEntry()">${icons.xSm}<span>Discard</span></button>
+            <button class="primary-btn" onclick="confirmEntry()">${icons.checkSm}<span>Save</span></button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (state.mode === 'manual') {
+    const d = state.manualDraft || { name: '', cal: '', c: '', p: '', f: '' };
+    return `
+      <div class="input-section">
+        <div class="text-card">
+          <div class="text-card-head">
+            <div class="lbl">add manually</div>
+            <button class="back-link" onclick="set({mode:'voice', manualDraft:null, error:''})">${icons.micSm}voice</button>
+          </div>
+          <div class="form-label" style="margin-top:4px">food name</div>
+          <input id="m-name" class="form-input" type="text" placeholder="e.g. Yogurt parfait" value="${escapeHtml(d.name)}" oninput="state.manualDraft.name = this.value" />
+          <div class="form-row" style="margin-top:10px">
+            <div class="form-field"><div class="form-label">calories *</div><input id="m-cal" class="form-input" type="number" inputmode="numeric" placeholder="200" value="${escapeHtml(d.cal)}" oninput="state.manualDraft.cal = this.value" /></div>
+            <div class="form-field"><div class="form-label">carbs (g)</div><input class="form-input" type="number" inputmode="decimal" placeholder="optional" value="${escapeHtml(d.c)}" oninput="state.manualDraft.c = this.value" /></div>
+          </div>
+          <div class="form-row" style="margin-top:8px">
+            <div class="form-field"><div class="form-label">protein (g)</div><input class="form-input" type="number" inputmode="decimal" placeholder="optional" value="${escapeHtml(d.p)}" oninput="state.manualDraft.p = this.value" /></div>
+            <div class="form-field"><div class="form-label">fat (g)</div><input class="form-input" type="number" inputmode="decimal" placeholder="optional" value="${escapeHtml(d.f)}" oninput="state.manualDraft.f = this.value" /></div>
+          </div>
+          <button class="primary-btn" onclick="saveManual()">${icons.checkSm}<span>Save entry</span></button>
+        </div>
+        ${state.error ? `<div class="error">${icons.alert}<span class="error-text">${escapeHtml(state.error)}</span></div>` : ''}
+      </div>
+    `;
+  }
+
+  if (state.mode === 'text') {
+    return `
+      <div class="input-section">
+        <div class="text-card">
+          <div class="text-card-head">
+            <div class="lbl">type your food</div>
+            <button class="back-link" onclick="set({mode:'voice', error:''})">${icons.micSm}voice</button>
+          </div>
+          <textarea id="food-input" class="text-input" placeholder="e.g. small apple and a coffee with milk" rows="2" oninput="state.textInputValue = this.value">${escapeHtml(state.textInputValue)}</textarea>
+          <button class="primary-btn" onclick="submitText()" ${!state.textInputValue.trim() ? 'disabled' : ''}>${icons.send}<span>Estimate</span></button>
+        </div>
+        ${state.error ? `<div class="error">${icons.alert}<span class="error-text">${escapeHtml(state.error)}</span></div>` : ''}
+      </div>
+    `;
+  }
+
+  const status = !state.supported
+    ? `<span class="warn">Voice input not supported here. Use type or manual.</span>`
+    : state.isListening
+      ? `<span class="live">${escapeHtml(state.liveTranscript) || 'Listening…'}</span>`
+      : `<span class="muted">Tap and say what you ate</span>`;
+
+  return `
+    <div class="input-section">
+      <div class="mic-wrap">
+        <button class="mic-btn ${state.isListening ? 'listening' : ''}" onclick="${state.isListening ? 'stopListening()' : 'startListening()'}" ${!state.supported ? 'disabled' : ''}>
+          ${state.isListening ? '<span class="ping"></span>' : ''}
+          ${icons.mic}
+        </button>
+        <div class="mic-status">${status}</div>
+        <div class="mode-row">
+          <button class="mode-btn" onclick="set({mode:'text', error:''})" ${state.isListening ? 'disabled' : ''}>${icons.kbd}<span>type</span></button>
+          <button class="mode-btn" onclick="startManual()" ${state.isListening ? 'disabled' : ''}>${icons.plus}<span>manual</span></button>
+        </div>
+      </div>
+      ${state.error ? `<div class="error">${icons.alert}<span class="error-text">${escapeHtml(state.error)}</span></div>` : ''}
+    </div>
+  `;
+}
+
+function renderEntries() {
+  const day = state.entries.filter(e => entryDate(e.timestamp) === state.selectedDate);
+  const isToday = state.selectedDate === todayISO();
+  const header = `<div class="list-header">${day.length === 0 ? 'no entries' : `${day.length} ${day.length === 1 ? 'entry' : 'entries'}`}</div>`;
+  if (day.length === 0) return header + `<div class="empty"><p>${isToday ? 'A blank page. Tap the mic when you eat something.' : 'Nothing logged this day.'}</p></div>`;
+  return header + `<div class="entries-list">${day.map(e => `
+    <div class="entry">
+      <div class="entry-main">
+        <div class="entry-name">${escapeHtml(e.name)}</div>
+        <div class="entry-sub"><span>${formatTime(e.timestamp)}</span><span>·</span><span>${e.carbs}c · ${e.protein}p · ${e.fat}f</span></div>
+      </div>
+      <div class="entry-cal"><div class="n">${e.calories}</div><div class="u">kcal</div></div>
+      <button class="icon-btn" onclick="if(confirm('Delete this entry?')) deleteEntry('${e.id}')" aria-label="Delete">${icons.trash}</button>
+    </div>
+  `).join('')}</div>`;
+}
+
+function renderDateBar() {
+  const isToday = state.selectedDate === todayISO();
+  return `
+    <div class="datebar">
+      <button onclick="set({selectedDate: shiftDate(-1)})" aria-label="Previous day">${icons.chevL}</button>
+      <div class="date-label">${formatDateLabel(state.selectedDate)}</div>
+      <button onclick="set({selectedDate: shiftDate(1)})" ${isToday ? 'disabled' : ''} aria-label="Next day">${icons.chevR}</button>
+    </div>
+  `;
+}
+
+function renderSettingsModal() {
+  if (!state.showSettings) return '';
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) set({showSettings:false})">
+      <div class="modal">
+        <div class="modal-title">Settings</div>
+        <div class="modal-desc">Plate uses a built-in database of about 150 common foods. Estimates are rough — adjust manually if needed. All entries are saved on this device only.</div>
+        <div class="modal-section">
+          <div class="modal-section-title">data</div>
+          <button class="danger-btn" onclick="clearAllData()">${icons.trash}<span>Delete all entries</span></button>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-btn" onclick="set({showSettings:false})">Close</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function render() {
+  const root = document.getElementById('root');
+  const focused = document.activeElement;
+  const focusedId = focused && focused.id;
+  const selStart = focused && focused.selectionStart;
+  const selEnd = focused && focused.selectionEnd;
+
+  root.innerHTML = `
+    <div class="app">
+      <div class="header">
+        <div class="logo">${icons.apple}<h1 class="logo-text">Plate</h1></div>
+        <div class="badge">
+          <span>personal</span>
+          <button class="settings-btn" onclick="set({showSettings:true})" aria-label="Settings">${icons.cog}</button>
+        </div>
+      </div>
+      ${renderDateBar()}
+      ${renderTotals()}
+      ${renderInput()}
+      ${renderEntries()}
+    </div>
+    ${renderSettingsModal()}
+  `;
+
+  if (focusedId) {
+    const el = document.getElementById(focusedId);
+    if (el) {
+      el.focus();
+      if (selStart != null) { try { el.setSelectionRange(selStart, selEnd); } catch {} }
+    }
+  }
+}
+
+// ============================================================
+// Init
+// ============================================================
+function init() {
+  state.entries = loadEntries();
+  setupSpeech();
+  render();
+}
+init();
+</script>
+</body>
+</html>
