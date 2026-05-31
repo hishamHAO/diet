@@ -480,6 +480,10 @@
   /* Satisfaction stars */
   .sat-row { display: flex; gap: 4px; margin-top: 8px; justify-content: space-between; }
   .sat-star { flex: 1; aspect-ratio: 1; max-width: 36px; border-radius: 50%; background: #F4F2EC; color: #c4a06a; font-size: 16px; font-weight: 600; font-family: 'Fraunces', serif; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .sat-skip-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; padding: 0 2px; }
+  .sat-skip-btn { padding: 6px 12px; border-radius: 999px; background: transparent; color: #8a8975; border: 1px solid #E5E0D2; font-size: 13px; font-family: inherit; cursor: pointer; flex-shrink: 0; }
+  .sat-skip-btn:active { background: #F0EEE6; color: #1E2E2A; }
+  .sat-skip-help { font-size: 13px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.4; flex: 1; }
   .sat-star:active { transform: scale(0.92); }
   .sat-star.active { background: #c4a06a; color: white; }
   .sat-row.sm .sat-star { max-width: 28px; font-size: 15px; }
@@ -1329,6 +1333,52 @@
   .hlab-food-search { margin-bottom: 14px; }
   .hlab-food-input { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1.5px solid #E5E0D2; background: #F4F2EC; font-family: 'Fraunces', serif; font-size: 16px; color: #1E2E2A; box-sizing: border-box; outline: none; transition: border-color 0.15s; }
   .hlab-food-input:focus { border-color: #2C5F5D; background: white; }
+  .hlab-suggestion-row { margin-top: 10px; }
+  .hlab-suggestion-lbl { font-size: 13px; color: #8a8975; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 500; }
+  .hlab-suggestion-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .hlab-suggestion-chip { padding: 6px 12px; background: #F0EEE6; border: 1px solid #E5E0D2; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 14px; color: #2C5F5D; cursor: pointer; font-style: italic; }
+  .hlab-suggestion-chip:active { background: #2C5F5D; color: white; transform: scale(0.96); }
+
+  /* ============== HUNGER INSIGHTS CARD (Deep Insights) ============== */
+  .insights-card { background: white; border: 1.5px solid #1E2E2A; border-radius: 22px; padding: 22px 20px; margin-bottom: 14px; }
+  .ic-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .ic-tag { background: #1E2E2A; color: #fff8ec; font-size: 13px; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.1em; font-weight: 600; }
+  .ic-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #1E2E2A; margin-bottom: 6px; }
+  .ic-sub { font-size: 14px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-bottom: 16px; }
+  .ic-empty-num { font-family: 'Fraunces', serif; font-size: 52px; font-weight: 500; color: #2C5F5D; line-height: 1; }
+  .ic-empty-of { font-size: 24px; color: #8a8975; font-weight: 400; }
+  .ic-empty-msg { font-size: 14px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; margin: 6px 0 12px; }
+  .ic-progress-bar { height: 8px; background: #F0EEE6; border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
+  .ic-progress-fill { height: 100%; background: linear-gradient(90deg, #2C5F5D, #5AA89E); border-radius: 999px; transition: width 0.4s; }
+  .ic-no-effects { padding: 12px 14px; background: #F0EEE6; border-radius: 12px; font-size: 14px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; margin-bottom: 12px; }
+  .ic-effects-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .ic-effect { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #F0EEE6; border-radius: 12px; border-left: 3px solid transparent; }
+  .ic-effect.up { border-left-color: #B85C38; background: rgba(184,92,56,0.08); }
+  .ic-effect.down { border-left-color: #5a7a3a; background: rgba(90,122,58,0.08); }
+  .ic-effect-arrow { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; line-height: 1; flex-shrink: 0; min-width: 24px; text-align: center; }
+  .ic-effect.up .ic-effect-arrow { color: #B85C38; }
+  .ic-effect.down .ic-effect-arrow { color: #5a7a3a; }
+  .ic-effect-body { flex: 1; }
+  .ic-effect-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; }
+  .ic-effect-delta { font-size: 13px; color: #8a8975; font-weight: 400; font-style: italic; }
+  .ic-effect-impact { font-size: 13px; color: #6b6a5c; margin-top: 3px; }
+  .ic-stage-b { background: #F0EEE6; border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .ic-stage-b-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: #2C5F5D; font-weight: 600; margin-bottom: 10px; }
+  .ic-stage-b-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  .ic-pred-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 14px; }
+  .ic-pred-emoji { font-size: 18px; min-width: 22px; }
+  .ic-pred-name { flex: 1; color: #1E2E2A; font-family: 'Fraunces', serif; }
+  .ic-pred-pct { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: #2C5F5D; }
+  .ic-pred-n { font-size: 13px; color: #8a8975; font-style: italic; }
+  .ic-stage-b-help { font-size: 13px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.4; }
+  .ic-stage-b-gated { display: flex; gap: 14px; padding: 14px; background: #F0EEE6; border-radius: 14px; margin-bottom: 12px; }
+  .ic-gated-icon { font-size: 22px; flex-shrink: 0; }
+  .ic-gated-text { flex: 1; }
+  .ic-gated-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; }
+  .ic-gated-sub { font-size: 13px; color: #6b6a5c; margin-top: 2px; margin-bottom: 8px; font-style: italic; font-family: 'Fraunces', serif; }
+  .ic-gated-bar { height: 6px; background: white; border-radius: 999px; overflow: hidden; }
+  .ic-gated-fill { height: 100%; background: linear-gradient(90deg, #c4a06a, #5a7a3a); }
+  .ic-footer { font-size: 13px; color: #8a8975; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
   .hlab-food-match { display: flex; align-items: center; gap: 10px; background: #F0EEE6; border: 1px solid #E5E0D2; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; }
   .hlab-food-info { flex: 1; }
   .hlab-food-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #1E2E2A; }
@@ -1339,6 +1389,13 @@
   .hlab-portion-btn { width: 48px; height: 48px; border-radius: 50%; background: #F0EEE6; border: 1.5px solid #E5E0D2; font-size: 22px; color: #1E2E2A; cursor: pointer; font-family: inherit; }
   .hlab-portion-btn:active { background: #E5E0D2; transform: scale(0.94); }
   .hlab-portion-val { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 500; color: #1E2E2A; min-width: 60px; text-align: center; line-height: 1; }
+  .hlab-portion-input { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 500; color: #1E2E2A; min-width: 80px; max-width: 110px; text-align: center; line-height: 1; border: none; background: transparent; outline: none; padding: 4px 0; border-bottom: 2px dashed #E5E0D2; -moz-appearance: textfield; }
+  .hlab-portion-input::-webkit-outer-spin-button, .hlab-portion-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .hlab-portion-input:focus { border-bottom-color: #2C5F5D; }
+  .hlab-portion-hint { font-size: 12px; color: #8a8975; text-align: center; margin-top: 6px; font-style: italic; font-family: 'Fraunces', serif; }
+  .hlab-unit-toggle { background: transparent; border: 1px solid #E5E0D2; color: #2C5F5D; font-size: 12px; padding: 4px 10px; border-radius: 999px; font-family: inherit; cursor: pointer; margin-left: 8px; }
+  .hlab-unit-toggle.active { background: #2C5F5D; color: white; border-color: #2C5F5D; }
+  .hlab-unit-toggle:active { transform: scale(0.95); }
   .hlab-portion-readout { font-size: 14px; color: #2C5F5D; text-align: center; padding: 8px 0 0; line-height: 1.5; }
   .hlab-portion-readout.over { color: #B85C38; }
   .hlab-portion-readout strong { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; }
@@ -1351,6 +1408,22 @@
   .hlab-no-match { padding: 14px; background: #F0EEE6; border-radius: 12px; margin-bottom: 10px; }
   .hlab-no-match-msg { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; margin-bottom: 4px; }
   .hlab-no-match-sub { font-size: 14px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; }
+  .hlab-add-custom { margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(0,0,0,0.08); }
+  .hlab-add-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 10px; }
+  .hlab-add-lbl { font-size: 14px; color: #1E2E2A; font-family: 'Fraunces', serif; min-width: 80px; }
+  .hlab-add-controls { display: flex; align-items: center; gap: 6px; }
+  .hlab-add-input { width: 60px; padding: 8px; border-radius: 8px; border: 1.5px solid #E5E0D2; background: white; text-align: center; font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #1E2E2A; }
+  .hlab-add-input:focus { outline: none; border-color: #2C5F5D; }
+
+  /* No-match banner in manual entry */
+  .no-match-banner { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #F0EEE6; border: 1px dashed #E5E0D2; border-radius: 12px; margin-bottom: 14px; }
+  .nmb-icon { font-size: 22px; color: #2C5F5D; font-weight: 600; width: 28px; height: 28px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nmb-text { flex: 1; }
+  .nmb-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; }
+  .nmb-sub { font-size: 13px; color: #6b6a5c; line-height: 1.4; margin-top: 3px; font-style: italic; font-family: 'Fraunces', serif; }
+  .save-custom-toggle { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #F0EEE6; border-radius: 12px; margin-top: 12px; cursor: pointer; }
+  .save-custom-toggle input { width: 20px; height: 20px; accent-color: #2C5F5D; flex-shrink: 0; cursor: pointer; }
+  .sct-text { font-size: 14px; color: #1E2E2A; line-height: 1.4; font-family: 'Fraunces', serif; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -1896,16 +1969,22 @@ const FOODS = [
   { keys: ['cashews'], display: 'Cashews', unit: 'handful (30g)', cal: 165, c: 9, p: 5, f: 13, scalable: true },
 
   // === COUNTABLE FOODS — single piece values ===
-  { keys: ['peanut', 'a peanut', 'peanut piece'], display: 'Peanut', unit: 'piece', cal: 6, c: 0.2, p: 0.3, f: 0.5, scalable: true, countable: true },
-  { keys: ['almond', 'an almond', 'almond piece'], display: 'Almond', unit: 'piece', cal: 7, c: 0.25, p: 0.25, f: 0.6, scalable: true, countable: true },
-  { keys: ['walnut', 'a walnut', 'walnut half'], display: 'Walnut', unit: 'half', cal: 13, c: 0.3, p: 0.3, f: 1.3, scalable: true, countable: true },
-  { keys: ['cashew', 'a cashew', 'cashew piece'], display: 'Cashew', unit: 'piece', cal: 9, c: 0.5, p: 0.3, f: 0.7, scalable: true, countable: true },
-  { keys: ['pistachio', 'a pistachio', 'pistachios'], display: 'Pistachio', unit: 'piece', cal: 4, c: 0.2, p: 0.15, f: 0.35, scalable: true, countable: true },
-  { keys: ['brazil nut', 'a brazil nut'], display: 'Brazil nut', unit: 'piece', cal: 33, c: 0.6, p: 0.7, f: 3.3, scalable: true, countable: true },
-  { keys: ['hazelnut', 'a hazelnut'], display: 'Hazelnut', unit: 'piece', cal: 9, c: 0.25, p: 0.2, f: 0.85, scalable: true, countable: true },
+  { keys: ['peanut', 'a peanut', 'peanut piece'], display: 'Peanut', unit: 'piece', cal: 6, c: 0.2, p: 0.3, f: 0.5, scalable: true, countable: true, gramsPerPiece: 1 },
+  { keys: ['almond', 'an almond', 'almond piece'], display: 'Almond', unit: 'piece', cal: 7, c: 0.25, p: 0.25, f: 0.6, scalable: true, countable: true, gramsPerPiece: 1.2 },
+  { keys: ['walnut', 'a walnut', 'walnut half'], display: 'Walnut', unit: 'half', cal: 13, c: 0.3, p: 0.3, f: 1.3, scalable: true, countable: true, gramsPerPiece: 2 },
+  { keys: ['cashew', 'a cashew', 'cashew piece'], display: 'Cashew', unit: 'piece', cal: 9, c: 0.5, p: 0.3, f: 0.7, scalable: true, countable: true, gramsPerPiece: 1.6 },
+  { keys: ['pistachio', 'a pistachio', 'pistachios'], display: 'Pistachio', unit: 'piece', cal: 4, c: 0.2, p: 0.15, f: 0.35, scalable: true, countable: true, gramsPerPiece: 0.7 },
+  { keys: ['brazil nut', 'a brazil nut'], display: 'Brazil nut', unit: 'piece', cal: 33, c: 0.6, p: 0.7, f: 3.3, scalable: true, countable: true, gramsPerPiece: 5 },
+  { keys: ['hazelnut', 'a hazelnut'], display: 'Hazelnut', unit: 'piece', cal: 9, c: 0.25, p: 0.2, f: 0.85, scalable: true, countable: true, gramsPerPiece: 1.4 },
   { keys: ['grape', 'a grape', 'grapes single', 'one grape'], display: 'Grape', unit: 'piece', cal: 3, c: 0.8, p: 0.05, f: 0, scalable: true, countable: true },
   { keys: ['olive', 'an olive', 'green olive', 'black olive', 'kalamata olive'], display: 'Olive', unit: 'piece', cal: 5, c: 0.3, p: 0.05, f: 0.5, scalable: true, countable: true },
-  { keys: ['strawberry', 'a strawberry'], display: 'Strawberry', unit: 'piece', cal: 6, c: 1.4, p: 0.1, f: 0.05, scalable: true, countable: true },
+  { keys: ['strawberry', 'a strawberry'], display: 'Strawberry', unit: 'piece', cal: 6, c: 1.4, p: 0.1, f: 0.05, scalable: true, countable: true, gramsPerPiece: 12 },
+  { keys: ['cherry tomato', 'cherry tomatoes', 'plum tomato'], display: 'Cherry tomato', unit: 'piece', cal: 3, c: 0.7, p: 0.15, f: 0.03, scalable: true, countable: true, gramsPerPiece: 17 },
+  { keys: ['blueberry', 'a blueberry', 'blueberries'], display: 'Blueberry', unit: 'piece', cal: 1, c: 0.2, p: 0.01, f: 0.01, scalable: true, countable: true, gramsPerPiece: 1.5 },
+  { keys: ['raspberry', 'a raspberry', 'raspberries'], display: 'Raspberry', unit: 'piece', cal: 1, c: 0.3, p: 0.03, f: 0.01, scalable: true, countable: true, gramsPerPiece: 2 },
+  { keys: ['grape', 'a grape', 'grapes piece'], display: 'Grape', unit: 'piece', cal: 3.5, c: 0.9, p: 0.04, f: 0.01, scalable: true, countable: true, gramsPerPiece: 5 },
+  { keys: ['carrot stick', 'carrot sticks', 'baby carrot'], display: 'Carrot stick', unit: 'piece', cal: 4, c: 1, p: 0.1, f: 0.02, scalable: true, countable: true, gramsPerPiece: 10 },
+  { keys: ['celery stick', 'celery sticks', 'celery piece'], display: 'Celery stick', unit: 'piece', cal: 3, c: 0.5, p: 0.15, f: 0.03, scalable: true, countable: true, gramsPerPiece: 25 },
   { keys: ['blueberry', 'a blueberry', 'blueberries handful'], display: 'Blueberry', unit: 'piece', cal: 1, c: 0.2, p: 0, f: 0, scalable: true, countable: true },
   { keys: ['raspberry', 'a raspberry'], display: 'Raspberry', unit: 'piece', cal: 1, c: 0.3, p: 0, f: 0, scalable: true, countable: true },
   { keys: ['cherry', 'a cherry'], display: 'Cherry', unit: 'piece', cal: 4, c: 1, p: 0.1, f: 0, scalable: true, countable: true },
@@ -2530,14 +2609,15 @@ function getCheckinStreak() {
 // Safe intervention library — physical & behavioural only
 // No medical/supplement-specific advice. No vagal stimulation framing.
 const HUNGER_INTERVENTIONS = [
-  { id: 'water', label: 'Water', emoji: '💧', desc: '500 ml plain water', detail: 'Volume → stomach stretch → fullness signal' },
-  { id: 'protein', label: 'Protein snack', emoji: '🥚', desc: '~20g protein (eggs, yoghurt, jerky)', detail: 'Strongest single nutrient for satiety', requiresFood: true, kcalCap: 150, eatMinutes: 15 },
-  { id: 'fibre', label: 'Fibre + water', emoji: '🌾', desc: 'High-fibre food + 300ml water', detail: 'Viscous fibre slows gastric emptying', requiresFood: true, kcalCap: 150, eatMinutes: 15 },
-  { id: 'soup', label: 'Soup or broth', emoji: '🍜', desc: 'Hot, low-cal, before meal', detail: 'Volume + warmth → distension + slower eating', requiresFood: true, kcalCap: 200, eatMinutes: 15 },
-  { id: 'walk', label: 'Short walk', emoji: '🚶', desc: '10 min outdoors if possible', detail: 'Distraction + sympathetic shift' },
-  { id: 'breathe', label: 'Slow breathing', emoji: '🌬', desc: '4-7-8 breath, 5 min', detail: 'Parasympathetic shift, reduces stress-eating drive' },
-  { id: 'salad', label: 'Salad first', emoji: '🥗', desc: 'Veg/salad before main meal', detail: 'Volume + chewing + slower meal pace', requiresFood: true, kcalCap: 100, eatMinutes: 15 },
-  { id: 'delay', label: 'Wait 15 min', emoji: '⏱', desc: 'Just wait, do something else', detail: 'Cravings often peak then fall on their own' },
+  { id: 'water', label: 'Water', emoji: '💧', desc: '500 ml water, then wait 10 min', detail: 'Volume → stomach stretch → fullness signal', waitMinutes: 10 },
+  { id: 'volume', label: 'Low-cal volume', emoji: '🍓', desc: 'Fruit or veg over 15 min', detail: 'For cravings: high volume, low cal, sweet without big sugar load', requiresFood: true, kcalCap: 100, eatMinutes: 15, waitMinutes: 15, suggestedFoods: ['strawberries', 'watermelon', 'cucumber', 'apple', 'berries', 'carrot sticks', 'bell pepper', 'cherry tomatoes', 'celery', 'orange', 'melon'] },
+  { id: 'protein', label: 'Protein snack', emoji: '🥚', desc: '~20g protein over 15 min', detail: 'Strongest single nutrient for satiety', requiresFood: true, kcalCap: 150, eatMinutes: 15, waitMinutes: 15, suggestedFoods: ['boiled egg', 'greek yoghurt', 'cottage cheese', 'chicken slice', 'tuna', 'jerky', 'edamame'] },
+  { id: 'fibre', label: 'Fibre + water', emoji: '🌾', desc: 'High-fibre food + water over 15 min', detail: 'Viscous fibre slows gastric emptying', requiresFood: true, kcalCap: 150, eatMinutes: 15, waitMinutes: 15, suggestedFoods: ['almonds', 'walnut', 'pistachio', 'oat porridge', 'apple', 'chia pudding', 'flaxseed'] },
+  { id: 'soup', label: 'Soup or broth', emoji: '🍜', desc: 'Hot soup, sip over 15 min', detail: 'Volume + warmth → distension + slower eating', requiresFood: true, kcalCap: 200, eatMinutes: 15, waitMinutes: 15, suggestedFoods: ['vegetable soup', 'tomato soup', 'miso soup', 'chicken broth', 'lentil soup'] },
+  { id: 'walk', label: 'Walk', emoji: '🚶', desc: '10 min walk', detail: 'Distraction + sympathetic shift', waitMinutes: 10 },
+  { id: 'breathe', label: 'Slow breathing', emoji: '🌬', desc: '5 min 4-7-8 breath', detail: 'Parasympathetic shift, reduces stress-eating drive', waitMinutes: 5 },
+  { id: 'salad', label: 'Salad first', emoji: '🥗', desc: 'Veg/salad over 15 min', detail: 'Volume + chewing + slower meal pace', requiresFood: true, kcalCap: 100, eatMinutes: 15, waitMinutes: 15, suggestedFoods: ['mixed salad', 'cucumber', 'tomato', 'lettuce', 'spinach', 'rocket'] },
+  { id: 'delay', label: 'Just wait 15 min', emoji: '⏱', desc: 'Do something else for 15 min', detail: 'Cravings often peak then fall on their own', waitMinutes: 15 },
 ];
 
 function loadHungerTrials() {
@@ -2638,16 +2718,88 @@ function hungerLabSetPieces(n) {
   const t = state.hungerTrial;
   if (!t || !t.foodDraft || !t.foodDraft.matchedFood) return;
   const food = t.foodDraft.matchedFood;
-  const pieces = Math.max(food.countable ? 1 : 0.25, food.countable ? Math.round(n) : Math.round(n * 4) / 4);
+  const inGramsMode = t.foodDraft.unitMode === 'grams' && food.gramsPerPiece;
+  // In grams mode, n is grams. Convert to pieces for storage but display will use grams.
+  let pieces;
+  if (inGramsMode) {
+    const grams = Math.max(1, parseFloat(n) || 1);
+    pieces = grams / food.gramsPerPiece;
+  } else {
+    pieces = Math.max(food.countable ? 1 : 0.25, food.countable ? Math.round(parseFloat(n) || 1) : Math.round((parseFloat(n) || 0.25) * 4) / 4);
+  }
   t.foodDraft = {
     ...t.foodDraft,
-    pieces,
+    pieces: inGramsMode ? Math.round(pieces * food.gramsPerPiece) : pieces,  // display value
+    actualPieces: pieces,  // real piece count for kcal math
     cal: Math.round(food.cal * pieces),
     c: Math.round(food.c * pieces * 10) / 10,
     p: Math.round(food.p * pieces * 10) / 10,
     f: Math.round(food.f * pieces * 10) / 10,
   };
   render();
+}
+
+// Toggle between counting in pieces vs grams (for foods where both make sense)
+function hungerLabSetUnitMode(mode) {
+  const t = state.hungerTrial;
+  if (!t || !t.foodDraft || !t.foodDraft.matchedFood) return;
+  const food = t.foodDraft.matchedFood;
+  if (!food.gramsPerPiece) return; // no gram conversion available
+  const currentPieces = t.foodDraft.actualPieces || t.foodDraft.pieces || 1;
+  t.foodDraft = {
+    ...t.foodDraft,
+    unitMode: mode,
+    pieces: mode === 'grams' ? Math.round(currentPieces * food.gramsPerPiece) : Math.round(currentPieces),
+    actualPieces: currentPieces,
+  };
+  render();
+}
+
+// Hunger Lab: adjust a single field of the custom-food draft (kcal / p / c / f)
+function hungerLabAdjustCustom(field, delta) {
+  const t = state.hungerTrial;
+  if (!t || !t.foodDraft) return;
+  const current = parseFloat(t.foodDraft[field]) || 0;
+  const next = Math.max(0, current + delta);
+  t.foodDraft = { ...t.foodDraft, [field]: next };
+  render();
+}
+
+// Hunger Lab: save the typed-in food as a custom food + use it for this trial
+function hungerLabSaveCustomFood() {
+  const t = state.hungerTrial;
+  if (!t || !t.foodDraft) return;
+  const fd = t.foodDraft;
+  const name = (fd.searchQuery || '').trim();
+  if (!name) return;
+  const cal = parseFloat(fd.cal) || 0;
+  if (cal <= 0) { set({ error: 'Please enter calories.' }); return; }
+  // Add to customFoods so it'll match next time
+  const custom = {
+    keys: [name.toLowerCase()],
+    display: name,
+    unit: 'serving',
+    cal: Math.round(cal),
+    c: parseFloat(fd.c) || 0,
+    p: parseFloat(fd.p) || 0,
+    f: parseFloat(fd.f) || 0,
+    scalable: true,
+    source: 'custom',
+    isCustom: true,
+    createdAt: Date.now(),
+  };
+  const list = [...(state.customFoods || []), custom];
+  state.customFoods = list;
+  try { localStorage.setItem(STORAGE_CUSTOM_FOODS, JSON.stringify(list)); } catch {}
+  // Now treat as matched and proceed (skip the cap check — user knows what they entered)
+  t.foodDraft = {
+    ...fd,
+    matchedFood: custom,
+    name: custom.display,
+    pieces: 1,
+    addingCustom: false,
+  };
+  hungerLabConfirmFood(true);
 }
 
 // User confirms food + portion — start the eat-slowly timer
@@ -4876,6 +5028,351 @@ function getMetricTrend(getter) {
 // SUSTAINABILITY SCORE (0-100, higher = more sustainable)
 // REBOUND RISK (0-100, higher = more likely to rebound)
 // ============================================================
+// ============================================================
+// HUNGER INSIGHTS — Stage A (regression on daily features)
+// Target: number of hunger episodes per day
+// Episode = any logged moment where hunger >= 4 (out of 5) or >= 7 (out of 10)
+// Features: yesterday's macros, sleep, stress, time, deficit, meal count
+// Method: Ridge regression with z-scored features (shrinks small-N noise)
+// ============================================================
+
+// Count hunger episodes for a given date string (YYYY-MM-DD)
+function countHungerEpisodes(dateStr) {
+  let count = 0;
+  // 1. Meal-time hunger >= 4 (out of 5)
+  for (const e of state.entries) {
+    if (e.type === 'activity' || e.hungerAtMeal == null) continue;
+    if (entryDate(e.timestamp) !== dateStr) continue;
+    if (e.hungerAtMeal >= 4) count++;
+  }
+  // 2. Daily check-in hunger >= 4 (out of 5)
+  const checkin = (state.dailyCheckins || []).find(c => c.date === dateStr);
+  if (checkin && checkin.hunger != null && checkin.hunger >= 4) count++;
+  // 3. Hunger Lab trial initial >= 7 (out of 10)
+  for (const t of (state.hungerTrials || [])) {
+    if (!t.completedTimestamp && !t.startTimestamp) continue;
+    const ts = t.startTimestamp || t.completedTimestamp;
+    if (entryDate(ts) !== dateStr) continue;
+    if (t.initialHunger >= 7) count++;
+  }
+  // 4. Urge logs with intensity >= 4 (out of 5) — proxy for craving episode
+  for (const u of (state.urges || [])) {
+    if (!u.timestamp || u.intensity == null) continue;
+    if (entryDate(u.timestamp) !== dateStr) continue;
+    if (u.intensity >= 4) count++;
+  }
+  return count;
+}
+
+// Extract daily-level feature row for given date
+function getDailyFeatureRow(dateStr) {
+  const dayEntries = state.entries.filter(e => entryDate(e.timestamp) === dateStr);
+  const foodEntries = dayEntries.filter(e => e.type !== 'activity');
+  const totals = foodEntries.reduce((a, e) => ({
+    cal: a.cal + (e.calories || 0),
+    p: a.p + (e.protein || 0),
+    c: a.c + (e.carbs || 0),
+    f: a.f + (e.fat || 0),
+  }), { cal: 0, p: 0, c: 0, f: 0 });
+  const mealCount = foodEntries.length;
+  const lastMealHour = foodEntries.length > 0
+    ? Math.max(...foodEntries.map(e => new Date(e.timestamp).getHours()))
+    : null;
+  const checkin = (state.dailyCheckins || []).find(c => c.date === dateStr);
+  const sleepHours = checkin && checkin.sleepHours != null ? checkin.sleepHours : null;
+  const sleepQuality = checkin && checkin.sleepQuality != null ? checkin.sleepQuality : null;
+  const stress = checkin && checkin.stress != null ? checkin.stress : null;
+  const dow = new Date(dateStr + 'T12:00:00').getDay(); // 0-6
+  const isWeekend = dow === 0 || dow === 6 ? 1 : 0;
+  // Deficit features
+  const profile = loadProfile();
+  let kcalGap = null;
+  if (profile) {
+    const tdee = calculateTDEE(profile.weight, profile.height, profile.age, profile.sex, profile.activityLevel);
+    kcalGap = tdee - totals.cal; // positive = deficit
+  }
+  return {
+    date: dateStr,
+    kcal: totals.cal,
+    protein: totals.p,
+    carbs: totals.c,
+    fat: totals.f,
+    mealCount,
+    lastMealHour,
+    sleepHours,
+    sleepQuality,
+    stress,
+    isWeekend,
+    kcalGap,
+  };
+}
+
+// Build training matrix — pairs (yesterday's features → today's episode count)
+// Note: hunger today is influenced by what happened yesterday
+function buildHungerTrainingData(minDays = 7) {
+  const allDates = new Set();
+  for (const e of state.entries) allDates.add(entryDate(e.timestamp));
+  for (const c of (state.dailyCheckins || [])) allDates.add(c.date);
+  const sortedDates = Array.from(allDates).filter(Boolean).sort();
+  if (sortedDates.length < minDays + 1) return null;
+  // Build rows: prevDayFeatures → todayEpisodes
+  const rows = [];
+  for (let i = 1; i < sortedDates.length; i++) {
+    const today = sortedDates[i];
+    const yesterday = sortedDates[i - 1];
+    // Skip if yesterday and today aren't actually consecutive — keep simple by allowing gaps
+    const yFeatures = getDailyFeatureRow(yesterday);
+    const todayEp = countHungerEpisodes(today);
+    rows.push({ ...yFeatures, target_episodes: todayEp, _date: today });
+  }
+  return rows;
+}
+
+// Z-score helper — also returns mean and std for de-scoring later
+function zscore(values) {
+  const n = values.length;
+  const valid = values.filter(v => v != null && !isNaN(v));
+  if (valid.length < 2) return { mean: 0, std: 1 };
+  const mean = valid.reduce((a, b) => a + b, 0) / valid.length;
+  const variance = valid.reduce((a, b) => a + (b - mean) ** 2, 0) / valid.length;
+  const std = Math.sqrt(variance) || 1;
+  return { mean, std };
+}
+
+// Ridge regression via gradient descent (lambda penalty shrinks coefs)
+// Returns coefficients in original feature units (not z-scored)
+function ridgeRegression(X, y, lambda = 1.0, iterations = 500, lr = 0.05) {
+  const n = X.length;
+  if (n === 0) return null;
+  const p = X[0].length;
+  // Z-score X for stable training
+  const featureStats = [];
+  const Xz = Array.from({ length: n }, () => new Array(p).fill(0));
+  for (let j = 0; j < p; j++) {
+    const col = X.map(row => row[j]);
+    const { mean, std } = zscore(col);
+    featureStats.push({ mean, std });
+    for (let i = 0; i < n; i++) Xz[i][j] = (X[i][j] - mean) / std;
+  }
+  const yMean = y.reduce((a, b) => a + b, 0) / n;
+  const yCent = y.map(v => v - yMean);
+  // Init coefs
+  const w = new Array(p).fill(0);
+  // Gradient descent: minimize (1/n) sum (y - Xw)^2 + lambda * |w|^2
+  for (let iter = 0; iter < iterations; iter++) {
+    // Predictions
+    const preds = Xz.map(row => row.reduce((a, x, j) => a + x * w[j], 0));
+    const residuals = preds.map((p, i) => p - yCent[i]);
+    // Gradient
+    for (let j = 0; j < p; j++) {
+      let g = 0;
+      for (let i = 0; i < n; i++) g += residuals[i] * Xz[i][j];
+      g = (2 / n) * g + 2 * lambda * w[j];
+      w[j] -= lr * g;
+    }
+  }
+  // De-zscore coefficients
+  const coefs = w.map((wj, j) => wj / featureStats[j].std);
+  const intercept = yMean - coefs.reduce((a, c, j) => a + c * featureStats[j].mean, 0);
+  return { coefs, intercept, featureStats, w_z: w };
+}
+
+// Train Stage A model and return feature importance
+function trainStageAModel() {
+  const rows = buildHungerTrainingData(7);
+  if (!rows || rows.length < 7) return { ready: false, reason: 'need_more_data', daysHave: rows ? rows.length : 0, daysNeeded: 7 };
+  // Feature spec — only include features we have data for
+  const FEATURES = [
+    { key: 'kcal', label: 'Calories eaten', units: 'kcal', deltaForReport: 200 },
+    { key: 'protein', label: 'Protein intake', units: 'g', deltaForReport: 20 },
+    { key: 'carbs', label: 'Carbs intake', units: 'g', deltaForReport: 30 },
+    { key: 'fat', label: 'Fat intake', units: 'g', deltaForReport: 15 },
+    { key: 'sleepHours', label: 'Sleep duration', units: 'h', deltaForReport: 1, invert: true },
+    { key: 'sleepQuality', label: 'Sleep quality', units: '/4', deltaForReport: 1, invert: true },
+    { key: 'stress', label: 'Stress level', units: '/5', deltaForReport: 1 },
+    { key: 'mealCount', label: 'Number of meals', units: 'meals', deltaForReport: 1 },
+    { key: 'kcalGap', label: 'Calorie deficit', units: 'kcal', deltaForReport: 200 },
+    { key: 'isWeekend', label: 'Weekend', units: '', deltaForReport: 1 },
+  ];
+  // Filter to features with enough non-null values
+  const usable = FEATURES.filter(f => rows.filter(r => r[f.key] != null).length >= Math.max(5, rows.length * 0.6));
+  if (usable.length === 0) return { ready: false, reason: 'no_features', daysHave: rows.length };
+  // Build X / y, imputing missing with feature mean
+  const featureMeans = {};
+  for (const f of usable) {
+    const vals = rows.map(r => r[f.key]).filter(v => v != null);
+    featureMeans[f.key] = vals.reduce((a, b) => a + b, 0) / vals.length;
+  }
+  const X = rows.map(r => usable.map(f => r[f.key] != null ? r[f.key] : featureMeans[f.key]));
+  const y = rows.map(r => r.target_episodes);
+  // Use ridge with moderate lambda to shrink with small N
+  const lambda = rows.length < 14 ? 2.0 : rows.length < 30 ? 1.0 : 0.5;
+  const model = ridgeRegression(X, y, lambda, 600, 0.05);
+  if (!model) return { ready: false, reason: 'training_failed' };
+  // Compute predictions for in-sample R²
+  const preds = X.map(row => row.reduce((a, x, j) => a + x * model.coefs[j], model.intercept));
+  const yMean = y.reduce((a, b) => a + b, 0) / y.length;
+  const ssRes = y.reduce((a, yi, i) => a + (yi - preds[i]) ** 2, 0);
+  const ssTot = y.reduce((a, yi) => a + (yi - yMean) ** 2, 0);
+  const r2 = ssTot > 0 ? Math.max(0, 1 - ssRes / ssTot) : 0;
+  // Effect sizes — coefficient × deltaForReport = predicted change in episode count
+  const effects = usable.map((f, j) => {
+    const coef = model.coefs[j];
+    const effect = coef * f.deltaForReport;
+    return {
+      feature: f.key,
+      label: f.label,
+      units: f.units,
+      effect,
+      effectAbs: Math.abs(effect),
+      delta: f.deltaForReport,
+      direction: effect > 0 ? 'increases' : 'decreases',
+      // Significance proxy: |effect| relative to model spread
+      meaningful: Math.abs(effect) > 0.15, // at least 0.15 episode/day change
+    };
+  }).filter(e => e.meaningful);
+  effects.sort((a, b) => b.effectAbs - a.effectAbs);
+  return {
+    ready: true,
+    daysUsed: rows.length,
+    r2: parseFloat(r2.toFixed(2)),
+    avgEpisodes: parseFloat(yMean.toFixed(1)),
+    effects: effects.slice(0, 5), // top 5
+    allFeatures: usable.length,
+  };
+}
+
+// ============================================================
+// HUNGER INSIGHTS — Stage B (per-trial prediction)
+// Gated at >= 30 trials. Predicts P(>= 2 point hunger drop) given context.
+// ============================================================
+
+function trainStageBModel() {
+  const trials = (state.hungerTrials || []).filter(t => t.completedTimestamp && !t.redFlag);
+  if (trials.length < 30) {
+    return { ready: false, reason: 'need_more_trials', have: trials.length, need: 30 };
+  }
+  // Build per-trial features
+  const rows = trials.map(t => {
+    const ts = t.startTimestamp || t.completedTimestamp;
+    const d = new Date(ts);
+    return {
+      interventionId: t.interventionId,
+      initialHunger: t.initialHunger,
+      hour: d.getHours(),
+      dow: d.getDay(),
+      isEvening: d.getHours() >= 17 ? 1 : 0,
+      success: (t.initialHunger - t.finalHunger) >= 2 ? 1 : 0,
+    };
+  });
+  // Per-intervention logistic regression on hour + initialHunger
+  const byInterv = {};
+  for (const r of rows) {
+    if (!byInterv[r.interventionId]) byInterv[r.interventionId] = [];
+    byInterv[r.interventionId].push(r);
+  }
+  const results = {};
+  for (const id of Object.keys(byInterv)) {
+    const obs = byInterv[id];
+    if (obs.length < 3) continue;
+    const successRate = obs.filter(o => o.success).length / obs.length;
+    // Simple: split by morning/evening, low/high hunger
+    const eveningSucc = obs.filter(o => o.isEvening).filter(o => o.success).length / Math.max(1, obs.filter(o => o.isEvening).length);
+    const morningSucc = obs.filter(o => !o.isEvening).filter(o => o.success).length / Math.max(1, obs.filter(o => !o.isEvening).length);
+    const highHungerSucc = obs.filter(o => o.initialHunger >= 7).filter(o => o.success).length / Math.max(1, obs.filter(o => o.initialHunger >= 7).length);
+    results[id] = {
+      n: obs.length,
+      overall: Math.round(successRate * 100),
+      evening: obs.filter(o => o.isEvening).length >= 2 ? Math.round(eveningSucc * 100) : null,
+      morning: obs.filter(o => !o.isEvening).length >= 2 ? Math.round(morningSucc * 100) : null,
+      highHunger: obs.filter(o => o.initialHunger >= 7).length >= 2 ? Math.round(highHungerSucc * 100) : null,
+    };
+  }
+  return { ready: true, totalTrials: trials.length, perIntervention: results };
+}
+
+// ============================================================
+// HUNGER INSIGHTS — render card
+// ============================================================
+
+function renderHungerInsightsCard() {
+  const stageA = trainStageAModel();
+  const stageB = trainStageBModel();
+  // Empty / collecting-data state
+  if (!stageA.ready) {
+    const daysHave = stageA.daysHave || 0;
+    const daysNeeded = stageA.daysNeeded || 7;
+    const pct = Math.min(100, (daysHave / daysNeeded) * 100);
+    return `
+      <div class="insights-card">
+        <div class="ic-label"><span class="ic-tag">PLATE INSIGHTS</span></div>
+        <div class="ic-title">Personal hunger model</div>
+        <div class="ic-empty-num">${daysHave}<span class="ic-empty-of">/${daysNeeded}</span></div>
+        <div class="ic-empty-msg">days of data so far · ${Math.max(0, daysNeeded - daysHave)} more to train your model</div>
+        <div class="ic-progress-bar"><div class="ic-progress-fill" style="width:${pct}%"></div></div>
+        <div class="ic-footer">After 7 days, Plate trains a regression model on YOUR data to identify which inputs predict your hunger episodes. At 30 trials, a second model predicts which interventions will work for you in real time.</div>
+      </div>
+    `;
+  }
+  const r2pct = Math.round(stageA.r2 * 100);
+  return `
+    <div class="insights-card">
+      <div class="ic-label"><span class="ic-tag">PLATE INSIGHTS</span></div>
+      <div class="ic-title">What predicts your hunger</div>
+      <div class="ic-sub">From ${stageA.daysUsed} day${stageA.daysUsed === 1 ? '' : 's'} of your data. Avg ${stageA.avgEpisodes} hunger episode${stageA.avgEpisodes === 1 ? '' : 's'}/day. Model fit: ${r2pct}%.</div>
+      ${stageA.effects.length === 0 ? `
+        <div class="ic-no-effects">No feature has a strong enough effect yet. Keep logging — patterns get clearer with more data.</div>
+      ` : `
+        <div class="ic-effects-list">
+          ${stageA.effects.map(e => {
+            const arrow = e.effect > 0 ? '↑' : '↓';
+            const cls = e.effect > 0 ? 'up' : 'down';
+            const sign = e.effect > 0 ? '+' : '−';
+            return `
+              <div class="ic-effect ${cls}">
+                <div class="ic-effect-arrow">${arrow}</div>
+                <div class="ic-effect-body">
+                  <div class="ic-effect-name">${escapeHtml(e.label)} <span class="ic-effect-delta">+${e.delta}${e.units}</span></div>
+                  <div class="ic-effect-impact">→ ${sign}${Math.abs(e.effect).toFixed(1)} episodes the next day</div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `}
+      ${stageB.ready ? `
+        <div class="ic-stage-b">
+          <div class="ic-stage-b-label">Stage 2 model · per-intervention</div>
+          <div class="ic-stage-b-list">
+            ${Object.entries(stageB.perIntervention).slice(0, 5).map(([id, stats]) => {
+              const interv = HUNGER_INTERVENTIONS.find(i => i.id === id);
+              return `
+                <div class="ic-pred-row">
+                  <span class="ic-pred-emoji">${interv ? interv.emoji : '·'}</span>
+                  <span class="ic-pred-name">${interv ? interv.label : id}</span>
+                  <span class="ic-pred-pct">${stats.overall}%</span>
+                  <span class="ic-pred-n">(n=${stats.n})</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          <div class="ic-stage-b-help">% of trials where this intervention dropped your hunger by ≥2 points</div>
+        </div>
+      ` : `
+        <div class="ic-stage-b-gated">
+          <div class="ic-gated-icon">🔒</div>
+          <div class="ic-gated-text">
+            <div class="ic-gated-title">Per-intervention model (Stage 2)</div>
+            <div class="ic-gated-sub">Unlocks at 30 trials · you have ${stageB.have}</div>
+            <div class="ic-gated-bar"><div class="ic-gated-fill" style="width:${Math.min(100, (stageB.have / 30) * 100)}%"></div></div>
+          </div>
+        </div>
+      `}
+      <div class="ic-footer">Trained in-browser on your data only. Nothing leaves this device. Model fit (${r2pct}%) is honest — at low data it's low, that's expected.</div>
+    </div>
+  `;
+}
+
 function getSustainabilityScore() {
   const hunger = getHungerStats(14);
   const craving = getCravingStats(14);
@@ -7172,6 +7669,26 @@ function saveManual() {
   if (d.eatingReason) entry.eatingReason = d.eatingReason;
   if (d.hungerAtMeal) entry.hungerAtMeal = d.hungerAtMeal;
   if (d.anticipatedSatisfaction) entry.anticipatedSatisfaction = d.anticipatedSatisfaction;
+  // If user typed an unmatched food + ticked "save as custom", add to custom DB
+  if (d.saveAsCustom && !d.matchedFood) {
+    const custom = {
+      keys: [name.toLowerCase()],
+      display: name,
+      unit: 'serving',
+      cal: Math.round(cal),
+      c: parseFloat(d.c) || 0,
+      p: parseFloat(d.p) || 0,
+      f: parseFloat(d.f) || 0,
+      scalable: true,
+      source: 'custom',
+      isCustom: true,
+      createdAt: Date.now(),
+    };
+    const list = [...(state.customFoods || []), custom];
+    state.customFoods = list;
+    try { localStorage.setItem(STORAGE_CUSTOM_FOODS, JSON.stringify(list)); } catch {}
+    entry.foodSource = 'custom';
+  }
   const newEntries = [entry, ...state.entries];
   saveEntries(newEntries);
   set({ entries: newEntries, manualDraft: null, mode: 'voice', error: '' });
@@ -7471,9 +7988,13 @@ function renderInput() {
           <div class="mood-row">
             ${MOODS.map(m => `<button class="mood-btn ${p.mood === m.value ? 'active' : ''}" onclick="setPendingMood('${m.value}')"><span class="emoji">${m.emoji}</span><span>${m.label}</span></button>`).join('')}
           </div>
-          <div class="pending-section-label">how good will it be? <span style="color:#a0a08e; font-weight:400; text-transform:none; letter-spacing:0">(1 = meh · 5 = amazing)</span></div>
+          <div class="pending-section-label">how much will you enjoy this? <span style="color:#a0a08e; font-weight:400; text-transform:none; letter-spacing:0">(optional · 1=meh · 5=amazing)</span></div>
           <div class="sat-row">
             ${[1,2,3,4,5].map(n => `<button class="sat-star ${p.anticipatedSatisfaction === n ? 'active' : ''}" onclick="setPendingAnticipated(${n})">${n}</button>`).join('')}
+          </div>
+          <div class="sat-skip-row">
+            <button class="sat-skip-btn" onclick="setPendingAnticipated(null)">Skip this</button>
+            <span class="sat-skip-help">We ask later how it actually was — useful if there's a gap.</span>
           </div>
           <div class="pending-heard">Heard: "${escapeHtml(p.spoken)}"</div>
           <div class="pending-actions">
@@ -7532,11 +8053,26 @@ function renderInput() {
               <div class="ac-row"><span>Fat</span><strong>${d.f}g</strong></div>
             </div>
           ` : `
-            <!-- No match: manual kcal entry -->
+            <!-- No match: manual kcal entry + offer to save as custom food -->
+            ${(d.searchQuery && d.searchQuery.length >= 2) ? `
+              <div class="no-match-banner">
+                <div class="nmb-icon">+</div>
+                <div class="nmb-text">
+                  <div class="nmb-title">No match for "${escapeHtml(d.searchQuery)}"</div>
+                  <div class="nmb-sub">Enter the numbers below — tick the box to remember this food next time.</div>
+                </div>
+              </div>
+            ` : ''}
             ${renderStepper({ label: 'calories', value: parseFloat(d.cal) || 200, min: 0, max: 3000, step: 5, bigStep: 50, unit: 'kcal', onChange: "state.manualDraft.cal = VALUE; render()" })}
             ${renderStepper({ label: 'carbs', value: parseFloat(d.c) || 0, min: 0, max: 200, step: 1, bigStep: 5, unit: 'g', onChange: "state.manualDraft.c = VALUE; render()" })}
             ${renderStepper({ label: 'protein', value: parseFloat(d.p) || 0, min: 0, max: 100, step: 0.5, bigStep: 5, unit: 'g', onChange: "state.manualDraft.p = VALUE; render()" })}
             ${renderStepper({ label: 'fat', value: parseFloat(d.f) || 0, min: 0, max: 100, step: 0.5, bigStep: 5, unit: 'g', onChange: "state.manualDraft.f = VALUE; render()" })}
+            ${(d.searchQuery && d.searchQuery.length >= 2) ? `
+              <label class="save-custom-toggle">
+                <input type="checkbox" ${d.saveAsCustom ? 'checked' : ''} onchange="state.manualDraft.saveAsCustom = this.checked; render()" />
+                <span class="sct-text">Remember "${escapeHtml(d.searchQuery)}" for next time</span>
+              </label>
+            ` : ''}
           `}
           <button class="primary-btn" onclick="saveManual()">${icons.checkSm}<span>Save entry</span></button>
         </div>
@@ -7553,9 +8089,13 @@ function renderInput() {
           <div class="mood-row">
             ${MOODS.map(m => `<button class="mood-btn ${d.mood === m.value ? 'active' : ''}" onclick="setManualMood('${m.value}')"><span class="emoji">${m.emoji}</span><span>${m.label}</span></button>`).join('')}
           </div>
-          <div class="pending-section-label">how good will it be? <span style="color:#a0a08e; font-weight:400; text-transform:none; letter-spacing:0">(optional)</span></div>
+          <div class="pending-section-label">how much will you enjoy this? <span style="color:#a0a08e; font-weight:400; text-transform:none; letter-spacing:0">(optional · 1=meh · 5=amazing)</span></div>
           <div class="sat-row">
             ${[1,2,3,4,5].map(n => `<button class="sat-star ${d.anticipatedSatisfaction === n ? 'active' : ''}" onclick="setManualAnticipated(${n})">${n}</button>`).join('')}
+          </div>
+          <div class="sat-skip-row">
+            <button class="sat-skip-btn" onclick="setManualAnticipated(null)">Skip this</button>
+            <span class="sat-skip-help">We ask later how it actually was — useful if there's a gap.</span>
           </div>
         </div>
         ${state.error ? `<div class="error">${icons.alert}<span class="error-text">${escapeHtml(state.error)}</span></div>` : ''}
@@ -9183,6 +9723,7 @@ function renderYouTab() {
       </button>
       ${state.deepInsightsOpen ? `
         <div class="collapsible-body">
+          ${renderHungerInsightsCard()}
           ${renderPlateScoreCard()}
           ${renderSustainabilityCard()}
           ${renderEntropyCard()}
@@ -9424,6 +9965,15 @@ function renderWeeklyChart() {
 // HUNGER TAB — the flagship metric for rebound prevention
 // ============================================================
 function renderHungerTab() {
+  const step = state.hungerLabStep || 'home';
+  const inActiveTrial = step !== 'home' && step !== 'summary';
+  // When a trial is mid-flight, take over the tab so the user focuses on it.
+  // 'summary' shows alongside the home content so user sees their result + next steps.
+  if (inActiveTrial) {
+    return `
+      ${renderHungerLabCard()}
+    `;
+  }
   return `
     <div class="hunger-tab-hero">
       <div class="hth-eyebrow">PLATE'S CORE</div>
@@ -9571,7 +10121,17 @@ function renderHungerLabCard() {
         <div class="hlab-step-sub">What will you eat? Type whatever you have. <strong>Cap: ${cap} kcal</strong> — this is a satiety preload, not a meal.</div>
 
         <div class="hlab-food-search">
-          <input type="text" class="hlab-food-input" placeholder="e.g. almonds, yoghurt, lentil soup" value="${escapeHtml(fd.searchQuery || '')}" oninput="hungerLabFoodSearch(this.value)" autocomplete="off" autofocus />
+          <input id="hlab-food-search" type="text" class="hlab-food-input" placeholder="e.g. almonds, yoghurt, lentil soup" value="${escapeHtml(fd.searchQuery || '')}" oninput="hungerLabFoodSearch(this.value)" autocomplete="off" autofocus />
+          ${interv.suggestedFoods && !matched ? `
+            <div class="hlab-suggestion-row">
+              <div class="hlab-suggestion-lbl">Quick pick:</div>
+              <div class="hlab-suggestion-chips">
+                ${interv.suggestedFoods.slice(0, 6).map(s => `
+                  <button class="hlab-suggestion-chip" onclick="hungerLabFoodSearch('${escapeHtml(s)}')">${escapeHtml(s)}</button>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
         </div>
 
         ${matched ? `
@@ -9582,12 +10142,20 @@ function renderHungerLabCard() {
             </div>
           </div>
           <div class="hlab-portion">
-            <div class="hlab-portion-lbl">${matched.countable ? 'How many pieces' : 'Servings'}</div>
-            <div class="hlab-portion-row">
-              <button class="hlab-portion-btn" onclick="hungerLabSetPieces((state.hungerTrial.foodDraft.pieces || 1) - 1)">−</button>
-              <div class="hlab-portion-val">${fd.pieces || 1}</div>
-              <button class="hlab-portion-btn" onclick="hungerLabSetPieces((state.hungerTrial.foodDraft.pieces || 1) + 1)">+</button>
+            <div class="hlab-portion-lbl">
+              ${matched.countable ? 'How many ' + (matched.unit || 'pieces') : 'Servings'}
+              ${matched.countable && matched.gramsPerPiece ? `
+                <button class="hlab-unit-toggle ${fd.unitMode === 'grams' ? 'active' : ''}" onclick="hungerLabSetUnitMode(state.hungerTrial.foodDraft.unitMode === 'grams' ? 'pieces' : 'grams')">
+                  ${fd.unitMode === 'grams' ? '⇄ switch to pieces' : '⇄ switch to grams'}
+                </button>
+              ` : ''}
             </div>
+            <div class="hlab-portion-row">
+              <button class="hlab-portion-btn" onclick="hungerLabSetPieces(Math.max(${matched.countable ? 1 : 0.25}, (state.hungerTrial.foodDraft.pieces || 1) - ${matched.countable ? 1 : 0.25}))">−</button>
+              <input id="hlab-portion-input" type="number" class="hlab-portion-input" value="${fd.pieces || 1}" min="${matched.countable ? 1 : 0.25}" step="${matched.countable ? 1 : 0.25}" oninput="hungerLabSetPieces(parseFloat(this.value) || 1)" />
+              <button class="hlab-portion-btn" onclick="hungerLabSetPieces((state.hungerTrial.foodDraft.pieces || 1) + ${matched.countable ? 1 : 0.25})">+</button>
+            </div>
+            <div class="hlab-portion-hint">Tap the number to type any amount</div>
             <div class="hlab-portion-readout ${overCap ? 'over' : 'ok'}">
               <strong>${Math.round(fd.cal)} kcal</strong>
               · ${fd.p}g protein · ${fd.c}g carbs · ${fd.f}g fat
@@ -9601,9 +10169,48 @@ function renderHungerLabCard() {
           </div>
         ` : fd.searchQuery && fd.searchQuery.length >= 2 ? `
           <div class="hlab-no-match">
-            <div class="hlab-no-match-msg">No match for "${escapeHtml(fd.searchQuery)}".</div>
-            <div class="hlab-no-match-sub">Try a simpler term (e.g. "almond" instead of "salted dry roasted almonds"). Or eat it anyway without tracking calories.</div>
-            <button class="hlab-action-secondary" style="width:100%; margin-top:10px" onclick="hungerLabConfirmFood(true)">Eat without tracking →</button>
+            <div class="hlab-no-match-msg">No match for "${escapeHtml(fd.searchQuery)}"</div>
+            <div class="hlab-no-match-sub">Add it as a custom food — we'll remember it next time.</div>
+            ${fd.addingCustom ? `
+              <div class="hlab-add-custom">
+                <div class="hlab-add-row">
+                  <div class="hlab-add-lbl">Calories</div>
+                  <div class="hlab-add-controls">
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('cal', -10)">−</button>
+                    <input id="hlab-add-cal" type="number" class="hlab-add-input" value="${fd.cal || 100}" oninput="state.hungerTrial.foodDraft.cal = parseFloat(this.value) || 0; render()" />
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('cal', 10)">+</button>
+                  </div>
+                </div>
+                <div class="hlab-add-row">
+                  <div class="hlab-add-lbl">Protein (g)</div>
+                  <div class="hlab-add-controls">
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('p', -1)">−</button>
+                    <input id="hlab-add-p" type="number" class="hlab-add-input" value="${fd.p || 0}" oninput="state.hungerTrial.foodDraft.p = parseFloat(this.value) || 0; render()" />
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('p', 1)">+</button>
+                  </div>
+                </div>
+                <div class="hlab-add-row">
+                  <div class="hlab-add-lbl">Carbs (g)</div>
+                  <div class="hlab-add-controls">
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('c', -1)">−</button>
+                    <input id="hlab-add-c" type="number" class="hlab-add-input" value="${fd.c || 0}" oninput="state.hungerTrial.foodDraft.c = parseFloat(this.value) || 0; render()" />
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('c', 1)">+</button>
+                  </div>
+                </div>
+                <div class="hlab-add-row">
+                  <div class="hlab-add-lbl">Fat (g)</div>
+                  <div class="hlab-add-controls">
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('f', -1)">−</button>
+                    <input id="hlab-add-f" type="number" class="hlab-add-input" value="${fd.f || 0}" oninput="state.hungerTrial.foodDraft.f = parseFloat(this.value) || 0; render()" />
+                    <button class="hlab-portion-btn" onclick="hungerLabAdjustCustom('f', 1)">+</button>
+                  </div>
+                </div>
+                <button class="hlab-action-primary" style="width:100%; margin-top:10px" onclick="hungerLabSaveCustomFood()">Save "${escapeHtml(fd.searchQuery)}" + start →</button>
+              </div>
+            ` : `
+              <button class="hlab-action-secondary" style="width:100%; margin-top:10px" onclick="state.hungerTrial.foodDraft.addingCustom = true; state.hungerTrial.foodDraft.cal = 100; state.hungerTrial.foodDraft.p = 5; state.hungerTrial.foodDraft.c = 10; state.hungerTrial.foodDraft.f = 3; render()">+ Add as custom food</button>
+              <button class="hlab-cancel" style="margin-top:6px" onclick="hungerLabConfirmFood(true)">Eat without tracking →</button>
+            `}
           </div>
         ` : ''}
 
@@ -9626,7 +10233,7 @@ function renderHungerLabCard() {
     const elapsedMs = Date.now() - (trial.interventionStartTimestamp || Date.now());
     const elapsedMin = Math.floor(elapsedMs / 60000);
     const elapsedSec = Math.floor((elapsedMs % 60000) / 1000);
-    const targetMin = 15;
+    const targetMin = (interv && interv.waitMinutes) ? interv.waitMinutes : 15;
     const ready = elapsedMin >= targetMin;
     const food = trial.foodChosen;
     return `
