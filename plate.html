@@ -68,7 +68,7 @@
   .macro-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 4px; }
   .macro-value { display: flex; align-items: baseline; gap: 2px; }
   .macro-value .n { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; }
-  .macro-value .u { font-size: 10px; color: #8a8975; }
+  .macro-value .u { font-size: 11px; color: #8a8975; }
 
   .input-section { margin: 24px 0; }
   .mic-wrap { display: flex; flex-direction: column; align-items: center; }
@@ -285,7 +285,7 @@
   .badge-card.locked { opacity: 0.35; }
   .badge-card .icon { font-size: 28px; margin-bottom: 4px; }
   .badge-card .name { font-family: 'Fraunces', serif; font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-  .badge-card .desc { font-size: 10px; color: #8a8975; line-height: 1.3; }
+  .badge-card .desc { font-size: 11px; color: #8a8975; line-height: 1.4; }
   .badge-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 30px; background: #2d3a2e; color: #f6f1e7; border-radius: 999px; padding: 10px 18px; font-size: 13px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 200; display: flex; align-items: center; gap: 8px; animation: toast-in 0.4s ease, toast-out 0.4s ease 3.5s forwards; }
   @keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
   @keyframes toast-out { to { opacity: 0; transform: translateX(-50%) translateY(20px); } }
@@ -524,7 +524,7 @@
   .silhouette-col { text-align: center; flex: 1; }
   .silhouette-col .lbl-top { font-size: 10px; color: #8a8975; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
   .silhouette-col .val-bot { font-family: 'Fraunces', serif; font-size: 13px; color: #2d3a2e; margin-top: 8px; font-weight: 500; }
-  .silhouette-col .val-bot .sub { display: block; font-size: 10px; color: #8a8975; margin-top: 2px; }
+  .silhouette-col .val-bot .sub { display: block; font-size: 11px; color: #8a8975; margin-top: 2px; }
 
   /* Smoothed weight chart in measurements */
   .weight-trend-card { background: white; border-radius: 18px; padding: 16px 18px; border: 1px solid #ede5d3; margin-bottom: 12px; }
@@ -593,7 +593,15 @@
 
   /* Eating reason chips (in pending card) */
   .reason-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
-  .reason-chip { padding: 10px 4px; border-radius: 12px; background: #f6f1e7; border: 1px solid transparent; font-family: inherit; font-size: 10px; color: #6b6a5c; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.15s; }
+  .reason-chip { padding: 10px 4px; border-radius: 12px; background: #f6f1e7; border: 1px solid transparent; font-family: inherit; font-size: 11px; color: #6b6a5c; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.15s; }
+  .hunger-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 8px; }
+  .hunger-chip { padding: 10px 4px; border-radius: 12px; background: #f6f1e7; border: 1px solid transparent; font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.15s; }
+  .hunger-chip .num { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: #2d3a2e; line-height: 1; }
+  .hunger-chip .lbl { font-size: 10px; color: #8a8975; }
+  .hunger-chip:active { transform: scale(0.94); }
+  .hunger-chip.active { background: white; border-color: #c4683a; box-shadow: 0 2px 6px rgba(196,104,58,0.15); }
+  .hunger-chip.active .num { color: #c4683a; }
+  .hunger-chip.active .lbl { color: #c4683a; font-weight: 500; }
   .reason-chip .emoji { font-size: 20px; }
   .reason-chip:active { transform: scale(0.94); }
   .reason-chip.active { background: white; border-color: #2d3a2e; color: #2d3a2e; font-weight: 500; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
@@ -869,7 +877,7 @@
 
   /* Interrupt recommendation pill (on urge screen) */
   .interrupt-recommended { position: relative; }
-  .interrupt-recommended::after { content: 'works for you'; position: absolute; top: -6px; right: 8px; background: #5a7a3a; color: white; font-size: 9px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+  .interrupt-recommended::after { content: 'works for you'; position: absolute; top: -6px; right: 8px; background: #5a7a3a; color: white; font-size: 10px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
 
   /* Pre-log warning when about to log overhyped food */
   .overhype-warning { background: #fff8ec; border: 1px solid #e8c46a; border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; font-family: 'Fraunces', serif; font-size: 13px; color: #2d3a2e; line-height: 1.5; font-style: italic; }
@@ -892,12 +900,27 @@
   .ps-trend-detail { color: rgba(0,0,0,0.4); margin-left: 4px; font-size: 11px; font-weight: 400; }
   .ps-trend-empty { font-size: 11px; color: #a0a08e; font-style: italic; margin-bottom: 14px; }
   .ps-components { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
-  .ps-component { display: grid; grid-template-columns: 1fr 1.4fr 1fr 28px; gap: 8px; align-items: center; font-size: 11px; }
-  .ps-c-bar { height: 6px; background: rgba(255,255,255,0.6); border-radius: 999px; overflow: hidden; }
+  .ps-component { display: flex; flex-direction: column; gap: 4px; font-size: 12px; padding: 6px 0; }
+  .ps-c-row { display: grid; grid-template-columns: 1fr auto 32px; gap: 10px; align-items: baseline; }
+  .ps-c-name { color: #2d3a2e; font-weight: 500; font-size: 13px; }
+  .ps-c-raw { color: #6b6a5c; font-size: 11px; text-align: right; }
+  .ps-c-score { font-family: 'Fraunces', serif; font-weight: 500; text-align: right; color: #2d3a2e; font-size: 15px; }
+  .ps-c-bar { height: 6px; background: rgba(255,255,255,0.6); border-radius: 999px; overflow: hidden; margin-top: 2px; }
   .ps-c-fill { height: 100%; background: linear-gradient(90deg, #c4683a, #c4a06a, #5a7a3a); transition: width 0.6s; }
-  .ps-c-name { color: #2d3a2e; font-weight: 500; }
-  .ps-c-raw { color: #8a8975; font-size: 10px; text-align: right; }
-  .ps-c-score { font-family: 'Fraunces', serif; font-weight: 500; text-align: right; color: #2d3a2e; }
+  .ps-c-source { font-size: 10px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; padding-left: 0; margin-top: 2px; }
+  .ps-missing-section { padding: 10px 12px; background: rgba(255,255,255,0.45); border-radius: 10px; margin-top: 14px; margin-bottom: 12px; }
+  .ps-missing-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #8a8975; margin-bottom: 6px; }
+  .ps-missing-item { font-size: 11px; color: #6b6a5c; padding: 2px 0; font-family: 'Fraunces', serif; font-style: italic; }
+  /* Baseline (not-ready) state */
+  .ps-baseline-state { padding: 8px 0 4px; }
+  .ps-baseline-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #c4683a; margin-bottom: 8px; }
+  .ps-baseline-msg { font-size: 13px; color: #2d3a2e; line-height: 1.5; margin-bottom: 14px; font-family: 'Fraunces', serif; }
+  .ps-baseline-section { margin-bottom: 12px; }
+  .ps-baseline-section-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 6px; }
+  .ps-baseline-have, .ps-baseline-need { font-size: 12px; line-height: 1.6; color: #2d3a2e; padding: 2px 0; }
+  .ps-baseline-have .dot { color: #5a7a3a; margin-right: 6px; }
+  .ps-baseline-need .dot { color: #c4a06a; margin-right: 6px; }
+  .ps-baseline-have .src, .ps-baseline-need .src { font-size: 11px; color: #8a8975; font-style: italic; }
   .ps-footer { font-size: 11px; color: #6b6a5c; line-height: 1.5; margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(232,216,168,0.6); font-style: italic; font-family: 'Fraunces', serif; }
   .ps-empty { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; padding: 12px 0 4px; }
 
@@ -941,7 +964,7 @@
   .fc-bar.low { background: #c4a06a; }
   .fc-bar.med { background: #d97b50; }
   .fc-bar.high { background: #c4683a; }
-  .fc-axis { display: flex; justify-content: space-between; font-size: 9px; color: #a0a08e; padding: 0 4px; margin-bottom: 10px; }
+  .fc-axis { display: flex; justify-content: space-between; font-size: 11px; color: #a0a08e; padding: 0 4px; margin-bottom: 10px; }
   .fc-footer { font-size: 11px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 10px; border-top: 1px dashed #f0e8d8; }
   .fc-msg { font-family: 'Fraunces', serif; font-size: 14px; line-height: 1.5; color: #2d3a2e; }
 
@@ -961,7 +984,7 @@
   .checkin-field { padding: 10px 0; border-bottom: 1px solid #f0e8d8; }
   .checkin-field:last-child { border-bottom: none; }
   .checkin-label { font-size: 12px; font-weight: 500; color: #2d3a2e; margin-bottom: 8px; font-family: 'Fraunces', serif; }
-  .checkin-hint { font-size: 10px; color: #a0a08e; font-weight: 400; font-family: inherit; margin-left: 4px; font-style: italic; }
+  .checkin-hint { font-size: 11px; color: #a0a08e; font-weight: 400; font-family: inherit; margin-left: 4px; font-style: italic; }
   .checkin-slider-row { display: flex; gap: 12px; align-items: center; }
   .checkin-slider-row input[type=range] { flex: 1; height: 4px; accent-color: #c4683a; }
   .checkin-val { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #c4683a; min-width: 36px; text-align: right; }
@@ -977,15 +1000,82 @@
   .checkin-weight-row input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid #ede5d3; font-family: 'Fraunces', serif; font-size: 16px; color: #2d3a2e; background: #f6f1e7; }
   .checkin-note { font-size: 11px; color: #a0a08e; font-style: italic; line-height: 1.5; margin-top: 12px; text-align: center; font-family: 'Fraunces', serif; }
 
+  /* ============== HUNGER CARD (Today) ============== */
+  .hunger-card { background: white; border: 1px solid #ede5d3; border-radius: 18px; padding: 16px 18px; margin-bottom: 14px; }
+  .hunger-card.moderate { background: linear-gradient(135deg, #fff8ec 0%, #fbeed1 100%); border-color: #e8c878; }
+  .hunger-card.high { background: linear-gradient(135deg, #fef0e8 0%, #fbe0d0 100%); border-color: #e89878; }
+  .hunger-card.empty { background: #f6f1e7; border-style: dashed; }
+  .hc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #6b6a5c; margin-bottom: 12px; font-weight: 500; }
+  .hc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+  .hc-stat { background: rgba(255,255,255,0.55); border-radius: 12px; padding: 10px 8px; text-align: center; }
+  .hc-stat-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #8a8975; margin-bottom: 4px; }
+  .hc-stat-val { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; line-height: 1; color: #2d3a2e; }
+  .hunger-card.high .hc-stat-val { color: #c4683a; }
+  .hunger-card.moderate .hc-stat-val { color: #a85528; }
+  .hc-unit { font-size: 12px; color: #8a8975; font-weight: 400; margin-left: 2px; }
+  .hc-stat-sub { font-size: 10px; color: #8a8975; margin-top: 4px; }
+  .hc-trend.rising { color: #c4683a !important; }
+  .hc-trend.falling { color: #5a7a3a !important; }
+  .hc-warning { background: rgba(196,104,58,0.1); border: 1px solid rgba(196,104,58,0.25); border-radius: 10px; padding: 8px 12px; margin-top: 12px; font-size: 12px; color: #a85528; font-family: 'Fraunces', serif; line-height: 1.5; }
+  .hc-warning strong { font-weight: 500; }
+  .hc-footer { font-size: 11px; color: #8a8975; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.08); margin-top: 12px; }
+  .hc-empty { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; padding: 6px 0; }
+
+  /* ============== SUSTAINABILITY / REBOUND CARD ============== */
+  .sustain-card { background: white; border: 2px solid #ede5d3; border-radius: 22px; padding: 22px 20px; margin-bottom: 14px; position: relative; overflow: hidden; }
+  .sustain-card.green { background: linear-gradient(135deg, #f0f4ea 0%, #e8f0d8 100%); border-color: #c8dba0; }
+  .sustain-card.amber { background: linear-gradient(135deg, #fff8ec 0%, #fbeed1 100%); border-color: #e8c878; }
+  .sustain-card.red { background: linear-gradient(135deg, #fef0e8 0%, #fbe0d0 100%); border-color: #e89878; }
+  .sustain-card.empty { background: white; border-color: #ede5d3; padding: 18px; }
+  .sustain-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: #6b6a5c; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+  .sustain-tag { background: #c4683a; color: white; font-size: 9px; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.08em; font-weight: 600; }
+  .sustain-top { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+  .sustain-score-wrap { display: flex; align-items: baseline; }
+  .sustain-score { font-family: 'Fraunces', serif; font-size: 64px; font-weight: 500; line-height: 1; color: #2d3a2e; }
+  .sustain-card.amber .sustain-score { color: #a85528; }
+  .sustain-card.red .sustain-score { color: #c4683a; }
+  .sustain-card.green .sustain-score { color: #4a6a2a; }
+  .sustain-score-max { font-size: 16px; color: #8a8975; margin-left: 4px; }
+  .sustain-band-wrap { flex: 1; }
+  .sustain-band { font-family: 'Fraunces', serif; font-style: italic; font-size: 18px; font-weight: 500; color: #2d3a2e; text-transform: capitalize; line-height: 1.2; }
+  .sustain-rebound { font-size: 12px; color: #6b6a5c; margin-top: 4px; text-transform: lowercase; letter-spacing: 0.02em; }
+  .sustain-message { font-family: 'Fraunces', serif; font-size: 14px; line-height: 1.5; color: #2d3a2e; padding: 12px 14px; background: rgba(255,255,255,0.55); border-radius: 12px; margin-bottom: 14px; }
+  .sustain-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .sustain-metric { background: rgba(255,255,255,0.55); border-radius: 12px; padding: 10px 8px; text-align: center; }
+  .sm-name { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #8a8975; margin-bottom: 6px; }
+  .sm-val { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #2d3a2e; line-height: 1; }
+  .sm-unit { font-size: 11px; color: #8a8975; font-weight: 400; }
+  .sm-trend { font-size: 11px; color: #6b6a5c; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .sm-source { font-size: 10px; color: #8a8975; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
+  .trend-arrow { font-size: 13px; font-weight: 600; }
+  .trend-arrow.up { color: #c4683a; }
+  .trend-arrow.down { color: #5a7a3a; }
+  .trend-arrow.flat { color: #8a8975; }
+  .sustain-warnings { background: rgba(196,104,58,0.08); border: 1px solid rgba(196,104,58,0.2); border-radius: 12px; padding: 10px 12px; margin-bottom: 12px; }
+  .sw-header { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #a85528; font-weight: 600; margin-bottom: 6px; }
+  .sw-item { font-size: 13px; line-height: 1.5; color: #2d3a2e; padding: 4px 0; font-family: 'Fraunces', serif; }
+  .sw-item.high { color: #a85528; font-weight: 500; }
+  .sustain-footer { font-size: 11px; color: #6b6a5c; line-height: 1.6; font-style: italic; font-family: 'Fraunces', serif; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.08); }
+  .sustain-empty { font-size: 13px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; padding: 8px 0; }
+
+  /* Today-tab sustainability banner */
+  .sustain-banner { background: linear-gradient(135deg, #fef0e8 0%, #fbe0d0 100%); border: 1px solid #e89878; border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: transform 0.15s; }
+  .sustain-banner:active { transform: scale(0.99); }
+  .sb-icon { font-size: 20px; flex-shrink: 0; }
+  .sb-content { flex: 1; }
+  .sb-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; color: #a85528; margin-bottom: 3px; }
+  .sb-text { font-size: 12px; color: #2d3a2e; line-height: 1.4; }
+  .sb-arrow { font-size: 22px; color: #a85528; flex-shrink: 0; }
+
   /* ============== BEHAVIOURAL ENTROPY CARD ============== */
   .entropy-card { background: white; border: 1px solid #ede5d3; border-radius: 18px; padding: 20px; margin-bottom: 14px; position: relative; }
   .entropy-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-  .entropy-tag { background: #c4a06a; color: white; font-size: 9px; padding: 2px 7px; border-radius: 999px; letter-spacing: 0.05em; font-weight: 500; }
+  .entropy-tag { background: #c4a06a; color: white; font-size: 10px; padding: 2px 7px; border-radius: 999px; letter-spacing: 0.05em; font-weight: 500; }
   .entropy-top { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
   .entropy-composite { font-family: 'Fraunces', serif; font-size: 48px; font-weight: 500; color: #2d3a2e; line-height: 1; }
   .entropy-meta { flex: 1; }
   .entropy-meta-label { font-size: 11px; color: #6b6a5c; }
-  .entropy-meta-sub { font-size: 10px; color: #a0a08e; margin-top: 2px; font-style: italic; }
+  .entropy-meta-sub { font-size: 11px; color: #a0a08e; margin-top: 2px; font-style: italic; }
   .entropy-interpretation { font-family: 'Fraunces', serif; font-size: 14px; line-height: 1.5; color: #2d3a2e; padding: 10px 12px; background: #f6f1e7; border-radius: 10px; margin-bottom: 10px; }
   .entropy-interpretation strong { color: #c4683a; font-weight: 500; }
   .entropy-trend { font-size: 13px; color: #2d3a2e; padding: 6px 0; margin-bottom: 10px; font-family: 'Fraunces', serif; }
@@ -1047,7 +1137,7 @@
   .chip { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; padding: 6px 12px; border-radius: 14px; background: #f6f1e7; color: #6b6a5c; border: 1px solid #ede5d3; font-size: 13px; font-weight: 500; font-family: inherit; line-height: 1.15; transition: transform 0.15s, background 0.15s, color 0.15s, border-color 0.15s; }
   .chip:active { transform: scale(0.94); }
   .chip.active { background: #2d3a2e; color: #f6f1e7; border-color: #2d3a2e; }
-  .chip-sub { font-size: 10px; font-weight: 400; opacity: 0.65; margin-top: 1px; }
+  .chip-sub { font-size: 11px; font-weight: 400; opacity: 0.65; margin-top: 1px; }
   .pending-cal .n { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 500; line-height: 1; }
   .pending-cal .u { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #8a8975; }
   .pending-macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; text-align: center; }
@@ -1060,7 +1150,7 @@
   .pending-warn { margin-top: 12px; font-size: 12px; color: #c4683a; background: rgba(196,104,58,0.08); padding: 8px 12px; border-radius: 10px; }
   .custom-food-shortcut { background: #c4683a; color: white; border: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer; transition: transform 0.15s; }
   .custom-food-shortcut:active { transform: scale(0.95); }
-  .pending-source-tag { display: inline-block; font-size: 9px; padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pending-source-tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.05em; }
   .pending-source-tag.usda { background: #5a7a3a; color: white; }
   .pending-source-tag.estimated { background: #c4a06a; color: white; }
   .pending-source-tag.custom { background: #c4683a; color: white; }
@@ -1090,7 +1180,7 @@
   .entry-sub { display: flex; gap: 8px; margin-top: 2px; font-size: 12px; color: #8a8975; }
   .entry-cal { text-align: right; }
   .entry-cal .n { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; }
-  .entry-cal .u { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #8a8975; }
+  .entry-cal .u { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #8a8975; }
   .icon-btn { padding: 8px; border-radius: 50%; color: #a0a08e; transition: background 0.2s; }
   .icon-btn:hover { background: rgba(0,0,0,0.05); }
 
@@ -1980,6 +2070,58 @@ function loadProfile() {
   } catch { return null; }
 }
 function saveProfile(p) { try { localStorage.setItem(STORAGE_PROFILE, JSON.stringify(p)); } catch {} }
+
+// Reset all behavioural data — keep profile, onboarding, and goal
+function confirmResetAllData() {
+  const ok1 = confirm('Reset all data?\n\nThis will permanently delete:\n• All logged meals and activities\n• All urge records\n• All daily check-ins\n• All measurements and pulse readings\n• Badges, milestones, chat history\n• Plate Score history\n\nYour profile (age, height, weight, goal) will be kept.\n\nThis cannot be undone.');
+  if (!ok1) return;
+  const ok2 = confirm('Are you absolutely sure?\n\nTap OK to permanently delete all logged data.');
+  if (!ok2) return;
+  resetAllData();
+}
+
+function resetAllData() {
+  // Keys to PRESERVE — profile and basic settings
+  const preserve = new Set(['plate-profile', 'plate-onboarded', 'plate-goal', 'plate-user-weight']);
+  const allKeys = [];
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('plate-')) allKeys.push(k);
+    }
+  } catch {}
+  for (const k of allKeys) {
+    if (!preserve.has(k)) {
+      try { localStorage.removeItem(k); } catch {}
+    }
+  }
+  // Reset in-memory state — keep profile fields
+  const profile = state.profile;
+  const onboarded = state.onboarded;
+  const dailyGoal = state.dailyGoal;
+  const userWeight = state.userWeight;
+  // Clear all data arrays
+  state.entries = [];
+  state.urges = [];
+  state.dailyCheckins = [];
+  state.wellbeingHistory = [];
+  state.measurements = [];
+  state.pulseReadings = [];
+  state.earnedBadges = [];
+  state.chat = [];
+  state.customFoods = [];
+  state.chatMessages = [];
+  state.whyAnchor = null;
+  state.pauseUntil = null;
+  state.newBadgeToast = null;
+  // Restore preserved
+  state.profile = profile;
+  state.onboarded = onboarded;
+  state.dailyGoal = dailyGoal;
+  state.userWeight = userWeight;
+  alert('All data cleared. Profile kept. Welcome to your fresh start.');
+  set({ activeTab: 'today', showSettings: false });
+}
 function loadOnboarded() { try { return localStorage.getItem(STORAGE_ONBOARDED) === '1'; } catch { return false; } }
 function saveOnboarded(v) { try { localStorage.setItem(STORAGE_ONBOARDED, v ? '1' : '0'); } catch {} }
 
@@ -2149,7 +2291,7 @@ function exportResearchData() {
   };
 
   // === meals.csv: one row per food/activity entry ===
-  const mealsHeader = ['entry_id', 'timestamp_iso', 'date', 'hour', 'day_of_week', 'type', 'name', 'calories', 'carbs_g', 'protein_g', 'fat_g', 'multiplier', 'eating_reason', 'mood', 'anticipated_satisfaction', 'actual_satisfaction', 'source', 'is_custom_food'];
+  const mealsHeader = ['entry_id', 'timestamp_iso', 'date', 'hour', 'day_of_week', 'type', 'name', 'calories', 'carbs_g', 'protein_g', 'fat_g', 'multiplier', 'eating_reason', 'mood', 'hunger_at_meal', 'anticipated_satisfaction', 'actual_satisfaction', 'source', 'is_custom_food'];
   const mealRows = state.entries.map(e => {
     const d = new Date(e.timestamp);
     return {
@@ -2167,6 +2309,7 @@ function exportResearchData() {
       multiplier: e.multiplier || 1,
       eating_reason: e.eatingReason || '',
       mood: e.mood || '',
+      hunger_at_meal: e.hungerAtMeal || '',
       anticipated_satisfaction: e.anticipatedSatisfaction || '',
       actual_satisfaction: e.actualSatisfaction || '',
       source: e.foodSource || '',
@@ -2320,6 +2463,7 @@ Generated: ${new Date().toISOString()}
 - interrupt_type values: wave, cold, breathe, move, water
 - sleep_quality: 1=Poor, 2=Fair, 3=Good, 4=Great
 - stress/hunger/craving: 1=low, 5=high
+- hunger_at_meal: 1=full, 2=mild, 3=moderate, 4=strong, 5=extreme (Likert at meal log time)
 - ate_anyway: 1=yes, 0=no (urge beaten)
 - over_goal: 1 if net_kcal > goal_kcal
 - event_type: 'overshoot' (10-25% over) or 'binge' (>25% over)
@@ -2327,6 +2471,8 @@ Generated: ${new Date().toISOString()}
 ## Suggested analyses
 - Logistic regression: over_goal ~ sleep + stress + craving + day_of_week + previous_day_hunger
 - Random forest classification of binge events
+- **Rebound risk validation**: Use rolling 14-day hunger_at_meal mean as predictor of subsequent binge events. The hypothesis: rising hunger trajectory predicts rebound within 7-14 days.
+- Survival analysis: time-to-binge by hunger trend slope
 - Behavioural entropy (variance of meal_times, calories, reasons over rolling windows)
 - Survival analysis: time-to-next-overeating-event by intervention type
 
@@ -3073,12 +3219,12 @@ function getRecoveryScore() {
   }
   if (slipDays.length === 0) {
     // No slips means perfect record — but score should reflect that
-    return { score: 100, slips: 0, avgRecoveryDays: 0, fastestRecovery: 0, message: 'No major overshoot days in your history. Steady.' };
+    return { score: 100, slips: 0, totalSlips: 0, avgRecoveryDays: 0, fastestRecovery: 0, message: 'No major overshoot days in your history. Steady.' };
   }
   const recoveredSlips = slipDays.filter(s => s.recoveryDays != null);
   if (recoveredSlips.length === 0) {
     // Slipped but never recovered (most recent could be current)
-    return { score: 50, slips: slipDays.length, avgRecoveryDays: null, fastestRecovery: null, message: 'Some slip days without recovery yet. The next clean day resets this.' };
+    return { score: 50, slips: slipDays.length, totalSlips: slipDays.length, avgRecoveryDays: null, fastestRecovery: null, message: 'Some slip days without recovery yet. The next clean day resets this.' };
   }
   const avgRec = recoveredSlips.reduce((a, s) => a + s.recoveryDays, 0) / recoveredSlips.length;
   const fastest = Math.min(...recoveredSlips.map(s => s.recoveryDays));
@@ -3095,7 +3241,7 @@ function getRecoveryScore() {
   else if (score >= 70) message = `Solid bounce-back. Average ${avgRec.toFixed(1)} days to get back to goal after a slip.`;
   else if (score >= 50) message = `Slips tend to last ${avgRec.toFixed(1)} days. The work isn't avoiding slips — it's making the recovery faster.`;
   else message = `Slips compound into longer rough patches. The goal isn't perfect — it's faster recovery. Tomorrow is a clean page.`;
-  return { score, slips: slipDays.length, recoveredSlips: recoveredSlips.length, avgRecoveryDays: avgRec.toFixed(1), fastestRecovery: fastest, message };
+  return { score, slips: slipDays.length, totalSlips: slipDays.length, recoveredSlips: recoveredSlips.length, avgRecoveryDays: avgRec.toFixed(1), fastestRecovery: fastest, message };
 }
 
 // ============================================================
@@ -3497,12 +3643,14 @@ function getPlateScore() {
   const components = [];
   let totalWeight = 0;
   let weightedSum = 0;
+  // Track gaps for transparency (components we skipped due to insufficient data)
+  const missing = [];
 
-  // 1. Hunger Awareness — % of meals logged as "hungry" reason vs total reasoned
+  // 1. Hunger-driven eating — % of meals tagged as "hungry" reason (vs emotional)
+  // RENAMED from "Hunger awareness" to avoid confusion with new hunger intensity (1-5 scale)
   const reasonedEntries = state.entries.filter(e => e.type !== 'activity' && e.eatingReason);
-  if (reasonedEntries.length >= 5) {
+  if (reasonedEntries.length >= 7) {
     const hungry = reasonedEntries.filter(e => e.eatingReason === 'hungry').length;
-    // Higher = better. 70%+ hungry-driven = excellent.
     const pct = (hungry / reasonedEntries.length) * 100;
     let score;
     if (pct >= 70) score = 95;
@@ -3510,53 +3658,89 @@ function getPlateScore() {
     else if (pct >= 40) score = 65;
     else if (pct >= 25) score = 45;
     else score = 25;
-    components.push({ name: 'Hunger awareness', score, weight: 0.25, raw: `${Math.round(pct)}% hungry-driven` });
-    totalWeight += 0.25;
-    weightedSum += score * 0.25;
+    components.push({
+      name: 'Hunger-driven eating',
+      score, weight: 0.28,
+      raw: `${Math.round(pct)}% hungry-driven`,
+      source: `from ${reasonedEntries.length} meals with reason tagged`,
+    });
+    totalWeight += 0.28;
+    weightedSum += score * 0.28;
+  } else {
+    missing.push({ name: 'Hunger-driven eating', need: `7+ meals with reason tagged (have ${reasonedEntries.length})` });
   }
 
   // 2. Meal Satisfaction — avg actualSatisfaction
   const rated = state.entries.filter(e => e.actualSatisfaction != null);
-  if (rated.length >= 3) {
+  if (rated.length >= 5) {
     const avg = rated.reduce((a, e) => a + e.actualSatisfaction, 0) / rated.length;
     const score = Math.round((avg / 5) * 100);
-    components.push({ name: 'Meal satisfaction', score, weight: 0.20, raw: `${avg.toFixed(1)}/5 avg` });
-    totalWeight += 0.20;
-    weightedSum += score * 0.20;
+    components.push({
+      name: 'Meal satisfaction',
+      score, weight: 0.22,
+      raw: `${avg.toFixed(1)}/5 avg`,
+      source: `from ${rated.length} rated meals`,
+    });
+    totalWeight += 0.22;
+    weightedSum += score * 0.22;
+  } else {
+    missing.push({ name: 'Meal satisfaction', need: `5+ rated meals (have ${rated.length})` });
   }
 
-  // 3. Recovery Ability
+  // 3. Recovery — needs slips/overshoots to compute
   const rec = getRecoveryScore();
   if (rec) {
-    components.push({ name: 'Recovery', score: rec.score, weight: 0.20, raw: rec.avgRecoveryDays != null ? `${rec.avgRecoveryDays} day avg` : 'no slips yet' });
-    totalWeight += 0.20;
-    weightedSum += rec.score * 0.20;
+    components.push({
+      name: 'Recovery',
+      score: rec.score, weight: 0.22,
+      raw: rec.avgRecoveryDays != null ? `${rec.avgRecoveryDays} day avg` : 'no slips yet',
+      source: rec.totalSlips != null ? `from ${rec.totalSlips} over-goal days` : 'baseline (no slips)',
+    });
+    totalWeight += 0.22;
+    weightedSum += rec.score * 0.22;
+  } else {
+    missing.push({ name: 'Recovery', need: 'logging history needed to measure recovery' });
   }
 
-  // 4. Activity — weekly minutes from last 14 days
+  // 4. Activity — weekly minutes from last 14 days, only if any activity has been logged
   const cutoff = Date.now() - 14 * 86400000;
-  const recentActMin = state.entries
-    .filter(e => e.type === 'activity' && e.timestamp > cutoff)
-    .reduce((a, e) => a + (e.duration || 0), 0);
-  const weeklyMin = recentActMin / 2;
-  let actScore;
-  if (weeklyMin >= 150) actScore = 95;
-  else if (weeklyMin >= 90) actScore = 80;
-  else if (weeklyMin >= 60) actScore = 65;
-  else if (weeklyMin >= 30) actScore = 50;
-  else if (weeklyMin > 0) actScore = 35;
-  else actScore = 20;
-  components.push({ name: 'Activity', score: actScore, weight: 0.15, raw: `${Math.round(weeklyMin)} min/wk` });
-  totalWeight += 0.15;
-  weightedSum += actScore * 0.15;
+  const activityEntries = state.entries.filter(e => e.type === 'activity' && e.timestamp > cutoff);
+  if (activityEntries.length >= 1) {
+    const recentActMin = activityEntries.reduce((a, e) => a + (e.duration || 0), 0);
+    const weeklyMin = recentActMin / 2;
+    let actScore;
+    if (weeklyMin >= 150) actScore = 95;
+    else if (weeklyMin >= 90) actScore = 80;
+    else if (weeklyMin >= 60) actScore = 65;
+    else if (weeklyMin >= 30) actScore = 50;
+    else actScore = 35;
+    components.push({
+      name: 'Activity',
+      score: actScore, weight: 0.17,
+      raw: `${Math.round(weeklyMin)} min/wk`,
+      source: `from ${activityEntries.length} activit${activityEntries.length === 1 ? 'y' : 'ies'} in last 14 days`,
+    });
+    totalWeight += 0.17;
+    weightedSum += actScore * 0.17;
+  } else {
+    missing.push({ name: 'Activity', need: 'no activities logged in last 14 days' });
+  }
 
-  // 5. Sleep — from latest wellbeing check-in within 14 days
-  const lastCheckin = (state.wellbeingHistory || []).sort((a, b) => b.timestamp - a.timestamp)[0];
-  if (lastCheckin && (Date.now() - lastCheckin.timestamp) < 14 * 86400000 && lastCheckin.sleep != null) {
-    const sleepScore = (lastCheckin.sleep / 5) * 100;
-    components.push({ name: 'Sleep', score: Math.round(sleepScore), weight: 0.10, raw: `${lastCheckin.sleep}/5` });
-    totalWeight += 0.10;
-    weightedSum += sleepScore * 0.10;
+  // 5. Sleep — from DAILY check-ins (the new source) not the old weekly wellbeing
+  const recentCheckins = (state.dailyCheckins || []).filter(c => c.timestamp > cutoff && c.sleepQuality != null);
+  if (recentCheckins.length >= 3) {
+    const avgQ = recentCheckins.reduce((a, c) => a + c.sleepQuality, 0) / recentCheckins.length;
+    const sleepScore = Math.round((avgQ / 4) * 100); // sleepQuality is 1-4
+    components.push({
+      name: 'Sleep',
+      score: sleepScore, weight: 0.11,
+      raw: `${avgQ.toFixed(1)}/4 avg`,
+      source: `from ${recentCheckins.length} daily check-ins`,
+    });
+    totalWeight += 0.11;
+    weightedSum += sleepScore * 0.11;
+  } else {
+    missing.push({ name: 'Sleep', need: `3+ daily check-ins with sleep quality (have ${recentCheckins.length})` });
   }
 
   // 6. Craving Control — % of urges beaten
@@ -3564,13 +3748,29 @@ function getPlateScore() {
   if (urges.length >= 3) {
     const beaten = urges.filter(u => u.ateAnyway === false).length;
     const pct = (beaten / urges.length) * 100;
-    components.push({ name: 'Craving control', score: Math.round(pct), weight: 0.10, raw: `${beaten}/${urges.length} beaten` });
-    totalWeight += 0.10;
-    weightedSum += pct * 0.10;
+    components.push({
+      name: 'Craving control',
+      score: Math.round(pct), weight: 0.11,
+      raw: `${beaten}/${urges.length} beaten`,
+      source: `from ${urges.length} logged urges`,
+    });
+    totalWeight += 0.11;
+    weightedSum += pct * 0.11;
+  } else {
+    missing.push({ name: 'Craving control', need: `3+ urges logged (have ${urges.length})` });
   }
 
-  if (totalWeight === 0 || components.length < 2) {
-    return { ready: false, message: 'Plate Score appears once you have a few weeks of varied data.', components: [] };
+  // Refuse to compute a confident score with too-thin data
+  // Need at least 3 components covering ≥50% of weight to make a meaningful composite
+  if (components.length < 3 || totalWeight < 0.5) {
+    return {
+      ready: false,
+      collecting: true,
+      message: 'Collecting baseline data — your Plate Score will appear once you have at least 3 dimensions of data (typically 7-10 days of consistent use).',
+      components,
+      missing,
+      gotWeight: totalWeight,
+    };
   }
 
   const composite = Math.round(weightedSum / totalWeight);
@@ -3581,9 +3781,7 @@ function getPlateScore() {
   else if (composite >= 35) band = 'developing';
   else band = 'starting';
 
-  // Trend: compare to last month's score if we have historical data
-  // For now, just return the current composite
-  return { ready: true, composite, band, components, totalWeight };
+  return { ready: true, composite, band, components, missing, totalWeight };
 }
 
 // --- Historical Plate Score (for trend) ---
@@ -3743,6 +3941,230 @@ function getBehaviouralEntropy(windowDays) {
     trend,
     windowDays,
     sampleSize: entries.length,
+  };
+}
+
+// ============================================================
+// SUSTAINABILITY & REBOUND RISK
+// ============================================================
+// The core thesis: most diets fail because hunger becomes unsustainable
+// after 2-4 weeks, not because of insufficient calorie counting. GLP-1 drugs
+// (Mounjaro etc.) succeed by suppressing hunger biologically — Plate's
+// behavioural equivalent is detecting unsustainability BEFORE the rebound.
+//
+// Rebound Risk formula (simple, testable, refineable):
+//   risk = (avgHunger + avgCraving) / (avgSatisfaction + 1)
+// Higher = more likely to rebound. Lower = sustainable.
+// Plus trend detection: rising hunger over 2 weeks vs prior 2 weeks.
+// ============================================================
+
+function getHungerStats(windowDays) {
+  windowDays = windowDays || 14;
+  const cutoff = Date.now() - windowDays * 86400000;
+  // 1) hungerAtMeal from food entries (richer signal — sampled at every meal)
+  const mealHungers = state.entries
+    .filter(e => e.type !== 'activity' && e.hungerAtMeal != null && e.timestamp > cutoff)
+    .map(e => ({ value: e.hungerAtMeal, timestamp: e.timestamp, hour: new Date(e.timestamp).getHours() }));
+  // 2) daily check-in hunger (one per day, baseline reading)
+  const checkinHungers = (state.dailyCheckins || [])
+    .filter(c => c.hunger != null && c.timestamp > cutoff)
+    .map(c => ({ value: c.hunger, timestamp: c.timestamp, hour: 12 })); // anchor at noon
+  const all = [...mealHungers, ...checkinHungers];
+  if (all.length < 3) return null;
+  const avg = all.reduce((a, x) => a + x.value, 0) / all.length;
+  const peak = Math.max(...all.map(x => x.value));
+  // Evening hunger (after 5pm) — separated because that's the rebound danger zone
+  const evening = all.filter(x => x.hour >= 17);
+  const eveningAvg = evening.length > 0 ? evening.reduce((a, x) => a + x.value, 0) / evening.length : null;
+  return {
+    avg: parseFloat(avg.toFixed(2)),
+    peak,
+    eveningAvg: eveningAvg != null ? parseFloat(eveningAvg.toFixed(2)) : null,
+    sample: all.length,
+    mealSample: mealHungers.length,
+    checkinSample: checkinHungers.length,
+  };
+}
+
+function getCravingStats(windowDays) {
+  windowDays = windowDays || 14;
+  const cutoff = Date.now() - windowDays * 86400000;
+  // From daily check-ins (most reliable craving data)
+  const checkinCravings = (state.dailyCheckins || [])
+    .filter(c => c.craving != null && c.timestamp > cutoff)
+    .map(c => c.craving);
+  if (checkinCravings.length < 3) return null;
+  const avg = checkinCravings.reduce((a, b) => a + b, 0) / checkinCravings.length;
+  return {
+    avg: parseFloat(avg.toFixed(2)),
+    sample: checkinCravings.length,
+  };
+}
+
+function getSatisfactionStats(windowDays) {
+  windowDays = windowDays || 14;
+  const cutoff = Date.now() - windowDays * 86400000;
+  const rated = state.entries.filter(e => e.type !== 'activity' && e.actualSatisfaction != null && e.timestamp > cutoff);
+  if (rated.length < 3) return null;
+  const avg = rated.reduce((a, e) => a + e.actualSatisfaction, 0) / rated.length;
+  return {
+    avg: parseFloat(avg.toFixed(2)),
+    sample: rated.length,
+  };
+}
+
+// Trend: compare 7 days ending now vs 7 days before that
+// We shift the timestamps of the "older" window forward by 7 days so the
+// getter (which always filters relative to now) sees them inside its window.
+function getMetricTrend(getter) {
+  const sevenDays = 7 * 86400000;
+  const fourteenDays = 14 * 86400000;
+  const savedEntries = state.entries;
+  const savedCheckins = state.dailyCheckins;
+  const cutoffNow = Date.now();
+
+  // Recent window: entries within last 7 days, as-is
+  const recentEntries = savedEntries.filter(e => e.timestamp > cutoffNow - sevenDays);
+  const recentCheckins = (savedCheckins || []).filter(c => c.timestamp > cutoffNow - sevenDays);
+  state.entries = recentEntries;
+  state.dailyCheckins = recentCheckins;
+  const recent = getter(7);
+
+  // Older window: entries from 7-14 days ago, time-shifted forward by 7 days
+  // so the getter (which filters with cutoff = Date.now() - windowDays*day) sees them
+  const olderEntries = savedEntries
+    .filter(e => e.timestamp > cutoffNow - fourteenDays && e.timestamp <= cutoffNow - sevenDays)
+    .map(e => ({ ...e, timestamp: e.timestamp + sevenDays }));
+  const olderCheckins = (savedCheckins || [])
+    .filter(c => c.timestamp > cutoffNow - fourteenDays && c.timestamp <= cutoffNow - sevenDays)
+    .map(c => ({ ...c, timestamp: c.timestamp + sevenDays }));
+  state.entries = olderEntries;
+  state.dailyCheckins = olderCheckins;
+  const older = getter(7);
+
+  // Restore
+  state.entries = savedEntries;
+  state.dailyCheckins = savedCheckins;
+
+  if (!recent || !older) return null;
+  const delta = recent.avg - older.avg;
+  const pctChange = older.avg > 0 ? Math.round((delta / older.avg) * 100) : 0;
+  return { recent: recent.avg, older: older.avg, delta, pctChange };
+}
+
+// ============================================================
+// SUSTAINABILITY SCORE (0-100, higher = more sustainable)
+// REBOUND RISK (0-100, higher = more likely to rebound)
+// ============================================================
+function getSustainabilityScore() {
+  const hunger = getHungerStats(14);
+  const craving = getCravingStats(14);
+  const sat = getSatisfactionStats(14);
+
+  // Need at least hunger and one other dimension
+  if (!hunger) return { ready: false, reason: 'need_hunger', message: 'Log hunger at meals (or in daily check-in) for 7+ days to compute sustainability.' };
+
+  // Compute rebound index: (hunger + craving) / (satisfaction + 1)
+  // Use defaults if missing: cravings default to 2 (mild), satisfaction defaults to 3 (neutral)
+  const h = hunger.avg;
+  const c = craving ? craving.avg : 2;
+  const s = sat ? sat.avg : 3;
+  const reboundIndex = (h + c) / (s + 1); // typically ranges 0.2 to 5
+  // Convert to 0-100 risk: rebound > 3 maps to high risk
+  // Calibration: index 1 = 25 risk, 2 = 50 risk, 3 = 75 risk, 4+ = 90+ risk
+  let reboundRisk = Math.min(100, Math.round(reboundIndex * 25));
+
+  // Trend signals
+  const hungerTrend = getMetricTrend(getHungerStats);
+  const satTrend = getMetricTrend(getSatisfactionStats);
+  const cravingTrend = getMetricTrend(getCravingStats);
+
+  // Warning conditions — and trend penalties on the score
+  const warnings = [];
+  let trendPenalty = 0;
+  if (hungerTrend && hungerTrend.pctChange >= 25) {
+    warnings.push({
+      severity: 'high',
+      text: `Hunger has risen ${hungerTrend.pctChange}% over the last 7 days compared to the week before.`,
+    });
+    trendPenalty += 15;
+  } else if (hungerTrend && hungerTrend.pctChange >= 15) {
+    warnings.push({
+      severity: 'medium',
+      text: `Hunger has risen ${hungerTrend.pctChange}% recently — early warning sign.`,
+    });
+    trendPenalty += 8;
+  }
+  if (satTrend && satTrend.pctChange <= -25) {
+    warnings.push({
+      severity: 'high',
+      text: `Meal satisfaction has fallen ${Math.abs(satTrend.pctChange)}% recently. Food is paying you back less.`,
+    });
+    trendPenalty += 12;
+  } else if (satTrend && satTrend.pctChange <= -15) {
+    warnings.push({
+      severity: 'medium',
+      text: `Satisfaction is drifting down (${satTrend.pctChange}%).`,
+    });
+    trendPenalty += 6;
+  }
+  if (cravingTrend && cravingTrend.pctChange >= 25) {
+    warnings.push({
+      severity: 'high',
+      text: `Cravings have risen ${cravingTrend.pctChange}% recently.`,
+    });
+    trendPenalty += 10;
+  }
+  if (hunger.eveningAvg != null && hunger.eveningAvg >= 4) {
+    warnings.push({
+      severity: 'medium',
+      text: `Evening hunger averaging ${hunger.eveningAvg}/5 — high-risk window for late-night eating.`,
+    });
+    trendPenalty += 5;
+  }
+
+  reboundRisk = Math.min(100, reboundRisk + trendPenalty);
+  const sustainabilityScore = 100 - reboundRisk;
+
+  // Band
+  let band, color, message;
+  if (sustainabilityScore >= 75) {
+    band = 'highly sustainable';
+    color = 'green';
+    message = `Hunger is manageable. Satisfaction is solid. This is the kind of pattern that lasts.`;
+  } else if (sustainabilityScore >= 55) {
+    band = 'sustainable';
+    color = 'green';
+    message = `Doable for now. Watch for rising hunger or falling satisfaction over the next 2 weeks.`;
+  } else if (sustainabilityScore >= 35) {
+    band = 'strained';
+    color = 'amber';
+    message = `Tension is building. Hunger or cravings are climbing relative to satisfaction. The rebound risk is real.`;
+  } else if (sustainabilityScore >= 20) {
+    band = 'high rebound risk';
+    color = 'red';
+    message = `This pattern often precedes a rebound. Hunger is winning. Consider easing the deficit — sustainability > speed.`;
+  } else {
+    band = 'unsustainable';
+    color = 'red';
+    message = `Hunger and cravings are dominating. A rebound is likely within days unless something changes. Slower loss now beats restart later.`;
+  }
+
+  return {
+    ready: true,
+    sustainabilityScore,
+    reboundRisk,
+    reboundIndex: parseFloat(reboundIndex.toFixed(2)),
+    band,
+    color,
+    message,
+    hunger,
+    craving,
+    sat,
+    hungerTrend,
+    satTrend,
+    cravingTrend,
+    warnings,
   };
 }
 
@@ -4720,6 +5142,15 @@ const EATING_REASONS = [
   { value: 'tired', emoji: '😴', label: 'Tired' },
 ];
 
+// Hunger 1-5 scale (Likert) — captured at every meal log
+const HUNGER_LEVELS = [
+  { value: 1, label: 'Full', sub: 'not hungry' },
+  { value: 2, label: 'Mild', sub: 'could eat' },
+  { value: 3, label: 'Moderate', sub: 'hungry' },
+  { value: 4, label: 'Strong', sub: 'very hungry' },
+  { value: 5, label: 'Extreme', sub: 'ravenous' },
+];
+
 function getMoodPatterns() {
   // Group entries by mood, calculate avg calories
   const groups = {};
@@ -5569,6 +6000,15 @@ function shiftDate(delta) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
+// When the user is viewing a previous day and adds an entry, the entry should
+// land on that day. If they're on today, the current time is used.
+function getEntryTimestamp() {
+  if (state.selectedDate === todayISO()) return Date.now();
+  // Past date: anchor entry to noon of that date so the local-day calculation is unambiguous
+  const d = new Date(state.selectedDate + 'T12:00:00');
+  return d.getTime();
+}
+
 // ============================================================
 // Speech recognition
 // ============================================================
@@ -5645,7 +6085,7 @@ function processFood(text) {
     set({
       pending: {
         id: Date.now().toString(),
-        timestamp: Date.now(),
+        timestamp: getEntryTimestamp(),
         spoken: text,
         name: food.display,
         multiplier: initialMult,
@@ -5688,7 +6128,7 @@ function processFood(text) {
   set({
     showMultiConfirm: {
       id: Date.now().toString(),
-      timestamp: Date.now(),
+      timestamp: getEntryTimestamp(),
       spoken: text,
       items,
       unmatched,
@@ -5722,6 +6162,10 @@ function multiConfirmSetEatingReason(reason) {
   if (!state.showMultiConfirm) return;
   set({ showMultiConfirm: { ...state.showMultiConfirm, eatingReason: reason } });
 }
+function multiConfirmSetHunger(level) {
+  if (!state.showMultiConfirm) return;
+  set({ showMultiConfirm: { ...state.showMultiConfirm, hungerAtMeal: level } });
+}
 
 function multiConfirmCancel() { set({ showMultiConfirm: null }); }
 
@@ -5746,6 +6190,7 @@ function multiConfirmSave() {
     };
     if (mc.mood) entry.mood = mc.mood;
     if (mc.eatingReason) entry.eatingReason = mc.eatingReason;
+    if (mc.hungerAtMeal) entry.hungerAtMeal = mc.hungerAtMeal;
     newEntries.unshift(entry);
     saved++;
   });
@@ -5779,6 +6224,7 @@ function confirmEntry() {
   if (p.unmatched && p.unmatched.length) entry.unmatched = p.unmatched;
   if (p.mood) entry.mood = p.mood;
   if (p.eatingReason) entry.eatingReason = p.eatingReason;
+  if (p.hungerAtMeal) entry.hungerAtMeal = p.hungerAtMeal;
   if (p.anticipatedSatisfaction) entry.anticipatedSatisfaction = p.anticipatedSatisfaction;
 
   // Detect comeback: was paused or had a 2+ day gap
@@ -5802,6 +6248,10 @@ function setPendingMood(mood) {
 function setPendingEatingReason(reason) {
   if (!state.pending) return;
   set({ pending: { ...state.pending, eatingReason: reason } });
+}
+function setPendingHunger(level) {
+  if (!state.pending) return;
+  set({ pending: { ...state.pending, hungerAtMeal: level } });
 }
 function setPendingAnticipated(score) {
   if (!state.pending) return;
@@ -5847,7 +6297,7 @@ function saveManual() {
   if (cal <= 0) { set({ error: 'Please enter calories.' }); return; }
   const entry = {
     id: Date.now().toString(),
-    timestamp: Date.now(),
+    timestamp: getEntryTimestamp(),
     spoken: name,
     name,
     calories: Math.round(cal),
@@ -5859,6 +6309,7 @@ function saveManual() {
   };
   if (d.mood) entry.mood = d.mood;
   if (d.eatingReason) entry.eatingReason = d.eatingReason;
+  if (d.hungerAtMeal) entry.hungerAtMeal = d.hungerAtMeal;
   if (d.anticipatedSatisfaction) entry.anticipatedSatisfaction = d.anticipatedSatisfaction;
   const newEntries = [entry, ...state.entries];
   saveEntries(newEntries);
@@ -5872,6 +6323,10 @@ function setManualMood(mood) {
 function setManualEatingReason(reason) {
   if (!state.manualDraft) return;
   set({ manualDraft: { ...state.manualDraft, eatingReason: reason } });
+}
+function setManualHunger(level) {
+  if (!state.manualDraft) return;
+  set({ manualDraft: { ...state.manualDraft, hungerAtMeal: level } });
 }
 function setManualAnticipated(score) {
   if (!state.manualDraft) return;
@@ -5902,7 +6357,7 @@ function saveActivity() {
   if (cal <= 0) { set({ error: 'Could not estimate calories.' }); return; }
   const entry = {
     id: Date.now().toString(),
-    timestamp: Date.now(),
+    timestamp: getEntryTimestamp(),
     type: 'activity',
     name: d.activity,
     activity: d.activity,
@@ -6008,7 +6463,12 @@ function renderTotals() {
 }
 
 function renderInput() {
-  if (state.selectedDate !== todayISO()) return '';
+  const isToday = state.selectedDate === todayISO();
+  const pastDayBanner = !isToday ? `
+    <div style="background:#fff8ec; border:1px solid #e8d8a8; border-radius:12px; padding:10px 14px; margin-bottom:10px; font-size:12px; color:#a85528; font-family:'Fraunces',serif; line-height:1.4">
+      <strong>Adding to ${formatDateLabel(state.selectedDate)}.</strong> The next meal you log will go to that day, not today.
+    </div>
+  ` : '';
 
   if (state.pending) {
     const p = state.pending;
@@ -6017,10 +6477,11 @@ function renderInput() {
     const overhyped = satSig?.overhyped?.find(o => o.name === p.name);
     return `
       <div class="input-section">
+        ${pastDayBanner}
         <div class="pending">
           <div class="pending-label">${p.isSingle && p.food && p.food.source === 'USDA' ? 'USDA verified' : p.isSingle && p.food && p.food.source === 'custom' ? 'your custom food' : 'estimated'}</div>
           <div class="pending-name">${escapeHtml(p.name)}</div>
-          ${p.isSingle && p.food && p.food.sourceNotes ? `<div style="font-size:10px; color:#a0a08e; margin-top:2px; font-style:italic; font-family:'Fraunces',serif">${escapeHtml(p.food.sourceNotes)}</div>` : ''}
+          ${p.isSingle && p.food && p.food.sourceNotes ? `<div style="font-size:11px; color:#8a8975; margin-top:4px; font-style:italic; font-family:'Fraunces',serif">${escapeHtml(p.food.sourceNotes)}</div>` : ''}
           ${overhyped ? `
             <div class="overhype-warning">
               <div class="lbl">⚠ your data on this food</div>
@@ -6063,6 +6524,10 @@ function renderInput() {
           <div class="reason-grid">
             ${EATING_REASONS.map(r => `<button class="reason-chip ${p.eatingReason === r.value ? 'active' : ''}" onclick="setPendingEatingReason('${r.value}')"><span class="emoji">${r.emoji}</span><span>${r.label}</span></button>`).join('')}
           </div>
+          <div class="pending-section-label">how hungry right now?</div>
+          <div class="hunger-row">
+            ${HUNGER_LEVELS.map(h => `<button class="hunger-chip ${p.hungerAtMeal === h.value ? 'active' : ''}" onclick="setPendingHunger(${h.value})"><span class="num">${h.value}</span><span class="lbl">${h.label}</span></button>`).join('')}
+          </div>
           <div class="pending-section-label">how are you feeling?</div>
           <div class="mood-row">
             ${MOODS.map(m => `<button class="mood-btn ${p.mood === m.value ? 'active' : ''}" onclick="setPendingMood('${m.value}')"><span class="emoji">${m.emoji}</span><span>${m.label}</span></button>`).join('')}
@@ -6085,6 +6550,7 @@ function renderInput() {
     const d = state.manualDraft || { name: '', cal: '', c: '', p: '', f: '' };
     return `
       <div class="input-section">
+        ${pastDayBanner}
         <div class="text-card">
           <div class="text-card-head">
             <div class="lbl">add manually</div>
@@ -6102,6 +6568,10 @@ function renderInput() {
           <div class="pending-section-label" style="margin-top:0">why are you eating?</div>
           <div class="reason-grid">
             ${EATING_REASONS.map(r => `<button class="reason-chip ${d.eatingReason === r.value ? 'active' : ''}" onclick="setManualEatingReason('${r.value}')"><span class="emoji">${r.emoji}</span><span>${r.label}</span></button>`).join('')}
+          </div>
+          <div class="pending-section-label">how hungry right now?</div>
+          <div class="hunger-row">
+            ${HUNGER_LEVELS.map(h => `<button class="hunger-chip ${d.hungerAtMeal === h.value ? 'active' : ''}" onclick="setManualHunger(${h.value})"><span class="num">${h.value}</span><span class="lbl">${h.label}</span></button>`).join('')}
           </div>
           <div class="pending-section-label">how are you feeling?</div>
           <div class="mood-row">
@@ -6124,6 +6594,7 @@ function renderInput() {
     const estCal = computeActivityCalories(d.activity, d.duration, d.intensity, state.userWeight);
     return `
       <div class="input-section">
+        ${pastDayBanner}
         <div class="text-card">
           <div class="text-card-head">
             <div class="lbl">log exercise</div>
@@ -6163,6 +6634,7 @@ function renderInput() {
   if (state.mode === 'text') {
     return `
       <div class="input-section">
+        ${pastDayBanner}
         <div class="text-card">
           <div class="text-card-head">
             <div class="lbl">type your food</div>
@@ -6184,6 +6656,7 @@ function renderInput() {
 
   return `
     <div class="input-section">
+      ${pastDayBanner}
       <div class="mic-wrap">
         <button class="mic-btn ${state.isListening ? 'listening' : ''}" onclick="${state.isListening ? 'stopListening()' : 'startListening()'}" ${!state.supported ? 'disabled' : ''}>
           ${state.isListening ? '<span class="ping"></span>' : ''}
@@ -6798,10 +7271,26 @@ function dismissDangerBanner() {
 function renderPlateScoreCard() {
   const ps = getPlateScore();
   if (!ps.ready) {
+    // Collecting baseline state — honest about what's missing
     return `
       <div class="plate-score-card empty">
         <div class="ps-label">your Plate Score</div>
-        <div class="ps-empty">${escapeHtml(ps.message)}</div>
+        <div class="ps-baseline-state">
+          <div class="ps-baseline-title">Collecting baseline</div>
+          <div class="ps-baseline-msg">${escapeHtml(ps.message || 'Need more data')}</div>
+          ${ps.components && ps.components.length > 0 ? `
+            <div class="ps-baseline-section">
+              <div class="ps-baseline-section-lbl">Have data for:</div>
+              ${ps.components.map(c => `<div class="ps-baseline-have"><span class="dot">●</span> ${escapeHtml(c.name)} — <span class="src">${escapeHtml(c.source || 'computed')}</span></div>`).join('')}
+            </div>
+          ` : ''}
+          ${ps.missing && ps.missing.length > 0 ? `
+            <div class="ps-baseline-section">
+              <div class="ps-baseline-section-lbl">Still need:</div>
+              ${ps.missing.map(m => `<div class="ps-baseline-need"><span class="dot">○</span> ${escapeHtml(m.name)} — <span class="src">${escapeHtml(m.need)}</span></div>`).join('')}
+            </div>
+          ` : ''}
+        </div>
       </div>
     `;
   }
@@ -6829,13 +7318,22 @@ function renderPlateScoreCard() {
       <div class="ps-components">
         ${ps.components.map(c => `
           <div class="ps-component">
+            <div class="ps-c-row">
+              <div class="ps-c-name">${escapeHtml(c.name)}</div>
+              <div class="ps-c-raw">${escapeHtml(c.raw)}</div>
+              <div class="ps-c-score">${c.score}</div>
+            </div>
             <div class="ps-c-bar"><div class="ps-c-fill" style="width:${c.score}%"></div></div>
-            <div class="ps-c-name">${escapeHtml(c.name)}</div>
-            <div class="ps-c-raw">${escapeHtml(c.raw)}</div>
-            <div class="ps-c-score">${c.score}</div>
+            ${c.source ? `<div class="ps-c-source">${escapeHtml(c.source)}</div>` : ''}
           </div>
         `).join('')}
       </div>
+      ${ps.missing && ps.missing.length > 0 ? `
+        <div class="ps-missing-section">
+          <div class="ps-missing-lbl">Not yet measured (will improve accuracy):</div>
+          ${ps.missing.map(m => `<div class="ps-missing-item">○ ${escapeHtml(m.name)} — ${escapeHtml(m.need)}</div>`).join('')}
+        </div>
+      ` : ''}
       <div class="ps-footer">A composite of behaviours you can control. Higher = more skill, not lower weight.</div>
     </div>
   `;
@@ -6843,6 +7341,210 @@ function renderPlateScoreCard() {
 
 // --- SEI CARD ---
 // --- BEHAVIOURAL ENTROPY CARD (experimental) ---
+// --- SUSTAINABILITY / REBOUND RISK CARD ---
+// The flagship metric for the hunger-rebound thesis.
+function renderSustainabilityCard() {
+  const s = getSustainabilityScore();
+  if (!s.ready) {
+    // Count what we have toward sustainability
+    const hungerMeals = state.entries.filter(e => e.type !== 'activity' && e.hungerAtMeal != null).length;
+    const checkins = (state.dailyCheckins || []).length;
+    const ratedMeals = state.entries.filter(e => e.actualSatisfaction != null).length;
+    return `
+      <div class="sustain-card empty">
+        <div class="sustain-label">
+          <span class="sustain-tag">FLAGSHIP</span>
+          Sustainability
+        </div>
+        <div class="ps-baseline-state">
+          <div class="ps-baseline-title">Collecting baseline</div>
+          <div class="ps-baseline-msg">${escapeHtml(s.message)}</div>
+          <div class="ps-baseline-section">
+            <div class="ps-baseline-section-lbl">Have:</div>
+            <div class="ps-baseline-have"><span class="dot">${hungerMeals >= 3 ? '●' : '○'}</span> Hunger at meal ratings — <span class="src">${hungerMeals} log${hungerMeals===1?'':'s'} (need 3+)</span></div>
+            <div class="ps-baseline-have"><span class="dot">${checkins >= 3 ? '●' : '○'}</span> Daily check-ins — <span class="src">${checkins} (need 3+ for cravings/sleep)</span></div>
+            <div class="ps-baseline-have"><span class="dot">${ratedMeals >= 3 ? '●' : '○'}</span> Meal satisfaction ratings — <span class="src">${ratedMeals} (need 3+)</span></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  const arrowFor = (t) => {
+    if (!t) return '';
+    if (t.pctChange >= 15) return `<span class="trend-arrow up">↑</span>`;
+    if (t.pctChange <= -15) return `<span class="trend-arrow down">↓</span>`;
+    return `<span class="trend-arrow flat">→</span>`;
+  };
+  const pctFor = (t) => {
+    if (!t) return '';
+    if (Math.abs(t.pctChange) < 3) return 'stable';
+    return `${t.pctChange > 0 ? '+' : ''}${t.pctChange}%`;
+  };
+  return `
+    <div class="sustain-card ${s.color}">
+      <div class="sustain-label">
+        <span class="sustain-tag">FLAGSHIP</span>
+        Sustainability
+      </div>
+      <div class="sustain-top">
+        <div class="sustain-score-wrap">
+          <div class="sustain-score">${s.sustainabilityScore}</div>
+          <div class="sustain-score-max">/ 100</div>
+        </div>
+        <div class="sustain-band-wrap">
+          <div class="sustain-band">${escapeHtml(s.band)}</div>
+          <div class="sustain-rebound">rebound risk: ${s.reboundRisk}%</div>
+        </div>
+      </div>
+      <div class="sustain-message">${escapeHtml(s.message)}</div>
+      <div class="sustain-metrics">
+        <div class="sustain-metric">
+          <div class="sm-name">hunger</div>
+          <div class="sm-val">${s.hunger.avg}<span class="sm-unit">/5</span></div>
+          <div class="sm-trend">${arrowFor(s.hungerTrend)} ${pctFor(s.hungerTrend)}</div>
+          <div class="sm-source">from ${s.hunger.sample} sample${s.hunger.sample===1?'':'s'}</div>
+        </div>
+        <div class="sustain-metric">
+          <div class="sm-name">cravings</div>
+          <div class="sm-val">${s.craving ? s.craving.avg : '—'}${s.craving ? '<span class="sm-unit">/5</span>' : ''}</div>
+          <div class="sm-trend">${arrowFor(s.cravingTrend)} ${pctFor(s.cravingTrend)}</div>
+          <div class="sm-source">${s.craving ? `from ${s.craving.sample} check-in${s.craving.sample===1?'':'s'}` : 'no data yet'}</div>
+        </div>
+        <div class="sustain-metric">
+          <div class="sm-name">satisfaction</div>
+          <div class="sm-val">${s.sat ? s.sat.avg : '—'}${s.sat ? '<span class="sm-unit">/5</span>' : ''}</div>
+          <div class="sm-trend">${arrowFor(s.satTrend)} ${pctFor(s.satTrend)}</div>
+          <div class="sm-source">${s.sat ? `from ${s.sat.sample} rated meal${s.sat.sample===1?'':'s'}` : 'no data yet'}</div>
+        </div>
+      </div>
+      ${s.warnings.length > 0 ? `
+        <div class="sustain-warnings">
+          <div class="sw-header">⚠ Warning signs</div>
+          ${s.warnings.map(w => `<div class="sw-item ${w.severity}">${escapeHtml(w.text)}</div>`).join('')}
+        </div>
+      ` : ''}
+      <div class="sustain-footer">
+        Detects when restriction is becoming unsustainable before the rebound happens. Based on the principle that hunger trend, not calorie count, predicts whether a diet lasts. Rebound index: ${s.reboundIndex} (hunger + cravings) / (satisfaction + 1).
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// HUNGER CARD on Today — surfaces the hunger intensity signal
+// (separate from Plate Score's "hunger-driven eating" which is a different question)
+// ============================================================
+function renderHungerCard() {
+  // Today's hunger samples: from meal-time logs + today's daily check-in
+  const todayStr = todayISO();
+  const todayMeals = state.entries.filter(e =>
+    e.type !== 'activity' &&
+    e.hungerAtMeal != null &&
+    entryDate(e.timestamp) === todayStr
+  );
+  const todayCheckin = (state.dailyCheckins || []).find(c => c.date === todayStr);
+  const todayCheckinHunger = todayCheckin && todayCheckin.hunger != null ? todayCheckin.hunger : null;
+  // 7-day window
+  const stats7 = getHungerStats(7);
+  const trend = getMetricTrend(getHungerStats);
+  // Need at least SOMETHING to render
+  if (todayMeals.length === 0 && todayCheckinHunger == null && !stats7) {
+    return `
+      <div class="hunger-card empty">
+        <div class="hc-label">Hunger today</div>
+        <div class="hc-empty">Log hunger at meals (and in daily check-in) to start seeing your pattern.</div>
+      </div>
+    `;
+  }
+  // Today's average
+  let todayAvg = null;
+  const todaySamples = [...todayMeals.map(m => m.hungerAtMeal)];
+  if (todayCheckinHunger != null) todaySamples.push(todayCheckinHunger);
+  if (todaySamples.length > 0) todayAvg = todaySamples.reduce((a,b) => a+b, 0) / todaySamples.length;
+
+  // Peak (today)
+  const todayPeak = todaySamples.length > 0 ? Math.max(...todaySamples) : null;
+
+  // Evening hunger today (samples ≥17h)
+  const eveningSamples = todayMeals
+    .filter(m => new Date(m.timestamp).getHours() >= 17)
+    .map(m => m.hungerAtMeal);
+  const eveningAvg = eveningSamples.length > 0
+    ? eveningSamples.reduce((a,b)=>a+b,0) / eveningSamples.length
+    : null;
+
+  // Trend label
+  const trendStr = trend && Math.abs(trend.pctChange) >= 5
+    ? (trend.pctChange > 0 ? `↑ +${trend.pctChange}%` : `↓ ${trend.pctChange}%`)
+    : (trend ? 'stable' : 'need more data');
+  const trendClass = trend && trend.pctChange >= 15 ? 'rising' : trend && trend.pctChange <= -15 ? 'falling' : 'stable';
+
+  // Risk-color based on today's avg
+  let stateClass = 'ok';
+  if (todayAvg != null && todayAvg >= 4) stateClass = 'high';
+  else if (todayAvg != null && todayAvg >= 3) stateClass = 'moderate';
+
+  return `
+    <div class="hunger-card ${stateClass}">
+      <div class="hc-label">Hunger today</div>
+      <div class="hc-grid">
+        <div class="hc-stat">
+          <div class="hc-stat-lbl">today avg</div>
+          <div class="hc-stat-val">${todayAvg != null ? todayAvg.toFixed(1) : '—'}<span class="hc-unit">/5</span></div>
+          <div class="hc-stat-sub">${todaySamples.length} sample${todaySamples.length === 1 ? '' : 's'}</div>
+        </div>
+        <div class="hc-stat">
+          <div class="hc-stat-lbl">peak</div>
+          <div class="hc-stat-val">${todayPeak != null ? todayPeak : '—'}${todayPeak != null ? '<span class="hc-unit">/5</span>' : ''}</div>
+          <div class="hc-stat-sub">today's highest</div>
+        </div>
+        <div class="hc-stat">
+          <div class="hc-stat-lbl">7-day trend</div>
+          <div class="hc-stat-val hc-trend ${trendClass}">${trendStr}</div>
+          <div class="hc-stat-sub">${stats7 ? `avg ${stats7.avg}/5` : '—'}</div>
+        </div>
+      </div>
+      ${eveningAvg != null && eveningAvg >= 4 ? `
+        <div class="hc-warning">
+          ⚠ Evening hunger averaging <strong>${eveningAvg.toFixed(1)}/5</strong> today. This is the late-eating danger zone.
+        </div>
+      ` : ''}
+      <div class="hc-footer">Hunger intensity at meals + daily check-in. Rising hunger over weeks predicts rebound risk.</div>
+    </div>
+  `;
+}
+
+function renderSustainabilityBanner() {
+  const s = getSustainabilityScore();
+  if (!s.ready) return '';
+  // Only surface when score is genuinely concerning AND there's actionable trend signal
+  if (s.sustainabilityScore >= 40) return '';
+  const risingHunger = s.hungerTrend && s.hungerTrend.pctChange >= 15;
+  const fallingSat = s.satTrend && s.satTrend.pctChange <= -15;
+  if (!risingHunger && !fallingSat && s.warnings.length === 0) return '';
+  // Build the headline
+  let headline = '';
+  if (risingHunger && fallingSat) {
+    headline = `Hunger up ${s.hungerTrend.pctChange}% · satisfaction down ${Math.abs(s.satTrend.pctChange)}%.`;
+  } else if (risingHunger) {
+    headline = `Hunger has risen ${s.hungerTrend.pctChange}% in 7 days.`;
+  } else if (fallingSat) {
+    headline = `Satisfaction has fallen ${Math.abs(s.satTrend.pctChange)}% recently.`;
+  } else if (s.warnings.length > 0) {
+    headline = s.warnings[0].text;
+  }
+  return `
+    <div class="sustain-banner" onclick="set({activeTab:'trends'}); render();">
+      <div class="sb-icon">⚠</div>
+      <div class="sb-content">
+        <div class="sb-title">Rebound risk rising · ${s.reboundRisk}%</div>
+        <div class="sb-text">${escapeHtml(headline)} This pattern often precedes rebound. Consider easing the deficit.</div>
+      </div>
+      <div class="sb-arrow">›</div>
+    </div>
+  `;
+}
+
 function renderEntropyCard() {
   const e = getBehaviouralEntropy(14);
   if (!e) return '';
@@ -7003,6 +7705,7 @@ function renderTrendsTab() {
     <div class="screen-title">Trends</div>
     <div class="screen-sub">What your data is showing you</div>
 
+    ${renderSustainabilityCard()}
     ${renderPlateScoreCard()}
     ${renderEntropyCard()}
     ${renderForecastCard()}
@@ -7434,8 +8137,14 @@ function renderYouTab() {
       <div class="section-label">settings</div>
       <button class="secondary-btn" style="width:100%; flex:none; margin-bottom: 8px" onclick="exportCSV()">${icons.download}<span>Export as CSV</span></button>
       <button class="secondary-btn" style="width:100%; flex:none; margin-bottom: 8px" onclick="exportResearchData()">${icons.download}<span>Research export (multi-table)</span></button>
-      <div style="font-size:10px; color:#a0a08e; line-height:1.4; margin-bottom: 10px; font-style: italic">Research export contains 4 linked tables (meals, urges, daily, events) plus a README. For analysis in R or Python.</div>
+      <div style="font-size:11px; color:#6b6a5c; line-height:1.5; margin-bottom: 10px; font-style: italic">Research export contains 4 linked tables (meals, urges, daily, events) plus a README. For analysis in R or Python.</div>
       <button class="secondary-btn" style="width:100%; flex:none" onclick="set({showSettings:true})">All settings</button>
+    </div>
+
+    <div class="profile-card" style="border: 1px solid #f0d8c0; background: #fff8ec">
+      <div class="section-label" style="color:#a85528">danger zone</div>
+      <div style="font-size:12px; color:#6b6a5c; line-height:1.5; margin-bottom: 10px">Clear all logged meals, urges, check-ins, measurements, badges, and history. Profile settings are kept. This cannot be undone.</div>
+      <button class="secondary-btn" style="width:100%; flex:none; color:#c4683a; border-color:#e8c8a8" onclick="confirmResetAllData()">Reset all data</button>
     </div>
 
     <div style="text-align:center; font-size:11px; color:#a0a08e; margin-top:24px; line-height:1.5">
@@ -7476,12 +8185,14 @@ function renderPlateScoreChip() {
 function renderTodayTab() {
   return `
     ${renderDateBar()}
+    ${renderSustainabilityBanner()}
     ${renderDailyCheckinPrompt()}
     ${renderDangerBanner()}
     ${renderPauseBanner()}
     ${renderSlipRecovery()}
     ${renderRiskBanner()}
     ${renderTotals()}
+    ${renderHungerCard()}
     ${renderPlateScoreChip()}
     ${renderFutureYouCard()}
     ${renderUrgeButton()}
@@ -7505,7 +8216,7 @@ function renderUrgeButton() {
         <div class="title">Urge moment</div>
         <div class="sub">Strong craving? Tap before you eat.</div>
       </div>
-      ${stats ? `<div class="stat">${stats.successRate}%<br><span style="font-size:9px; opacity:0.8; text-transform:uppercase; letter-spacing:0.1em">beaten</span></div>` : ''}
+      ${stats ? `<div class="stat">${stats.successRate}%<br><span style="font-size:10px; opacity:0.8; text-transform:uppercase; letter-spacing:0.1em">beaten</span></div>` : ''}
     </button>
   `;
 }
@@ -7545,6 +8256,10 @@ function renderMultiConfirm() {
       <div class="reason-grid">
         ${EATING_REASONS.map(r => `<button class="reason-chip ${mc.eatingReason === r.value ? 'active' : ''}" onclick="multiConfirmSetEatingReason('${r.value}')"><span class="emoji">${r.emoji}</span><span>${r.label}</span></button>`).join('')}
       </div>
+      <div class="pending-section-label">how hungry right now?</div>
+      <div class="hunger-row">
+        ${HUNGER_LEVELS.map(h => `<button class="hunger-chip ${mc.hungerAtMeal === h.value ? 'active' : ''}" onclick="multiConfirmSetHunger(${h.value})"><span class="num">${h.value}</span><span class="lbl">${h.label}</span></button>`).join('')}
+      </div>
       <div class="pending-section-label">how are you feeling?</div>
       <div class="mood-row">
         ${MOODS.map(m => `<button class="mood-btn ${mc.mood === m.value ? 'active' : ''}" onclick="multiConfirmSetMood('${m.value}')"><span class="emoji">${m.emoji}</span><span>${m.label}</span></button>`).join('')}
@@ -7571,7 +8286,7 @@ function renderCustomFoodsModal() {
             <div class="modal-section-title">${draft.id ? 'edit' : 'add new'}</div>
             <input class="form-input" placeholder="Name (e.g. Tesco granola)" value="${escapeHtml(draft.display)}" oninput="state.customFoodDraft.display = this.value" style="margin-bottom:6px">
             <input class="form-input" placeholder="Other names (e.g. tesco muesli, granola)" value="${escapeHtml(draft.aliases)}" oninput="state.customFoodDraft.aliases = this.value" style="margin-bottom:6px; font-size:13px">
-            <div style="font-size:10px; color:#a0a08e; margin-bottom:10px; padding-left:4px">Comma-separated. These help voice match it.</div>
+            <div style="font-size:11px; color:#8a8975; margin-bottom:10px; padding-left:4px">Comma-separated. These help voice match it.</div>
             <input class="form-input" placeholder="Unit (e.g. 50g serving, 1 bowl)" value="${escapeHtml(draft.unit)}" oninput="state.customFoodDraft.unit = this.value" style="margin-bottom:6px">
             ${renderStepper({ label: 'calories (per serving)', value: parseFloat(draft.cal) || 100, min: 0, max: 2000, step: 5, bigStep: 50, unit: 'kcal', onChange: "state.customFoodDraft.cal = VALUE; render()" })}
             ${renderStepper({ label: 'carbs', value: parseFloat(draft.c) || 0, min: 0, max: 200, step: 1, bigStep: 5, unit: 'g', onChange: "state.customFoodDraft.c = VALUE; render()" })}
@@ -8280,9 +8995,9 @@ function renderUrgeModal() {
 
       ${d.pulseBefore || d.pulseAfter ? `
         <div style="display:flex; gap:10px; margin:14px 0">
-          ${d.pulseBefore ? `<div style="flex:1; background:#f6f1e7; border-radius:14px; padding:12px 10px; text-align:center"><div style="font-size:10px; color:#8a8975; text-transform:uppercase; letter-spacing:0.12em">before</div><div style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; line-height:1; margin-top:4px">${d.pulseBefore}</div><div style="font-size:9px; color:#a0a08e">bpm</div></div>` : ''}
-          ${d.pulseAfter ? `<div style="flex:1; background:#f6f1e7; border-radius:14px; padding:12px 10px; text-align:center"><div style="font-size:10px; color:#8a8975; text-transform:uppercase; letter-spacing:0.12em">after</div><div style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; line-height:1; margin-top:4px; color:${pulseDrop > 3 ? '#5a7a3a' : pulseDrop < -3 ? '#c4683a' : '#2d3a2e'}">${d.pulseAfter}</div><div style="font-size:9px; color:#a0a08e">bpm</div></div>` : ''}
-          ${pulseDrop != null ? `<div style="flex:1; background:${pulseDrop > 3 ? '#e8f0d8' : pulseDrop < -3 ? '#fff8ec' : '#f6f1e7'}; border-radius:14px; padding:12px 10px; text-align:center"><div style="font-size:10px; color:#8a8975; text-transform:uppercase; letter-spacing:0.12em">change</div><div style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; line-height:1; margin-top:4px; color:${pulseDrop > 0 ? '#5a7a3a' : pulseDrop < 0 ? '#c4683a' : '#2d3a2e'}">${pulseDrop > 0 ? '−' : pulseDrop < 0 ? '+' : ''}${Math.abs(pulseDrop)}</div><div style="font-size:9px; color:#a0a08e">bpm</div></div>` : ''}
+          ${d.pulseBefore ? `<div style="flex:1; background:#f6f1e7; border-radius:14px; padding:12px 10px; text-align:center"><div style="font-size:10px; color:#8a8975; text-transform:uppercase; letter-spacing:0.12em">before</div><div style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; line-height:1; margin-top:4px">${d.pulseBefore}</div><div style="font-size:10px; color:#a0a08e">bpm</div></div>` : ''}
+          ${d.pulseAfter ? `<div style="flex:1; background:#f6f1e7; border-radius:14px; padding:12px 10px; text-align:center"><div style="font-size:10px; color:#8a8975; text-transform:uppercase; letter-spacing:0.12em">after</div><div style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; line-height:1; margin-top:4px; color:${pulseDrop > 3 ? '#5a7a3a' : pulseDrop < -3 ? '#c4683a' : '#2d3a2e'}">${d.pulseAfter}</div><div style="font-size:10px; color:#a0a08e">bpm</div></div>` : ''}
+          ${pulseDrop != null ? `<div style="flex:1; background:${pulseDrop > 3 ? '#e8f0d8' : pulseDrop < -3 ? '#fff8ec' : '#f6f1e7'}; border-radius:14px; padding:12px 10px; text-align:center"><div style="font-size:10px; color:#8a8975; text-transform:uppercase; letter-spacing:0.12em">change</div><div style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; line-height:1; margin-top:4px; color:${pulseDrop > 0 ? '#5a7a3a' : pulseDrop < 0 ? '#c4683a' : '#2d3a2e'}">${pulseDrop > 0 ? '−' : pulseDrop < 0 ? '+' : ''}${Math.abs(pulseDrop)}</div><div style="font-size:10px; color:#a0a08e">bpm</div></div>` : ''}
         </div>
       ` : ''}
 
@@ -8397,7 +9112,6 @@ function renderDateBar() {
 }
 
 function renderRecents() {
-  if (state.selectedDate !== todayISO()) return '';
   if (state.pending || state.mode !== 'voice') return '';
   // Sunday/Monday gentle wellbeing nudge
   const now = new Date();
