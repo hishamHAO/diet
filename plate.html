@@ -1324,6 +1324,35 @@
   .hlr-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #1E2E2A; }
   .hlr-meta { font-size: 16px; color: #8a8975; margin-top: 2px; }
   .hlr-drop { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: #5a7a3a; }
+
+  /* ============== HUNGER LAB · pick-food step ============== */
+  .hlab-food-search { margin-bottom: 14px; }
+  .hlab-food-input { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1.5px solid #E5E0D2; background: #F4F2EC; font-family: 'Fraunces', serif; font-size: 16px; color: #1E2E2A; box-sizing: border-box; outline: none; transition: border-color 0.15s; }
+  .hlab-food-input:focus { border-color: #2C5F5D; background: white; }
+  .hlab-food-match { display: flex; align-items: center; gap: 10px; background: #F0EEE6; border: 1px solid #E5E0D2; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; }
+  .hlab-food-info { flex: 1; }
+  .hlab-food-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #1E2E2A; }
+  .hlab-food-meta { font-size: 13px; color: #6b6a5c; margin-top: 3px; font-style: italic; font-family: 'Fraunces', serif; }
+  .hlab-portion { background: white; border: 1px solid #E5E0D2; border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .hlab-portion-lbl { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: #8a8975; margin-bottom: 12px; font-weight: 500; }
+  .hlab-portion-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 14px; }
+  .hlab-portion-btn { width: 48px; height: 48px; border-radius: 50%; background: #F0EEE6; border: 1.5px solid #E5E0D2; font-size: 22px; color: #1E2E2A; cursor: pointer; font-family: inherit; }
+  .hlab-portion-btn:active { background: #E5E0D2; transform: scale(0.94); }
+  .hlab-portion-val { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 500; color: #1E2E2A; min-width: 60px; text-align: center; line-height: 1; }
+  .hlab-portion-readout { font-size: 14px; color: #2C5F5D; text-align: center; padding: 8px 0 0; line-height: 1.5; }
+  .hlab-portion-readout.over { color: #B85C38; }
+  .hlab-portion-readout strong { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; }
+  .hlab-over-warn { font-size: 13px; color: #B85C38; margin-top: 6px; font-style: italic; font-family: 'Fraunces', serif; }
+  .hlab-ok-note { font-size: 13px; color: #5a7a3a; margin-top: 6px; font-style: italic; font-family: 'Fraunces', serif; }
+  .hlab-eat-rules { background: #F0EEE6; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; }
+  .hlab-eat-rules.waiting { background: rgba(255,255,255,0.55); }
+  .hlab-rule { font-size: 14px; color: #1E2E2A; padding: 4px 0; font-family: 'Fraunces', serif; line-height: 1.5; }
+  .hlab-rule strong { color: #2C5F5D; font-weight: 500; }
+  .hlab-no-match { padding: 14px; background: #F0EEE6; border-radius: 12px; margin-bottom: 10px; }
+  .hlab-no-match-msg { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; margin-bottom: 4px; }
+  .hlab-no-match-sub { font-size: 14px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; }
+  .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
+  .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
   .hlab-ranking-footer strong { color: #5a7a3a; font-weight: 500; }
   /* old baseline state CSS — kept for backward compat in other unchanged spots */
@@ -2502,12 +2531,12 @@ function getCheckinStreak() {
 // No medical/supplement-specific advice. No vagal stimulation framing.
 const HUNGER_INTERVENTIONS = [
   { id: 'water', label: 'Water', emoji: '💧', desc: '500 ml plain water', detail: 'Volume → stomach stretch → fullness signal' },
-  { id: 'protein', label: 'Protein snack', emoji: '🥚', desc: '~20g protein (eggs, yoghurt, jerky)', detail: 'Strongest single nutrient for satiety' },
-  { id: 'fibre', label: 'Fibre + water', emoji: '🌾', desc: 'High-fibre food + 300ml water', detail: 'Viscous fibre slows gastric emptying' },
-  { id: 'soup', label: 'Soup or broth', emoji: '🍜', desc: 'Hot, low-cal, before meal', detail: 'Volume + warmth → distension + slower eating' },
+  { id: 'protein', label: 'Protein snack', emoji: '🥚', desc: '~20g protein (eggs, yoghurt, jerky)', detail: 'Strongest single nutrient for satiety', requiresFood: true, kcalCap: 150, eatMinutes: 15 },
+  { id: 'fibre', label: 'Fibre + water', emoji: '🌾', desc: 'High-fibre food + 300ml water', detail: 'Viscous fibre slows gastric emptying', requiresFood: true, kcalCap: 150, eatMinutes: 15 },
+  { id: 'soup', label: 'Soup or broth', emoji: '🍜', desc: 'Hot, low-cal, before meal', detail: 'Volume + warmth → distension + slower eating', requiresFood: true, kcalCap: 200, eatMinutes: 15 },
   { id: 'walk', label: 'Short walk', emoji: '🚶', desc: '10 min outdoors if possible', detail: 'Distraction + sympathetic shift' },
   { id: 'breathe', label: 'Slow breathing', emoji: '🌬', desc: '4-7-8 breath, 5 min', detail: 'Parasympathetic shift, reduces stress-eating drive' },
-  { id: 'salad', label: 'Salad first', emoji: '🥗', desc: 'Veg/salad before main meal', detail: 'Volume + chewing + slower meal pace' },
+  { id: 'salad', label: 'Salad first', emoji: '🥗', desc: 'Veg/salad before main meal', detail: 'Volume + chewing + slower meal pace', requiresFood: true, kcalCap: 100, eatMinutes: 15 },
   { id: 'delay', label: 'Wait 15 min', emoji: '⏱', desc: 'Just wait, do something else', detail: 'Cravings often peak then fall on their own' },
 ];
 
@@ -2539,7 +2568,103 @@ function startHungerTrial(initialHunger) {
 function selectIntervention(id) {
   if (!state.hungerTrial) return;
   state.hungerTrial.interventionId = id;
-  state.hungerTrial.interventionStartTimestamp = Date.now();
+  const interv = HUNGER_INTERVENTIONS.find(i => i.id === id);
+  if (interv && interv.requiresFood) {
+    // Eat-type: pick the food first
+    state.hungerTrial.foodDraft = { searchQuery: '', matchedFood: null, pieces: null, cal: 0, c: 0, p: 0, f: 0, name: '' };
+    set({ hungerLabStep: 'pick-food' });
+  } else {
+    // Non-eat (water, walk, breathe, delay): straight to timer
+    state.hungerTrial.interventionStartTimestamp = Date.now();
+    set({ hungerLabStep: 'waiting' });
+  }
+}
+
+// User searches for the food they're going to eat during the experiment
+function hungerLabFoodSearch(query) {
+  const t = state.hungerTrial;
+  if (!t) return;
+  const q = (query || '').trim().toLowerCase();
+  if (!q || q.length < 2) {
+    t.foodDraft = { ...t.foodDraft, searchQuery: query, matchedFood: null, pieces: null, name: query, cal: 0 };
+    render();
+    return;
+  }
+  const normalized = normalize(q);
+  // Hunger Lab prefers COUNTABLE foods over scalable-by-serving foods,
+  // because the whole flow is "how many pieces". Collect all candidates first,
+  // then prefer the countable one with the closest key match.
+  const candidates = [];
+  for (const food of FOODS) {
+    for (const k of food.keys) {
+      const nk = normalize(k);
+      if (nk === normalized) candidates.push({ food, score: 100, exact: true });
+      // Either direction: "almond" matches "almonds" query AND "almonds" matches "almond" query
+      else if (nk.startsWith(normalized) || normalized.startsWith(nk)) {
+        candidates.push({ food, score: 50 + Math.max(0, 10 - Math.abs(nk.length - normalized.length)), exact: false });
+      }
+      else if (normalize(food.display).toLowerCase().startsWith(normalized)) candidates.push({ food, score: 30, exact: false });
+    }
+  }
+  for (const cf of (state.customFoods || [])) {
+    if (normalize(cf.display).startsWith(normalized) || (cf.keys || []).some(k => normalize(k).startsWith(normalized))) {
+      candidates.push({ food: cf, score: 40, exact: false });
+    }
+  }
+  // Sort: strongly prefer countable foods (the whole point is "how many pieces")
+  candidates.sort((a, b) => {
+    const aBonus = (a.food.countable ? 100 : 0);
+    const bBonus = (b.food.countable ? 100 : 0);
+    return (b.score + bBonus) - (a.score + aBonus);
+  });
+  const bestMatch = candidates[0] ? candidates[0].food : null;
+  if (bestMatch) {
+    t.foodDraft = {
+      searchQuery: query,
+      matchedFood: bestMatch,
+      name: bestMatch.display,
+      pieces: 1,
+      cal: bestMatch.cal,
+      c: bestMatch.c, p: bestMatch.p, f: bestMatch.f,
+    };
+  } else {
+    t.foodDraft = { ...t.foodDraft, searchQuery: query, matchedFood: null, pieces: null, name: query, cal: 0, c: 0, p: 0, f: 0 };
+  }
+  render();
+}
+
+// Adjust portion / pieces and re-compute calories
+function hungerLabSetPieces(n) {
+  const t = state.hungerTrial;
+  if (!t || !t.foodDraft || !t.foodDraft.matchedFood) return;
+  const food = t.foodDraft.matchedFood;
+  const pieces = Math.max(food.countable ? 1 : 0.25, food.countable ? Math.round(n) : Math.round(n * 4) / 4);
+  t.foodDraft = {
+    ...t.foodDraft,
+    pieces,
+    cal: Math.round(food.cal * pieces),
+    c: Math.round(food.c * pieces * 10) / 10,
+    p: Math.round(food.p * pieces * 10) / 10,
+    f: Math.round(food.f * pieces * 10) / 10,
+  };
+  render();
+}
+
+// User confirms food + portion — start the eat-slowly timer
+function hungerLabConfirmFood(forceOverCap) {
+  const t = state.hungerTrial;
+  if (!t || !t.foodDraft) return;
+  const interv = HUNGER_INTERVENTIONS.find(i => i.id === t.interventionId);
+  const cap = interv && interv.kcalCap ? interv.kcalCap : 150;
+  // Soft cap check
+  if (t.foodDraft.cal > cap && !forceOverCap) {
+    t.foodDraft.overCap = true;
+    render();
+    return;
+  }
+  // Save & start timer
+  t.foodChosen = { ...t.foodDraft };
+  t.interventionStartTimestamp = Date.now();
   set({ hungerLabStep: 'waiting' });
 }
 
@@ -2551,7 +2676,37 @@ function completeHungerTrial(finalHunger, outcome) {
   trial.outcome = outcome;
   trial.elapsedMinutes = Math.round((trial.completedTimestamp - trial.interventionStartTimestamp) / 60000);
   trial.delta = trial.initialHunger - finalHunger;
-  // Save
+  // Auto-log the food entry if user actually ate something during the trial
+  if (trial.foodChosen && trial.foodChosen.cal > 0) {
+    const food = trial.foodChosen;
+    const entry = {
+      id: 'hlab_' + Date.now(),
+      timestamp: trial.interventionStartTimestamp,
+      spoken: food.name,
+      name: food.name,
+      calories: Math.round(food.cal),
+      carbs: Math.round((food.c || 0) * 10) / 10,
+      protein: Math.round((food.p || 0) * 10) / 10,
+      fat: Math.round((food.f || 0) * 10) / 10,
+      breakdown: [],
+      unmatched: [],
+      hungerLabTrialId: trial.id,
+      hungerAtMeal: trial.initialHunger,  // log hunger when they ate
+      eatingReason: 'hunger',
+    };
+    if (food.matchedFood) {
+      entry.foodSource = food.matchedFood.source || 'estimated';
+      if (food.matchedFood.countable && food.pieces) {
+        entry.pieces = food.pieces;
+        entry.unit = food.matchedFood.unit || 'piece';
+      }
+    }
+    const newEntries = [entry, ...state.entries];
+    saveEntries(newEntries);
+    state.entries = newEntries;
+    trial.loggedEntryId = entry.id;
+  }
+  // Save trial
   const list = loadHungerTrials();
   list.push(trial);
   saveHungerTrials(list);
@@ -9402,6 +9557,69 @@ function renderHungerLabCard() {
     `;
   }
 
+  // PICK FOOD — eat-type interventions need a food + portion before the timer starts
+  if (step === 'pick-food') {
+    const interv = HUNGER_INTERVENTIONS.find(i => i.id === trial.interventionId);
+    const fd = trial.foodDraft || {};
+    const cap = interv && interv.kcalCap ? interv.kcalCap : 150;
+    const matched = fd.matchedFood;
+    const overCap = fd.cal > cap;
+    return `
+      <div class="hlab-card">
+        <div class="hlab-label"><span class="hlab-tag">STEP 2 OF 3 · PICK FOOD</span></div>
+        <div class="hlab-step-title">${interv.emoji} ${interv.label}</div>
+        <div class="hlab-step-sub">What will you eat? Type whatever you have. <strong>Cap: ${cap} kcal</strong> — this is a satiety preload, not a meal.</div>
+
+        <div class="hlab-food-search">
+          <input type="text" class="hlab-food-input" placeholder="e.g. almonds, yoghurt, lentil soup" value="${escapeHtml(fd.searchQuery || '')}" oninput="hungerLabFoodSearch(this.value)" autocomplete="off" autofocus />
+        </div>
+
+        ${matched ? `
+          <div class="hlab-food-match">
+            <div class="hlab-food-info">
+              <div class="hlab-food-name">${escapeHtml(matched.display)}</div>
+              <div class="hlab-food-meta">${matched.cal} kcal per ${matched.countable ? (matched.unit || 'piece') : 'serving'} · ${matched.source || 'estimated'}</div>
+            </div>
+          </div>
+          <div class="hlab-portion">
+            <div class="hlab-portion-lbl">${matched.countable ? 'How many pieces' : 'Servings'}</div>
+            <div class="hlab-portion-row">
+              <button class="hlab-portion-btn" onclick="hungerLabSetPieces((state.hungerTrial.foodDraft.pieces || 1) - 1)">−</button>
+              <div class="hlab-portion-val">${fd.pieces || 1}</div>
+              <button class="hlab-portion-btn" onclick="hungerLabSetPieces((state.hungerTrial.foodDraft.pieces || 1) + 1)">+</button>
+            </div>
+            <div class="hlab-portion-readout ${overCap ? 'over' : 'ok'}">
+              <strong>${Math.round(fd.cal)} kcal</strong>
+              · ${fd.p}g protein · ${fd.c}g carbs · ${fd.f}g fat
+              ${overCap ? `<div class="hlab-over-warn">⚠ Over ${cap} kcal — this is meal-sized, not a preload</div>` : `<div class="hlab-ok-note">✓ Within satiety range</div>`}
+            </div>
+          </div>
+          <div class="hlab-eat-rules">
+            <div class="hlab-rule">⏱ Eat over <strong>${interv.eatMinutes || 15} minutes</strong></div>
+            <div class="hlab-rule">🐢 Chew slowly, pause between bites</div>
+            <div class="hlab-rule">💧 Drink 250 ml water with it</div>
+          </div>
+        ` : fd.searchQuery && fd.searchQuery.length >= 2 ? `
+          <div class="hlab-no-match">
+            <div class="hlab-no-match-msg">No match for "${escapeHtml(fd.searchQuery)}".</div>
+            <div class="hlab-no-match-sub">Try a simpler term (e.g. "almond" instead of "salted dry roasted almonds"). Or eat it anyway without tracking calories.</div>
+            <button class="hlab-action-secondary" style="width:100%; margin-top:10px" onclick="hungerLabConfirmFood(true)">Eat without tracking →</button>
+          </div>
+        ` : ''}
+
+        <div class="hlab-action-row" style="margin-top:14px">
+          <button class="hlab-action-secondary" onclick="cancelHungerTrial()">Cancel</button>
+          ${matched
+            ? overCap
+              ? `<button class="hlab-action-primary" onclick="hungerLabConfirmFood(true)">Use anyway →</button>`
+              : `<button class="hlab-action-primary" onclick="hungerLabConfirmFood(false)">Start eating →</button>`
+            : `<button class="hlab-action-primary" disabled style="opacity:0.4">Start eating →</button>`
+          }
+        </div>
+      </div>
+    `;
+  }
+
   // WAITING — countdown to re-rate
   if (step === 'waiting') {
     const interv = HUNGER_INTERVENTIONS.find(i => i.id === trial.interventionId);
@@ -9410,21 +9628,32 @@ function renderHungerLabCard() {
     const elapsedSec = Math.floor((elapsedMs % 60000) / 1000);
     const targetMin = 15;
     const ready = elapsedMin >= targetMin;
+    const food = trial.foodChosen;
     return `
       <div class="hlab-card waiting">
         <div class="hlab-label"><span class="hlab-tag">EXPERIMENT IN PROGRESS</span></div>
         <div class="hlab-waiting-intervention">
           <div class="hwi-emoji">${interv ? interv.emoji : ''}</div>
-          <div class="hwi-label">${interv ? interv.label : ''}</div>
+          <div>
+            <div class="hwi-label">${interv ? interv.label : ''}</div>
+            ${food && food.name ? `<div class="hwi-food">${escapeHtml(food.name)}${food.pieces ? ' × ' + food.pieces : ''}${food.cal ? ' · ' + Math.round(food.cal) + ' kcal' : ''}</div>` : ''}
+          </div>
         </div>
         <div class="hlab-timer">
           <div class="hlab-timer-num">${String(elapsedMin).padStart(2,'0')}:${String(elapsedSec).padStart(2,'0')}</div>
-          <div class="hlab-timer-target">target: 15:00</div>
+          <div class="hlab-timer-target">target: ${targetMin}:00</div>
         </div>
+        ${food && food.cal > 0 ? `
+          <div class="hlab-eat-rules waiting">
+            <div class="hlab-rule">🐢 Eat slowly · pause between bites</div>
+            <div class="hlab-rule">💧 Sip 250 ml water with it</div>
+            <div class="hlab-rule">⏱ Stretch food across the full ${targetMin} min</div>
+          </div>
+        ` : ''}
         <div class="hlab-waiting-msg">
           ${ready
-            ? `<strong>15 minutes done.</strong> How hungry are you now?`
-            : `Do the intervention. We'll measure your hunger again in <strong>${targetMin - elapsedMin} min</strong>.`}
+            ? `<strong>${targetMin} minutes done.</strong> ${food && food.cal > 0 ? 'Finish your water. Then rate.' : 'How hungry are you now?'}`
+            : `${food && food.cal > 0 ? 'Eat slowly. Drink water. Re-rate in' : 'Do the intervention. We\'ll measure hunger again in'} <strong>${targetMin - elapsedMin} min</strong>.`}
         </div>
         ${ready
           ? `<button class="hlab-action-primary" style="width:100%" onclick="set({hungerLabStep: 'rate-final'})">Rate hunger now →</button>`
@@ -9525,6 +9754,7 @@ function renderHungerLabCard() {
           <div>
             <div class="hwi-label">${interv ? interv.label : ''}</div>
             <div class="hls-time">${t.elapsedMinutes} min · ${t.outcome === 'skipped_meal' ? 'skipped eating' : t.outcome === 'ate_less' ? 'ate less' : t.outcome === 'ate_normally' ? 'ate normally' : 'ate more'}</div>
+            ${t.foodChosen && t.foodChosen.cal > 0 ? `<div class="hls-food">Logged: ${escapeHtml(t.foodChosen.name)}${t.foodChosen.pieces ? ' × ' + t.foodChosen.pieces : ''} · ${Math.round(t.foodChosen.cal)} kcal ✓</div>` : ''}
           </div>
         </div>
         <div class="hlab-summary-msg ${resultClass}">${resultMsg}</div>
