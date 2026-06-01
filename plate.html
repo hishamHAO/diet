@@ -1379,6 +1379,80 @@
   .ic-gated-bar { height: 6px; background: white; border-radius: 999px; overflow: hidden; }
   .ic-gated-fill { height: 100%; background: linear-gradient(90deg, #c4a06a, #5a7a3a); }
   .ic-footer { font-size: 13px; color: #8a8975; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
+
+  /* ============== LAYER 1 — COLD-START RISK ============== */
+  .cs-card { background: white; border: 1.5px solid #E5E0D2; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; }
+  .cs-card.cs-low { border-color: #c8dba0; background: linear-gradient(135deg, #f4f8ec 0%, #e8f0d8 100%); }
+  .cs-card.cs-moderate { border-color: #c4a06a; background: linear-gradient(135deg, #fff8ec 0%, #fbeed1 100%); }
+  .cs-card.cs-high { border-color: #B85C38; background: linear-gradient(135deg, #fef0e8 0%, #fbe0d0 100%); }
+  .cs-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .cs-icon { font-size: 28px; line-height: 1; flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; }
+  .cs-card.cs-high .cs-icon { color: #B85C38; }
+  .cs-card.cs-moderate .cs-icon { color: #a85528; }
+  .cs-card.cs-low .cs-icon { color: #5a7a3a; }
+  .cs-title-block { flex: 1; }
+  .cs-eyebrow { font-size: 13px; letter-spacing: 0.15em; color: #8a8975; font-weight: 600; }
+  .cs-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #1E2E2A; line-height: 1.2; margin-top: 2px; }
+  .cs-detail { font-size: 14px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; margin-bottom: 10px; }
+  .cs-factor-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .cs-factor { padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.6); border-left: 3px solid #c4a06a; }
+  .cs-factor.cs-f-high { border-left-color: #B85C38; background: rgba(184,92,56,0.08); }
+  .cs-factor.cs-f-moderate { border-left-color: #c4a06a; background: rgba(196,160,106,0.08); }
+  .cs-factor.cs-f-low { border-left-color: #c8dba0; background: rgba(200,219,160,0.12); }
+  .cs-factor-label { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; }
+  .cs-factor-detail { font-size: 13px; color: #6b6a5c; margin-top: 3px; line-height: 1.4; }
+  .cs-footer { font-size: 13px; color: #8a8975; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.08); }
+
+  /* ============== LAYER 3 — BANDIT RECOMMENDER ============== */
+  .bandit-card { background: white; border: 1.5px solid #2C5F5D; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; }
+  .bandit-card.empty { border-color: #E5E0D2; background: #F4F2EC; border-style: dashed; }
+  .bandit-head { margin-bottom: 14px; }
+  .bandit-eyebrow { font-size: 13px; letter-spacing: 0.15em; color: #2C5F5D; font-weight: 600; }
+  .bandit-card.empty .bandit-eyebrow { color: #8a8975; }
+  .bandit-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #1E2E2A; line-height: 1.2; margin-top: 4px; }
+  .bandit-empty { font-size: 14px; color: #6b6a5c; line-height: 1.5; font-family: 'Fraunces', serif; font-style: italic; margin-bottom: 8px; }
+  .bandit-mech { font-size: 13px; color: #8a8975; line-height: 1.4; font-family: 'Fraunces', serif; font-style: italic; padding-top: 10px; border-top: 1px dashed #E5E0D2; }
+  .bandit-rec-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .bandit-rec { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #F4F2EC; border-radius: 12px; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; }
+  .bandit-rec.top { background: linear-gradient(135deg, #e8f0d8 0%, #d0e8c0 100%); border-color: #5a7a3a; }
+  .bandit-rec:active { transform: scale(0.98); }
+  .br-rank { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; color: #8a8975; min-width: 28px; }
+  .bandit-rec.top .br-rank { color: #5a7a3a; }
+  .br-emoji { font-size: 24px; line-height: 1; flex-shrink: 0; }
+  .br-body { flex: 1; min-width: 0; }
+  .br-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; }
+  .br-meta { font-size: 13px; color: #6b6a5c; margin-top: 2px; }
+  .br-arrow { font-size: 18px; color: #2C5F5D; flex-shrink: 0; }
+  .bandit-footer { font-size: 13px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 10px; border-top: 1px dashed #f0e8d8; }
+
+  /* ============== LAYER 4 — TREND SLOPES ============== */
+  .trends-card { background: white; border: 1.5px solid #E5E0D2; border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; }
+  .trends-card.empty { border-style: dashed; background: #F4F2EC; }
+  .trends-card.high { border-color: #B85C38; background: linear-gradient(135deg, #fef0e8 0%, #fbe0d0 100%); }
+  .trends-card.moderate { border-color: #c4a06a; background: linear-gradient(135deg, #fff8ec 0%, #fbeed1 100%); }
+  .trends-card.low { border-color: #c8dba0; background: linear-gradient(135deg, #f4f8ec 0%, #e8f0d8 100%); }
+  .trends-eyebrow { font-size: 13px; letter-spacing: 0.15em; color: #8a8975; font-weight: 600; }
+  .trends-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #1E2E2A; line-height: 1.2; margin: 4px 0 12px; }
+  .trends-card.high .trends-title { color: #B85C38; }
+  .trends-card.moderate .trends-title { color: #a85528; }
+  .trends-empty { font-size: 14px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; }
+  .trends-metrics { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .tm-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.6); border-radius: 10px; font-size: 14px; }
+  .tm-row.warn { background: rgba(184,92,56,0.1); }
+  .tm-row.good { background: rgba(90,122,58,0.1); }
+  .tm-label { color: #6b6a5c; }
+  .tm-val { font-family: 'Fraunces', serif; font-weight: 500; color: #1E2E2A; }
+  .trends-signals { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .ts-signal { display: flex; gap: 10px; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.6); }
+  .ts-signal.ts-warn { background: rgba(184,92,56,0.1); }
+  .ts-signal.ts-good { background: rgba(90,122,58,0.1); }
+  .ts-bullet { font-size: 13px; line-height: 1.5; flex-shrink: 0; }
+  .ts-signal.ts-warn .ts-bullet { color: #B85C38; }
+  .ts-signal.ts-good .ts-bullet { color: #5a7a3a; }
+  .ts-label { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; color: #1E2E2A; }
+  .ts-detail { font-size: 13px; color: #6b6a5c; margin-top: 2px; line-height: 1.4; }
+  .trends-stable { font-size: 14px; color: #5a7a3a; font-style: italic; font-family: 'Fraunces', serif; padding: 10px 12px; background: rgba(90,122,58,0.08); border-radius: 10px; margin-bottom: 12px; }
+  .trends-footer { font-size: 13px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.08); }
   .hlab-food-match { display: flex; align-items: center; gap: 10px; background: #F0EEE6; border: 1px solid #E5E0D2; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; }
   .hlab-food-info { flex: 1; }
   .hlab-food-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #1E2E2A; }
@@ -1424,6 +1498,66 @@
   .save-custom-toggle { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #F0EEE6; border-radius: 12px; margin-top: 12px; cursor: pointer; }
   .save-custom-toggle input { width: 20px; height: 20px; accent-color: #2C5F5D; flex-shrink: 0; cursor: pointer; }
   .sct-text { font-size: 14px; color: #1E2E2A; line-height: 1.4; font-family: 'Fraunces', serif; }
+
+  /* ============== ONLINE SEARCH / BARCODE — buttons + modals ============== */
+  .online-actions { display: flex; gap: 8px; margin: 10px 0 14px; }
+  .online-btn { flex: 1; padding: 11px 12px; border-radius: 12px; background: #F0EEE6; color: #1E2E2A; border: 1.5px solid #E5E0D2; font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .online-btn.primary { background: #2C5F5D; color: white; border-color: #2C5F5D; }
+  .online-btn:active { transform: scale(0.97); }
+
+  /* Modals */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(30, 46, 42, 0.55); backdrop-filter: blur(2px); z-index: 999; }
+  .modal-card { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: calc(100% - 32px); max-width: 460px; max-height: calc(100vh - 64px); background: #F4F2EC; border-radius: 22px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); z-index: 1000; padding: 22px 20px; overflow-y: auto; box-sizing: border-box; }
+
+  /* Consent modal */
+  .consent-modal { text-align: left; }
+  .consent-icon { font-size: 32px; margin-bottom: 8px; }
+  .consent-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; color: #1E2E2A; line-height: 1.25; margin-bottom: 12px; }
+  .consent-body { font-size: 14px; color: #4a4a3c; line-height: 1.6; font-family: 'Fraunces', serif; margin-bottom: 18px; }
+  .consent-buttons { display: flex; gap: 10px; margin-bottom: 12px; }
+  .consent-btn-decline { flex: 1; padding: 13px; border-radius: 12px; background: transparent; color: #6b6a5c; border: 1.5px solid #E5E0D2; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .consent-btn-accept { flex: 1; padding: 13px; border-radius: 12px; background: #2C5F5D; color: white; border: none; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .consent-footer { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; text-align: center; }
+
+  /* Online search modal */
+  .online-search-modal { padding: 0; overflow: hidden; }
+  .osm-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 0; }
+  .osm-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; color: #1E2E2A; }
+  .osm-close { background: transparent; border: none; font-size: 28px; line-height: 1; color: #6b6a5c; cursor: pointer; padding: 0 8px; }
+  .osm-query { padding: 6px 20px 12px; font-size: 13px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; }
+  .osm-loading, .osm-error, .osm-empty { padding: 30px 20px; text-align: center; }
+  .osm-spinner { width: 32px; height: 32px; border: 3px solid #E5E0D2; border-top-color: #2C5F5D; border-radius: 50%; margin: 0 auto 14px; animation: osm-spin 0.9s linear infinite; }
+  @keyframes osm-spin { to { transform: rotate(360deg); } }
+  .osm-loading-msg, .osm-empty-msg { font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; margin-bottom: 4px; }
+  .osm-error-icon { font-size: 32px; margin-bottom: 8px; color: #B85C38; }
+  .osm-error-msg { font-size: 14px; color: #B85C38; font-family: 'Fraunces', serif; line-height: 1.5; margin-bottom: 12px; }
+  .osm-empty-hint { font-size: 13px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; margin-top: 6px; }
+  .osm-retry { padding: 10px 20px; border-radius: 999px; background: #2C5F5D; color: white; border: none; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .osm-results { max-height: 55vh; overflow-y: auto; padding: 0 12px; }
+  .osm-result { display: block; width: 100%; padding: 12px 14px; margin-bottom: 6px; background: white; border: 1px solid #E5E0D2; border-radius: 12px; text-align: left; cursor: pointer; font-family: inherit; }
+  .osm-result:active { transform: scale(0.98); background: #F0EEE6; }
+  .osm-r-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; margin-bottom: 4px; }
+  .osm-r-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; }
+  .osm-r-cal { color: #2C5F5D; font-style: normal; font-weight: 500; }
+  .osm-r-brand { color: #8a8975; }
+  .osm-footer { padding: 12px 20px 18px; font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; text-align: center; border-top: 1px dashed #E5E0D2; margin-top: 4px; }
+
+  /* Barcode scanner modal */
+  .barcode-modal { padding: 0; overflow: hidden; }
+  .bcm-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; }
+  .bcm-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; color: #1E2E2A; }
+  .bcm-close { background: transparent; border: none; font-size: 28px; line-height: 1; color: #6b6a5c; cursor: pointer; padding: 0 8px; }
+  .bcm-camera { position: relative; aspect-ratio: 1; max-height: 55vh; background: #1E2E2A; overflow: hidden; }
+  .bcm-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bcm-frame { position: absolute; inset: 20%; border: 3px solid rgba(255,255,255,0.85); border-radius: 18px; box-shadow: 0 0 0 9999px rgba(30,46,42,0.45); pointer-events: none; }
+  .bcm-hint { padding: 14px 20px 18px; font-size: 14px; color: #4a4a3c; font-style: italic; font-family: 'Fraunces', serif; text-align: center; }
+  .bcm-status { padding: 30px 20px; text-align: center; }
+  .bcm-status-msg { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; line-height: 1.5; }
+  .bcm-error { padding: 24px 20px; text-align: center; }
+  .bcm-error-icon { font-size: 30px; margin-bottom: 10px; }
+  .bcm-error-msg { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; line-height: 1.5; margin-bottom: 8px; }
+  .bcm-error-hint { font-size: 12px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; }
+  .bcm-error code { background: #F0EEE6; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -2472,6 +2606,13 @@ const state = {
   urgeDraft: null,
   urges: [],
   customFoods: [],
+  // Online food search via Open Food Facts
+  onlineSearch: null,           // { query, results, loading, error } when active
+  showConsentModal: false,      // true when user triggers online search w/o consent
+  pendingOnlineSearch: null,    // { fromContext: 'manual'|'lab', query } to resume after consent
+  // Barcode scanner
+  barcodeScanner: null,         // { active, status, result, error }
+  barcodeStreamHandle: null,    // ref to the stream so we can stop it
   showCustomFoods: false,
   customFoodDraft: null,
   measurements: [],
@@ -2504,6 +2645,7 @@ const STORAGE_URGES = 'plate-urges';
 const STORAGE_CUSTOM_FOODS = 'plate-custom-foods';
 const STORAGE_MEASUREMENTS = 'plate-measurements';
 const STORAGE_PULSE = 'plate-pulse';
+const STORAGE_ONLINE_SEARCH = 'plate-online-search-consent';
 function loadEntries() {
   try { const raw = localStorage.getItem(STORAGE_ENTRIES); return raw ? JSON.parse(raw) : []; }
   catch { return []; }
@@ -2642,7 +2784,14 @@ function startHungerTrial(initialHunger) {
     redFlag: false,
   };
   state.hungerTrial = trial;
-  set({ hungerLabStep: 'choose-intervention' });
+  // If user came from bandit recommendation, jump straight to that intervention
+  if (state.banditSuggested) {
+    const suggested = state.banditSuggested;
+    state.banditSuggested = null;
+    selectIntervention(suggested);
+  } else {
+    set({ hungerLabStep: 'choose-intervention' });
+  }
 }
 
 function selectIntervention(id) {
@@ -3000,7 +3149,329 @@ function loadCustomFoods() {
   try { const raw = localStorage.getItem(STORAGE_CUSTOM_FOODS); return raw ? JSON.parse(raw) : []; }
   catch { return []; }
 }
+// ============================================================
+// CONTROLLERS — online food search + barcode scanner
+// ============================================================
+
+// User taps "Search online" from manual entry or hunger lab
+function triggerOnlineSearch(query, fromContext) {
+  const cleanQuery = (query || '').trim();
+  if (!cleanQuery || cleanQuery.length < 2) return;
+  if (!hasOnlineSearchConsent()) {
+    // Stash the intent and show the consent modal
+    state.pendingOnlineSearch = { query: cleanQuery, fromContext };
+    set({ showConsentModal: true });
+    return;
+  }
+  performOnlineSearch(cleanQuery, fromContext);
+}
+
+async function performOnlineSearch(query, fromContext) {
+  state.onlineSearch = { query, results: [], loading: true, error: null, fromContext };
+  render();
+  try {
+    const results = await searchOpenFoodFacts(query, 10);
+    state.onlineSearch = { query, results, loading: false, error: null, fromContext };
+  } catch (e) {
+    state.onlineSearch = { query, results: [], loading: false, error: e.message || 'Search failed. Check your connection.', fromContext };
+  }
+  render();
+}
+
+// User accepts a result from the online list → add to local cache + use it
+function acceptOnlineSearchResult(index) {
+  if (!state.onlineSearch) return;
+  const food = state.onlineSearch.results[index];
+  if (!food) return;
+  // Save to custom foods so it's instant next time + offline
+  cacheOnlineFood(food);
+  const fromContext = state.onlineSearch.fromContext;
+  // Plug it into the active flow
+  if (fromContext === 'manual' && state.manualDraft) {
+    state.manualDraft = {
+      ...state.manualDraft,
+      searchQuery: food.display,
+      matchedFood: food,
+      name: food.display,
+      pieces: 1,
+      cal: food.cal,
+      c: food.c, p: food.p, f: food.f,
+      saveAsCustom: false, // already saved via cache
+    };
+  } else if (fromContext === 'lab' && state.hungerTrial) {
+    state.hungerTrial.foodDraft = {
+      searchQuery: food.display,
+      matchedFood: food,
+      name: food.display,
+      pieces: 1,
+      cal: food.cal,
+      c: food.c, p: food.p, f: food.f,
+    };
+  }
+  state.onlineSearch = null;
+  render();
+}
+
+function cancelOnlineSearch() {
+  state.onlineSearch = null;
+  render();
+}
+
+// Consent modal handlers
+function acceptOnlineSearchConsent() {
+  setOnlineSearchConsent(true);
+  const pending = state.pendingOnlineSearch;
+  state.showConsentModal = false;
+  state.pendingOnlineSearch = null;
+  render();
+  if (pending) performOnlineSearch(pending.query, pending.fromContext);
+}
+
+function declineOnlineSearchConsent() {
+  setOnlineSearchConsent(false);
+  state.showConsentModal = false;
+  state.pendingOnlineSearch = null;
+  render();
+}
+
+// ============================================================
+// BARCODE SCANNER CONTROLLER
+// ============================================================
+
+function triggerBarcodeScanner(fromContext) {
+  if (!isBarcodeScannerSupported()) {
+    state.barcodeScanner = {
+      active: false,
+      status: 'unsupported',
+      error: 'Barcode scanning needs a modern browser (Safari 17+, Chrome, Edge). Tap "Search online" to type instead.',
+      fromContext,
+    };
+    render();
+    return;
+  }
+  if (!hasOnlineSearchConsent()) {
+    state.pendingOnlineSearch = { query: '__BARCODE__', fromContext };
+    set({ showConsentModal: true });
+    return;
+  }
+  state.barcodeScanner = { active: true, status: 'starting', fromContext };
+  render();
+  // The actual camera start happens after render in attachBarcodeScanner
+}
+
+function attachBarcodeScanner() {
+  // Called after render when scanner modal is mounted
+  const bc = state.barcodeScanner;
+  if (!bc || !bc.active || bc.status !== 'starting') return;
+  const video = document.getElementById('barcode-video');
+  if (!video) return;
+  state.barcodeScanner.status = 'scanning';
+  startBarcodeScanner(
+    video,
+    async (code) => {
+      // Got a barcode — look it up
+      state.barcodeScanner.status = 'looking-up';
+      state.barcodeScanner.detectedCode = code;
+      if (state.barcodeStreamHandle) state.barcodeStreamHandle.stop();
+      render();
+      try {
+        const food = await lookupBarcode(code);
+        if (food) {
+          cacheOnlineFood(food);
+          // Apply it to the active flow
+          const fromContext = bc.fromContext;
+          if (fromContext === 'manual' && state.manualDraft) {
+            state.manualDraft = {
+              ...state.manualDraft,
+              searchQuery: food.display,
+              matchedFood: food,
+              name: food.display,
+              pieces: 1,
+              cal: food.cal, c: food.c, p: food.p, f: food.f,
+              saveAsCustom: false,
+            };
+          } else if (fromContext === 'lab' && state.hungerTrial) {
+            state.hungerTrial.foodDraft = {
+              searchQuery: food.display,
+              matchedFood: food,
+              name: food.display,
+              pieces: 1,
+              cal: food.cal, c: food.c, p: food.p, f: food.f,
+            };
+          }
+          state.barcodeScanner = null;
+        } else {
+          state.barcodeScanner.status = 'not-found';
+        }
+      } catch (e) {
+        state.barcodeScanner.status = 'error';
+        state.barcodeScanner.error = e.message;
+      }
+      render();
+    },
+    (err) => {
+      state.barcodeScanner.status = 'error';
+      state.barcodeScanner.error = err.message || 'Camera failed';
+      render();
+    }
+  ).then(handle => { state.barcodeStreamHandle = handle; });
+}
+
+function closeBarcodeScanner() {
+  if (state.barcodeStreamHandle) state.barcodeStreamHandle.stop();
+  state.barcodeStreamHandle = null;
+  state.barcodeScanner = null;
+  render();
+}
+
 function saveCustomFoods(f) { try { localStorage.setItem(STORAGE_CUSTOM_FOODS, JSON.stringify(f)); } catch {} }
+
+// ============================================================
+// OPEN FOOD FACTS INTEGRATION
+// Free public food database (~3M+ products globally).
+// Used as a fallback when local search misses, and for barcode scans.
+// All other Plate data stays local — only food lookups go to OFF.
+// ============================================================
+
+function hasOnlineSearchConsent() {
+  try { return localStorage.getItem(STORAGE_ONLINE_SEARCH) === 'yes'; } catch { return false; }
+}
+
+function setOnlineSearchConsent(yes) {
+  try { localStorage.setItem(STORAGE_ONLINE_SEARCH, yes ? 'yes' : 'no'); } catch {}
+}
+
+// Normalise an Open Food Facts product into Plate's food shape
+function normalizeOFFProduct(p) {
+  if (!p) return null;
+  const n = p.nutriments || {};
+  // OFF stores per-100g and per-serving. Prefer per-100g for consistency.
+  const cal = parseFloat(n['energy-kcal_100g'] || n['energy-kcal_serving'] || 0);
+  if (!cal || cal <= 0 || cal > 900) return null; // implausible/missing kcal -> skip
+  const protein = parseFloat(n.proteins_100g || n.proteins_serving || 0);
+  const carbs = parseFloat(n.carbohydrates_100g || n.carbohydrates_serving || 0);
+  const fat = parseFloat(n.fat_100g || n.fat_serving || 0);
+  const name = (p.product_name_en || p.product_name || p.generic_name || '').trim();
+  if (!name) return null;
+  const brand = (p.brands || '').split(',')[0].trim();
+  const displayName = brand && !name.toLowerCase().includes(brand.toLowerCase())
+    ? `${name} (${brand})`
+    : name;
+  return {
+    keys: [name.toLowerCase(), displayName.toLowerCase()],
+    display: displayName,
+    unit: '100g',
+    cal: Math.round(cal),
+    c: Math.round(carbs * 10) / 10,
+    p: Math.round(protein * 10) / 10,
+    f: Math.round(fat * 10) / 10,
+    scalable: true,
+    source: 'openfoodfacts',
+    barcode: p.code || null,
+    brand: brand || null,
+    isCustom: true,  // so it persists in customFoods
+    fromOnline: true,
+    addedAt: Date.now(),
+  };
+}
+
+// Search Open Food Facts by text query
+async function searchOpenFoodFacts(query, limit = 8) {
+  const url = `https://world.openfoodfacts.org/api/v2/search?search_terms=${encodeURIComponent(query)}&fields=code,product_name,product_name_en,generic_name,brands,nutriments&page_size=${limit}&sort_by=popularity_key`;
+  const resp = await fetch(url, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
+  if (!resp.ok) throw new Error(`OFF search failed: ${resp.status}`);
+  const data = await resp.json();
+  const products = (data.products || []).map(normalizeOFFProduct).filter(Boolean);
+  return products;
+}
+
+// Lookup a single barcode against Open Food Facts
+async function lookupBarcode(barcode) {
+  const url = `https://world.openfoodfacts.org/api/v0/product/${encodeURIComponent(barcode)}.json`;
+  const resp = await fetch(url, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
+  if (!resp.ok) throw new Error(`OFF barcode lookup failed: ${resp.status}`);
+  const data = await resp.json();
+  if (data.status !== 1 || !data.product) return null;
+  return normalizeOFFProduct(data.product);
+}
+
+// Save a found food to custom foods (so it's instant next time + works offline)
+function cacheOnlineFood(food) {
+  if (!food) return;
+  const existing = state.customFoods || [];
+  // De-dupe by barcode or display name
+  const dupe = existing.find(f =>
+    (f.barcode && food.barcode && f.barcode === food.barcode) ||
+    (f.display && food.display && f.display.toLowerCase() === food.display.toLowerCase())
+  );
+  if (dupe) return; // already cached
+  const updated = [food, ...existing];
+  state.customFoods = updated;
+  saveCustomFoods(updated);
+}
+
+// ============================================================
+// BARCODE SCANNER (uses native BarcodeDetector when available)
+// ============================================================
+
+function isBarcodeScannerSupported() {
+  return typeof window !== 'undefined' && 'BarcodeDetector' in window;
+}
+
+// Start barcode scanning — opens camera, scans continuously, calls onDetected with code
+async function startBarcodeScanner(videoElement, onDetected, onError) {
+  if (!isBarcodeScannerSupported()) {
+    onError && onError(new Error('Barcode scanning not supported on this device. Tap "Search online" to type instead.'));
+    return null;
+  }
+  let stream = null;
+  let active = true;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' } },
+      audio: false,
+    });
+    videoElement.srcObject = stream;
+    videoElement.setAttribute('playsinline', 'true');
+    await videoElement.play();
+    const detector = new BarcodeDetector({
+      formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39'],
+    });
+    const scan = async () => {
+      if (!active) return;
+      try {
+        const results = await detector.detect(videoElement);
+        if (results && results.length > 0) {
+          const code = results[0].rawValue;
+          if (code) {
+            active = false;
+            onDetected(code);
+            return;
+          }
+        }
+      } catch (e) { /* silent — continue scanning */ }
+      if (active) requestAnimationFrame(scan);
+    };
+    scan();
+    return {
+      stop: () => {
+        active = false;
+        if (stream) stream.getTracks().forEach(t => t.stop());
+      },
+    };
+  } catch (e) {
+    if (stream) stream.getTracks().forEach(t => t.stop());
+    onError && onError(e);
+    return null;
+  }
+}
+
 
 function loadMeasurements() {
   try { const raw = localStorage.getItem(STORAGE_MEASUREMENTS); return raw ? JSON.parse(raw) : []; }
@@ -5064,46 +5535,183 @@ function countHungerEpisodes(dateStr) {
   return count;
 }
 
-// Extract daily-level feature row for given date
+// Extract daily-level feature row for given date — uses EVERY available signal
 function getDailyFeatureRow(dateStr) {
   const dayEntries = state.entries.filter(e => entryDate(e.timestamp) === dateStr);
   const foodEntries = dayEntries.filter(e => e.type !== 'activity');
+  const activityEntries = dayEntries.filter(e => e.type === 'activity');
+
+  // --- Macros (totals) ---
   const totals = foodEntries.reduce((a, e) => ({
     cal: a.cal + (e.calories || 0),
     p: a.p + (e.protein || 0),
     c: a.c + (e.carbs || 0),
     f: a.f + (e.fat || 0),
   }), { cal: 0, p: 0, c: 0, f: 0 });
+
+  // --- Macros (composition ratios — independent of total kcal) ---
+  const totalGrams = totals.p + totals.c + totals.f;
+  const proteinPct = totalGrams > 0 ? (totals.p / totalGrams) * 100 : null;
+  const carbPct = totalGrams > 0 ? (totals.c / totalGrams) * 100 : null;
+  const fatPct = totalGrams > 0 ? (totals.f / totalGrams) * 100 : null;
+  // Protein per kg bodyweight — strongest satiety predictor per nutrition lit
+  const profile = loadProfile();
+  const proteinPerKg = profile && profile.weight && totals.p > 0 ? totals.p / profile.weight : null;
+
+  // --- Meal timing ---
   const mealCount = foodEntries.length;
-  const lastMealHour = foodEntries.length > 0
-    ? Math.max(...foodEntries.map(e => new Date(e.timestamp).getHours()))
-    : null;
+  const mealHours = foodEntries.map(e => new Date(e.timestamp).getHours() + new Date(e.timestamp).getMinutes() / 60);
+  const firstMealHour = mealHours.length > 0 ? Math.min(...mealHours) : null;
+  const lastMealHour = mealHours.length > 0 ? Math.max(...mealHours) : null;
+  const eatingWindow = (firstMealHour != null && lastMealHour != null) ? (lastMealHour - firstMealHour) : null;
+  // Avg gap between meals
+  let avgMealGap = null;
+  if (mealHours.length >= 2) {
+    const sorted = [...mealHours].sort((a, b) => a - b);
+    const gaps = [];
+    for (let i = 1; i < sorted.length; i++) gaps.push(sorted[i] - sorted[i - 1]);
+    avgMealGap = gaps.reduce((a, b) => a + b, 0) / gaps.length;
+  }
+  // Late eater? Last meal after 8pm
+  const lateNightEating = lastMealHour != null && lastMealHour >= 20 ? 1 : 0;
+
+  // --- Daily check-in (sleep + stress + mood + weight) ---
   const checkin = (state.dailyCheckins || []).find(c => c.date === dateStr);
   const sleepHours = checkin && checkin.sleepHours != null ? checkin.sleepHours : null;
   const sleepQuality = checkin && checkin.sleepQuality != null ? checkin.sleepQuality : null;
   const stress = checkin && checkin.stress != null ? checkin.stress : null;
-  const dow = new Date(dateStr + 'T12:00:00').getDay(); // 0-6
-  const isWeekend = dow === 0 || dow === 6 ? 1 : 0;
-  // Deficit features
-  const profile = loadProfile();
+
+  // --- Mood at meals (average) ---
+  const moodScale = { great: 5, good: 4, neutral: 3, low: 2, bad: 1, stressed: 1, tired: 2, anxious: 1 };
+  const moodVals = foodEntries.map(e => e.mood ? moodScale[e.mood] : null).filter(v => v != null);
+  const avgMealMood = moodVals.length > 0 ? moodVals.reduce((a, b) => a + b, 0) / moodVals.length : null;
+
+  // --- Eating reasons (count "non-hunger" meals as a feature) ---
+  const reasonCounts = { hunger: 0, habit: 0, stress: 0, bored: 0, social: 0, craving: 0, other: 0 };
+  for (const e of foodEntries) {
+    if (e.eatingReason) reasonCounts[e.eatingReason] = (reasonCounts[e.eatingReason] || 0) + 1;
+  }
+  const nonHungerMeals = (reasonCounts.habit || 0) + (reasonCounts.stress || 0) + (reasonCounts.bored || 0) + (reasonCounts.craving || 0);
+
+  // --- Anticipated vs actual satisfaction gap (overhyping signal) ---
+  const ratedMeals = foodEntries.filter(e => e.anticipatedSatisfaction != null && e.actualSatisfaction != null);
+  const avgSatGap = ratedMeals.length > 0
+    ? ratedMeals.reduce((a, e) => a + (e.anticipatedSatisfaction - e.actualSatisfaction), 0) / ratedMeals.length
+    : null;
+
+  // --- Activity (kcal burned, minutes) ---
+  const activityMin = activityEntries.reduce((a, e) => a + (e.duration || 0), 0);
+  const activityKcal = activityEntries.reduce((a, e) => a + Math.abs(e.calories || 0), 0);
+
+  // --- Calorie deficit ---
   let kcalGap = null;
+  let bmiFeature = null;
+  let ageFeature = null;
+  let isFemale = null;
+  let activityLevelNum = null;
   if (profile) {
     const tdee = calculateTDEE(profile.weight, profile.height, profile.age, profile.sex, profile.activityLevel);
-    kcalGap = tdee - totals.cal; // positive = deficit
+    kcalGap = tdee - totals.cal; // positive = deficit (under TDEE)
+    // BMI = kg / m²
+    bmiFeature = profile.height && profile.weight ? profile.weight / Math.pow(profile.height / 100, 2) : null;
+    ageFeature = profile.age || null;
+    isFemale = profile.sex === 'female' ? 1 : 0;
+    const actMap = { sedentary: 0, light: 1, moderate: 2, very_active: 3 };
+    activityLevelNum = actMap[profile.activityLevel] != null ? actMap[profile.activityLevel] : null;
   }
+
+  // --- Days into current deficit (rough — count consecutive prior days under TDEE) ---
+  let daysInDeficit = 0;
+  if (profile && kcalGap != null && kcalGap > 0) {
+    const tdee = calculateTDEE(profile.weight, profile.height, profile.age, profile.sex, profile.activityLevel);
+    // Count back from yesterday
+    const day0 = new Date(dateStr + 'T12:00:00').getTime();
+    for (let back = 0; back < 30; back++) {
+      const checkDate = entryDate(day0 - back * 86400000);
+      const dayKcal = state.entries
+        .filter(e => entryDate(e.timestamp) === checkDate && e.type !== 'activity')
+        .reduce((a, e) => a + (e.calories || 0), 0);
+      if (dayKcal > 0 && dayKcal < tdee) daysInDeficit++;
+      else if (dayKcal > 0) break;
+    }
+  }
+
+  // --- Cravings/urges that day ---
+  const urgesToday = (state.urges || []).filter(u => u.timestamp && entryDate(u.timestamp) === dateStr);
+  const urgeCount = urgesToday.length;
+  const urgeIntensityAvg = urgesToday.length > 0
+    ? urgesToday.reduce((a, u) => a + (u.intensity || 0), 0) / urgesToday.length
+    : null;
+
+  // --- Body — waist if measured recently ---
+  let waist = null;
+  if (state.measurements && state.measurements.length > 0) {
+    const day0 = new Date(dateStr + 'T12:00:00').getTime();
+    const recent = state.measurements
+      .filter(m => m.timestamp <= day0)
+      .sort((a, b) => b.timestamp - a.timestamp)[0];
+    if (recent && recent.waist) waist = recent.waist;
+  }
+
+  // --- Resting pulse — most recent reading before this date ---
+  let restingPulse = null;
+  if (state.pulseReadings && state.pulseReadings.length > 0) {
+    const day0 = new Date(dateStr + 'T12:00:00').getTime();
+    const recent = state.pulseReadings
+      .filter(p => p.timestamp <= day0)
+      .sort((a, b) => b.timestamp - a.timestamp)[0];
+    if (recent && recent.bpm) restingPulse = recent.bpm;
+  }
+
+  // --- Day-of-week ---
+  const dow = new Date(dateStr + 'T12:00:00').getDay();
+  const isWeekend = dow === 0 || dow === 6 ? 1 : 0;
+
   return {
     date: dateStr,
+    // macros
     kcal: totals.cal,
     protein: totals.p,
     carbs: totals.c,
     fat: totals.f,
+    proteinPct,
+    carbPct,
+    fatPct,
+    proteinPerKg,
+    // timing
     mealCount,
+    firstMealHour,
     lastMealHour,
+    eatingWindow,
+    avgMealGap,
+    lateNightEating,
+    // wellbeing
     sleepHours,
     sleepQuality,
     stress,
-    isWeekend,
+    avgMealMood,
+    // behavioural
+    nonHungerMeals,
+    avgSatGap,
+    // activity
+    activityMin,
+    activityKcal,
+    // deficit & state
     kcalGap,
+    daysInDeficit,
+    // cravings
+    urgeCount,
+    urgeIntensityAvg,
+    // body
+    waist,
+    restingPulse,
+    // demographics (mostly constant within a user — will be filtered out as having near-zero variance)
+    bmi: bmiFeature,
+    age: ageFeature,
+    isFemale,
+    activityLevelNum,
+    // calendar
+    isWeekend,
   };
 }
 
@@ -5178,25 +5786,453 @@ function ridgeRegression(X, y, lambda = 1.0, iterations = 500, lr = 0.05) {
 }
 
 // Train Stage A model and return feature importance
+// ============================================================
+// LAYER 1 — COLD-START RISK MODEL
+// Works from day 0 using physiology rules. No personal model needed.
+// Returns risk assessment based on TODAY's current state.
+// ============================================================
+function getColdStartRisk() {
+  const profile = loadProfile();
+  if (!profile) return null;
+  const tdee = calculateTDEE(profile.weight, profile.height, profile.age, profile.sex, profile.activityLevel);
+  const todayStr = todayISO();
+  // Today's totals so far
+  const todayMeals = state.entries.filter(e => entryDate(e.timestamp) === todayStr && e.type !== 'activity');
+  const totalKcal = todayMeals.reduce((a, e) => a + (e.calories || 0), 0);
+  const totalProtein = todayMeals.reduce((a, e) => a + (e.protein || 0), 0);
+  const proteinPerKg = profile.weight > 0 ? totalProtein / profile.weight : 0;
+  // Time since last meal
+  let hoursSinceMeal = null;
+  if (todayMeals.length > 0) {
+    const lastMealTs = Math.max(...todayMeals.map(e => e.timestamp));
+    hoursSinceMeal = (Date.now() - lastMealTs) / 3600000;
+  }
+  const lastMealHour = todayMeals.length > 0
+    ? Math.max(...todayMeals.map(e => new Date(e.timestamp).getHours()))
+    : null;
+  // Days in current deficit
+  let daysInDeficit = 0;
+  for (let back = 1; back <= 14; back++) {
+    const date = entryDate(Date.now() - back * 86400000);
+    const dayKcal = state.entries.filter(e => entryDate(e.timestamp) === date && e.type !== 'activity').reduce((a, e) => a + (e.calories || 0), 0);
+    if (dayKcal > 0 && dayKcal < tdee) daysInDeficit++;
+    else if (dayKcal > 0) break;
+  }
+  const now = new Date();
+  const currentHour = now.getHours();
+  const isEvening = currentHour >= 18;
+  // Risk factors — each is a rule with weight 0-1
+  const factors = [];
+  // 1. Severe deficit
+  const pctOfTdee = totalKcal / tdee;
+  if (totalKcal > 0 && pctOfTdee < 0.6) factors.push({ severity: 'high', label: 'Severe deficit today', detail: `${Math.round(pctOfTdee*100)}% of maintenance · target is at least 70% to avoid rebound`, weight: 0.9 });
+  else if (totalKcal > 0 && pctOfTdee < 0.75) factors.push({ severity: 'moderate', label: 'Steep deficit', detail: `${Math.round(pctOfTdee*100)}% of maintenance — moderate hunger expected`, weight: 0.5 });
+  // 2. Long gap since meal
+  if (hoursSinceMeal != null && hoursSinceMeal > 5 && hoursSinceMeal <= 8) factors.push({ severity: 'moderate', label: 'Long meal gap', detail: `${hoursSinceMeal.toFixed(1)}h since last meal — hunger signals rising`, weight: 0.4 });
+  else if (hoursSinceMeal != null && hoursSinceMeal > 8) factors.push({ severity: 'high', label: 'Very long meal gap', detail: `${hoursSinceMeal.toFixed(1)}h — eat soon, this is need not craving`, weight: 0.8 });
+  // 3. Low protein
+  if (totalKcal > 0 && proteinPerKg < 0.6) factors.push({ severity: 'moderate', label: 'Low protein so far', detail: `${proteinPerKg.toFixed(2)}g/kg today — aim for ≥0.8g/kg for satiety`, weight: 0.5 });
+  // 4. Evening risk window
+  if (isEvening && totalKcal < tdee * 0.5) factors.push({ severity: 'moderate', label: 'Evening + under-fed', detail: `It's ${currentHour}:00 and you're at ${Math.round(pctOfTdee*100)}% of maintenance — evening is the typical rebound window`, weight: 0.6 });
+  else if (isEvening) factors.push({ severity: 'low', label: 'Evening (general)', detail: 'Cravings peak between 6pm and 10pm for most people', weight: 0.2 });
+  // 5. Prolonged deficit (adaptation)
+  if (daysInDeficit >= 4 && daysInDeficit < 7) factors.push({ severity: 'moderate', label: 'Multi-day deficit', detail: `${daysInDeficit} consecutive deficit days — leptin starts dropping around now`, weight: 0.4 });
+  else if (daysInDeficit >= 7) factors.push({ severity: 'high', label: 'Extended deficit', detail: `${daysInDeficit} consecutive deficit days — consider a refeed day soon`, weight: 0.7 });
+  // 6. Late last meal (or no late meal — early stop = rebound risk)
+  if (lastMealHour != null && lastMealHour <= 17 && isEvening) factors.push({ severity: 'moderate', label: 'Early last meal', detail: `Last meal was at ${lastMealHour}:00 — long evening window without food`, weight: 0.4 });
+  // Compute composite risk
+  const totalWeight = factors.reduce((a, f) => a + f.weight, 0);
+  let riskLevel = 'low';
+  let riskScore = Math.min(100, Math.round(totalWeight * 50));
+  if (totalWeight >= 1.5) riskLevel = 'high';
+  else if (totalWeight >= 0.6) riskLevel = 'moderate';
+  return {
+    riskLevel,
+    riskScore,
+    factors: factors.sort((a, b) => b.weight - a.weight),
+    pctOfTdee: totalKcal > 0 ? Math.round(pctOfTdee * 100) : null,
+    hoursSinceMeal,
+    daysInDeficit,
+    proteinPerKg: parseFloat(proteinPerKg.toFixed(2)),
+  };
+}
+
+// ============================================================
+// LAYER 3 — CONTEXTUAL BANDIT (Thompson Sampling)
+// For each intervention, maintain Beta(α, β):
+//   α = successes (≥2 point hunger drop)
+//   β = failures (<2 drop or got worse)
+// Sample from each Beta, recommend the highest sample.
+// Context-aware once N >= 6: split α/β by morning/evening and low/high hunger.
+// ============================================================
+
+// Sample once from Beta(α, β) — Marsaglia & Tsang approximation
+function sampleBeta(alpha, beta) {
+  // alpha and beta must be >= 1 for stability
+  alpha = Math.max(1, alpha);
+  beta = Math.max(1, beta);
+  // Sample two gammas via Marsaglia-Tsang, then x = a/(a+b)
+  function gamma(k) {
+    if (k < 1) {
+      const u = Math.random();
+      return gamma(1 + k) * Math.pow(u, 1 / k);
+    }
+    const d = k - 1/3;
+    const c = 1 / Math.sqrt(9 * d);
+    while (true) {
+      let x, v;
+      do {
+        // Box-Muller for normal sample
+        const u1 = Math.random(); const u2 = Math.random();
+        x = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        v = 1 + c * x;
+      } while (v <= 0);
+      v = v * v * v;
+      const u = Math.random();
+      if (u < 1 - 0.0331 * x * x * x * x) return d * v;
+      if (Math.log(u) < 0.5 * x * x + d * (1 - v + Math.log(v))) return d * v;
+    }
+  }
+  const a = gamma(alpha);
+  const b = gamma(beta);
+  return a / (a + b);
+}
+
+// Standard normal sample (Box-Muller)
+function sampleNormal(mean, std) {
+  const u1 = Math.max(1e-10, Math.random());
+  const u2 = Math.random();
+  const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+  return mean + std * z;
+}
+
+// Sample from Student's t with df degrees of freedom (posterior predictive when σ² unknown)
+function sampleStudentT(df, mean, scale) {
+  // t = z / sqrt(chi2/df); chi2 is gamma(df/2, 2) so use ratio
+  // For df > 30 it's basically normal — short-circuit
+  if (df > 30) return sampleNormal(mean, scale);
+  const z = sampleNormal(0, 1);
+  // Chi-squared via gamma(df/2)
+  function gamma(k) {
+    if (k < 1) { const u = Math.random(); return gamma(1 + k) * Math.pow(u, 1 / k); }
+    const d = k - 1/3, c = 1 / Math.sqrt(9 * d);
+    while (true) {
+      let x, v;
+      do {
+        const u1 = Math.random(), u2 = Math.random();
+        x = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        v = 1 + c * x;
+      } while (v <= 0);
+      v = v * v * v;
+      const u = Math.random();
+      if (u < 1 - 0.0331 * x * x * x * x) return d * v;
+      if (Math.log(u) < 0.5 * x * x + d * (1 - v + Math.log(v))) return d * v;
+    }
+  }
+  const chi2 = 2 * gamma(df / 2);
+  return mean + scale * z / Math.sqrt(chi2 / df);
+}
+
+function getBanditContext() {
+  const h = new Date().getHours();
+  return {
+    timeOfDay: h >= 17 ? 'evening' : h >= 12 ? 'afternoon' : 'morning',
+    isEvening: h >= 17 ? 1 : 0,
+  };
+}
+
+// =================================================================
+// CONTINUOUS-REWARD CONTEXTUAL BANDIT
+// Reward = (initial hunger - final hunger), clipped to [-2, 10].
+// Posterior over reward mean is Normal with known variance assumption,
+// computed via running mean/std (Welford). Thompson sampling draws once.
+//
+// Posterior over mean given n observations: mean ~ Normal(x̄, σ²/n)
+// We sample x̄_post and rank by it. With low n the variance is high → exploration.
+// With high n it collapses → exploitation.
+// =================================================================
+function getBanditStats() {
+  const trials = (state.hungerTrials || []).filter(t => t.completedTimestamp && !t.redFlag);
+  // Aggregate stats per intervention + per (intervention, time-of-day) context
+  const stats = {};
+  const ctxStats = {};
+  // Also keep binary success counts for backwards-compat display in the UI
+  const successStats = {};
+
+  function accum(bucket, drop) {
+    if (!bucket._init) {
+      bucket.n = 0; bucket.mean = 0; bucket.M2 = 0; bucket.sumDrop = 0;
+      bucket._init = true;
+    }
+    // Welford's online variance update
+    bucket.n++;
+    const delta = drop - bucket.mean;
+    bucket.mean += delta / bucket.n;
+    const delta2 = drop - bucket.mean;
+    bucket.M2 += delta * delta2;
+    bucket.sumDrop += drop;
+  }
+
+  for (const t of trials) {
+    const id = t.interventionId;
+    // Reward = continuous hunger drop, clipped
+    const drop = Math.max(-2, Math.min(10, t.initialHunger - t.finalHunger));
+
+    if (!stats[id]) stats[id] = {};
+    accum(stats[id], drop);
+
+    // Binary success for display
+    if (!successStats[id]) successStats[id] = { alpha: 1, beta: 1, n: 0 };
+    successStats[id].n++;
+    if (drop >= 2) successStats[id].alpha++; else successStats[id].beta++;
+
+    // Context bucket
+    const ts = t.startTimestamp || t.completedTimestamp;
+    const hr = new Date(ts).getHours();
+    const tod = hr >= 17 ? 'evening' : hr >= 12 ? 'afternoon' : 'morning';
+    const ctxKey = id + ':' + tod;
+    if (!ctxStats[ctxKey]) ctxStats[ctxKey] = {};
+    accum(ctxStats[ctxKey], drop);
+  }
+  // Finalise: compute std/variance
+  for (const k of Object.keys(stats)) {
+    const s = stats[k];
+    s.std = s.n > 1 ? Math.sqrt(s.M2 / (s.n - 1)) : 2.0; // prior std=2 with n<=1
+    s.semean = s.n > 0 ? s.std / Math.sqrt(s.n) : 2.0;
+  }
+  for (const k of Object.keys(ctxStats)) {
+    const s = ctxStats[k];
+    s.std = s.n > 1 ? Math.sqrt(s.M2 / (s.n - 1)) : 2.0;
+    s.semean = s.n > 0 ? s.std / Math.sqrt(s.n) : 2.0;
+  }
+  return { stats, ctxStats, successStats, totalTrials: trials.length };
+}
+
+// Recommend top-k interventions for current context using continuous Thompson sampling
+function getBanditRecommendation(k = 3) {
+  const { stats, ctxStats, successStats, totalTrials } = getBanditStats();
+  const ctx = getBanditContext();
+
+  // Prior — for an untried intervention, assume reward ~ Normal(1.0, 2²)
+  // (mild positive prior; high variance → exploration favored)
+  const PRIOR_MEAN = 1.0;
+  const PRIOR_STD = 2.5;
+
+  const samples = HUNGER_INTERVENTIONS.map(interv => {
+    const ctxKey = interv.id + ':' + ctx.timeOfDay;
+    const ctxData = ctxStats[ctxKey];
+    const overall = stats[interv.id];
+
+    // Use context-specific stats if ≥3 trials in that bucket; else overall; else prior
+    let s, useContext = false;
+    if (ctxData && ctxData.n >= 3) { s = ctxData; useContext = true; }
+    else if (overall && overall.n >= 1) { s = overall; }
+    else { s = null; }
+
+    let posteriorMean, posteriorSE, sample, n, dfForT;
+    if (s) {
+      n = s.n;
+      posteriorMean = s.mean;
+      // Pool individual SE with prior — Bayesian posterior under Normal-Inverse-Gamma
+      // approximation: precision_post = precision_prior + n / σ²
+      // simplification: posteriorSE = std / sqrt(n) but blended with prior at small n
+      const blend = n / (n + 4); // n=4 → 50/50; n=20 → ~83% data
+      posteriorMean = blend * s.mean + (1 - blend) * PRIOR_MEAN;
+      const dataSE = s.std / Math.sqrt(Math.max(1, n));
+      posteriorSE = Math.sqrt(blend * dataSE * dataSE + (1 - blend) * PRIOR_STD * PRIOR_STD);
+      dfForT = Math.max(2, n - 1);
+      // Thompson sample from posterior (t-distribution for proper small-n uncertainty)
+      sample = sampleStudentT(dfForT, posteriorMean, posteriorSE);
+    } else {
+      // No data → sample from prior
+      n = 0;
+      posteriorMean = PRIOR_MEAN;
+      posteriorSE = PRIOR_STD;
+      dfForT = 2;
+      sample = sampleNormal(PRIOR_MEAN, PRIOR_STD);
+    }
+
+    // For display: binary success rate (legacy)
+    const binStats = successStats[interv.id] || { alpha: 1, beta: 1, n: 0 };
+    const binarySuccessRate = binStats.alpha / (binStats.alpha + binStats.beta);
+
+    return {
+      interv,
+      n,
+      useContext,
+      posteriorMean,       // expected reward (in hunger points)
+      posteriorSE,         // posterior uncertainty
+      sample,              // Thompson sample
+      binarySuccessRate,   // for display alongside continuous mean
+      ci95Lower: posteriorMean - 1.96 * posteriorSE,
+      ci95Upper: posteriorMean + 1.96 * posteriorSE,
+    };
+  });
+  // Rank by Thompson sample
+  samples.sort((a, b) => b.sample - a.sample);
+  return {
+    timeOfDay: ctx.timeOfDay,
+    totalTrials,
+    recommendations: samples.slice(0, k),
+    allRanked: samples,
+  };
+}
+
+// ============================================================
+// LAYER 4 — TREND SLOPES (rebound risk from hunger trajectory)
+// Hunger slope, satisfaction slope, craving slope over last 7 days.
+// ============================================================
+function getTrendSlopes() {
+  // Build daily aggregates for last 14 days
+  const cutoff = Date.now() - 14 * 86400000;
+  const byDay = {};
+  for (const e of state.entries) {
+    if (e.type === 'activity' || e.timestamp < cutoff) continue;
+    const d = entryDate(e.timestamp);
+    if (!byDay[d]) byDay[d] = { hungerSamples: [], satSamples: [] };
+    if (e.hungerAtMeal != null) byDay[d].hungerSamples.push(e.hungerAtMeal);
+    if (e.actualSatisfaction != null) byDay[d].satSamples.push(e.actualSatisfaction);
+  }
+  for (const c of (state.dailyCheckins || [])) {
+    if (c.timestamp < cutoff) continue;
+    if (!byDay[c.date]) byDay[c.date] = { hungerSamples: [], satSamples: [] };
+    if (c.hunger != null) byDay[c.date].hungerSamples.push(c.hunger);
+  }
+  const cravingByDay = {};
+  for (const u of (state.urges || [])) {
+    if (u.timestamp < cutoff) continue;
+    const d = entryDate(u.timestamp);
+    cravingByDay[d] = (cravingByDay[d] || 0) + 1;
+  }
+  // Build sorted day list with metrics
+  const dates = Object.keys(byDay).sort();
+  if (dates.length < 4) return { ready: false, daysHave: dates.length, daysNeeded: 4 };
+  const dayMetrics = dates.map(d => {
+    const dat = byDay[d];
+    const avgH = dat.hungerSamples.length > 0 ? dat.hungerSamples.reduce((a,b)=>a+b,0) / dat.hungerSamples.length : null;
+    const avgS = dat.satSamples.length > 0 ? dat.satSamples.reduce((a,b)=>a+b,0) / dat.satSamples.length : null;
+    return { date: d, hunger: avgH, satisfaction: avgS, cravings: cravingByDay[d] || 0 };
+  });
+  // Linear slope over recent window (use last 7 days if available, else all)
+  function linearSlope(values) {
+    const valid = values.map((v, i) => ({ x: i, y: v })).filter(p => p.y != null);
+    if (valid.length < 3) return null;
+    const n = valid.length;
+    const sumX = valid.reduce((a, p) => a + p.x, 0);
+    const sumY = valid.reduce((a, p) => a + p.y, 0);
+    const sumXY = valid.reduce((a, p) => a + p.x * p.y, 0);
+    const sumXX = valid.reduce((a, p) => a + p.x * p.x, 0);
+    const denom = n * sumXX - sumX * sumX;
+    if (denom === 0) return null;
+    const slope = (n * sumXY - sumX * sumY) / denom;
+    const meanY = sumY / n;
+    return { slope, meanY, n };
+  }
+  const recent = dayMetrics.slice(-7);
+  const hungerSlope = linearSlope(recent.map(d => d.hunger));
+  const satSlope = linearSlope(recent.map(d => d.satisfaction));
+  const cravingSlope = linearSlope(recent.map(d => d.cravings));
+  // Risk interpretation
+  const signals = [];
+  if (hungerSlope && hungerSlope.meanY > 0 && hungerSlope.slope / Math.max(0.5, hungerSlope.meanY) > 0.15) {
+    signals.push({ kind: 'warn', label: 'Hunger rising', detail: `Up ${Math.round((hungerSlope.slope / hungerSlope.meanY) * 100)}% per day over last ${hungerSlope.n} days` });
+  } else if (hungerSlope && hungerSlope.meanY > 0 && hungerSlope.slope / Math.max(0.5, hungerSlope.meanY) < -0.15) {
+    signals.push({ kind: 'good', label: 'Hunger falling', detail: `Down ${Math.round(Math.abs(hungerSlope.slope / hungerSlope.meanY) * 100)}% per day` });
+  }
+  if (satSlope && satSlope.meanY > 0 && satSlope.slope / Math.max(0.5, satSlope.meanY) < -0.12) {
+    signals.push({ kind: 'warn', label: 'Satisfaction dropping', detail: `Down ${Math.round(Math.abs(satSlope.slope / satSlope.meanY) * 100)}% per day — food is feeling less rewarding` });
+  }
+  if (cravingSlope && cravingSlope.meanY > 0 && cravingSlope.slope > 0.3) {
+    signals.push({ kind: 'warn', label: 'Cravings increasing', detail: `+${cravingSlope.slope.toFixed(1)} per day` });
+  }
+  // Composite rebound risk
+  let reboundRisk = 'low';
+  const warnCount = signals.filter(s => s.kind === 'warn').length;
+  if (warnCount >= 2) reboundRisk = 'high';
+  else if (warnCount === 1) reboundRisk = 'moderate';
+  return {
+    ready: true,
+    daysHave: dates.length,
+    hungerSlope: hungerSlope ? { slope: parseFloat(hungerSlope.slope.toFixed(2)), avg: parseFloat(hungerSlope.meanY.toFixed(1)) } : null,
+    satSlope: satSlope ? { slope: parseFloat(satSlope.slope.toFixed(2)), avg: parseFloat(satSlope.meanY.toFixed(1)) } : null,
+    cravingSlope: cravingSlope ? { slope: parseFloat(cravingSlope.slope.toFixed(2)), avg: parseFloat(cravingSlope.meanY.toFixed(1)) } : null,
+    signals,
+    reboundRisk,
+    dayMetrics: dayMetrics.slice(-14),
+  };
+}
+
 function trainStageAModel() {
   const rows = buildHungerTrainingData(7);
   if (!rows || rows.length < 7) return { ready: false, reason: 'need_more_data', daysHave: rows ? rows.length : 0, daysNeeded: 7 };
-  // Feature spec — only include features we have data for
+
+  // Comprehensive feature spec — all the signals we capture
+  // deltaForReport = a clinically meaningful unit change for that feature
+  // (used to translate coefficients into "X change → Y episodes" language)
   const FEATURES = [
+    // Macros (totals)
     { key: 'kcal', label: 'Calories eaten', units: 'kcal', deltaForReport: 200 },
     { key: 'protein', label: 'Protein intake', units: 'g', deltaForReport: 20 },
-    { key: 'carbs', label: 'Carbs intake', units: 'g', deltaForReport: 30 },
+    { key: 'carbs', label: 'Carb intake', units: 'g', deltaForReport: 30 },
     { key: 'fat', label: 'Fat intake', units: 'g', deltaForReport: 15 },
-    { key: 'sleepHours', label: 'Sleep duration', units: 'h', deltaForReport: 1, invert: true },
-    { key: 'sleepQuality', label: 'Sleep quality', units: '/4', deltaForReport: 1, invert: true },
+    // Composition ratios (independent of total kcal)
+    { key: 'proteinPct', label: 'Protein % of macros', units: '%', deltaForReport: 5 },
+    { key: 'carbPct', label: 'Carb % of macros', units: '%', deltaForReport: 5 },
+    { key: 'fatPct', label: 'Fat % of macros', units: '%', deltaForReport: 5 },
+    { key: 'proteinPerKg', label: 'Protein per kg body weight', units: 'g/kg', deltaForReport: 0.2 },
+    // Meal timing
+    { key: 'mealCount', label: 'Number of meals', units: '', deltaForReport: 1 },
+    { key: 'firstMealHour', label: 'First meal time', units: 'h', deltaForReport: 1 },
+    { key: 'lastMealHour', label: 'Last meal time', units: 'h', deltaForReport: 1 },
+    { key: 'eatingWindow', label: 'Eating window', units: 'h', deltaForReport: 1 },
+    { key: 'avgMealGap', label: 'Avg gap between meals', units: 'h', deltaForReport: 1 },
+    { key: 'lateNightEating', label: 'Eating after 8pm', units: '', deltaForReport: 1 },
+    // Wellbeing
+    { key: 'sleepHours', label: 'Sleep duration', units: 'h', deltaForReport: 1 },
+    { key: 'sleepQuality', label: 'Sleep quality', units: '/4', deltaForReport: 1 },
     { key: 'stress', label: 'Stress level', units: '/5', deltaForReport: 1 },
-    { key: 'mealCount', label: 'Number of meals', units: 'meals', deltaForReport: 1 },
+    { key: 'avgMealMood', label: 'Mood at meals', units: '/5', deltaForReport: 1 },
+    // Behavioural
+    { key: 'nonHungerMeals', label: 'Non-hunger meals (stress/bored/etc)', units: '', deltaForReport: 1 },
+    { key: 'avgSatGap', label: 'Anticipated vs actual satisfaction gap', units: '', deltaForReport: 1 },
+    // Activity
+    { key: 'activityMin', label: 'Activity minutes', units: 'min', deltaForReport: 30 },
+    { key: 'activityKcal', label: 'Activity kcal burned', units: 'kcal', deltaForReport: 200 },
+    // Deficit & state
     { key: 'kcalGap', label: 'Calorie deficit', units: 'kcal', deltaForReport: 200 },
+    { key: 'daysInDeficit', label: 'Days in deficit', units: 'days', deltaForReport: 3 },
+    // Cravings
+    { key: 'urgeCount', label: 'Number of urges', units: '', deltaForReport: 1 },
+    { key: 'urgeIntensityAvg', label: 'Avg urge intensity', units: '/5', deltaForReport: 1 },
+    // Body
+    { key: 'waist', label: 'Waist measurement', units: 'cm', deltaForReport: 2 },
+    { key: 'restingPulse', label: 'Resting pulse', units: 'bpm', deltaForReport: 5 },
+    // Demographics (will be filtered out as near-constant within one user)
+    { key: 'bmi', label: 'BMI', units: '', deltaForReport: 1 },
+    { key: 'age', label: 'Age', units: 'yr', deltaForReport: 5 },
+    { key: 'isFemale', label: 'Sex (female)', units: '', deltaForReport: 1 },
+    { key: 'activityLevelNum', label: 'Self-reported activity level', units: '', deltaForReport: 1 },
+    // Calendar
     { key: 'isWeekend', label: 'Weekend', units: '', deltaForReport: 1 },
   ];
-  // Filter to features with enough non-null values
-  const usable = FEATURES.filter(f => rows.filter(r => r[f.key] != null).length >= Math.max(5, rows.length * 0.6));
+
+  // Filter 1: enough non-null values (at least 60% coverage)
+  let usable = FEATURES.filter(f => rows.filter(r => r[f.key] != null).length >= Math.max(5, rows.length * 0.6));
+
+  // Filter 2: drop features with near-zero variance (constants like age, BMI for one user)
+  usable = usable.filter(f => {
+    const vals = rows.map(r => r[f.key]).filter(v => v != null);
+    if (vals.length < 2) return false;
+    const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const variance = vals.reduce((a, b) => a + (b - mean) ** 2, 0) / vals.length;
+    const std = Math.sqrt(variance);
+    // Coefficient of variation — std relative to mean; very tight = constant
+    if (mean === 0) return std > 0.01;
+    return std / Math.abs(mean) > 0.02;
+  });
+
   if (usable.length === 0) return { ready: false, reason: 'no_features', daysHave: rows.length };
+
   // Build X / y, imputing missing with feature mean
   const featureMeans = {};
   for (const f of usable) {
@@ -5205,16 +6241,27 @@ function trainStageAModel() {
   }
   const X = rows.map(r => usable.map(f => r[f.key] != null ? r[f.key] : featureMeans[f.key]));
   const y = rows.map(r => r.target_episodes);
-  // Use ridge with moderate lambda to shrink with small N
-  const lambda = rows.length < 14 ? 2.0 : rows.length < 30 ? 1.0 : 0.5;
-  const model = ridgeRegression(X, y, lambda, 600, 0.05);
+
+  // Use ridge with sample-size-adaptive lambda
+  // Higher penalty at small N to prevent overfitting on many features
+  const featureRatio = usable.length / Math.max(1, rows.length);
+  let lambda;
+  if (featureRatio > 1.5) lambda = 5.0;  // way more features than rows
+  else if (featureRatio > 0.5) lambda = 2.0;
+  else if (rows.length < 14) lambda = 1.5;
+  else if (rows.length < 30) lambda = 0.8;
+  else lambda = 0.4;
+
+  const model = ridgeRegression(X, y, lambda, 800, 0.04);
   if (!model) return { ready: false, reason: 'training_failed' };
+
   // Compute predictions for in-sample R²
   const preds = X.map(row => row.reduce((a, x, j) => a + x * model.coefs[j], model.intercept));
   const yMean = y.reduce((a, b) => a + b, 0) / y.length;
   const ssRes = y.reduce((a, yi, i) => a + (yi - preds[i]) ** 2, 0);
   const ssTot = y.reduce((a, yi) => a + (yi - yMean) ** 2, 0);
   const r2 = ssTot > 0 ? Math.max(0, 1 - ssRes / ssTot) : 0;
+
   // Effect sizes — coefficient × deltaForReport = predicted change in episode count
   const effects = usable.map((f, j) => {
     const coef = model.coefs[j];
@@ -5227,17 +6274,18 @@ function trainStageAModel() {
       effectAbs: Math.abs(effect),
       delta: f.deltaForReport,
       direction: effect > 0 ? 'increases' : 'decreases',
-      // Significance proxy: |effect| relative to model spread
-      meaningful: Math.abs(effect) > 0.15, // at least 0.15 episode/day change
+      meaningful: Math.abs(effect) > 0.10, // lower threshold now that we have more features
     };
   }).filter(e => e.meaningful);
   effects.sort((a, b) => b.effectAbs - a.effectAbs);
+
   return {
     ready: true,
     daysUsed: rows.length,
+    featureCount: usable.length,
     r2: parseFloat(r2.toFixed(2)),
     avgEpisodes: parseFloat(yMean.toFixed(1)),
-    effects: effects.slice(0, 5), // top 5
+    effects: effects.slice(0, 8), // top 8
     allFeatures: usable.length,
   };
 }
@@ -5295,6 +6343,164 @@ function trainStageBModel() {
 // HUNGER INSIGHTS — render card
 // ============================================================
 
+// ============================================================
+// RENDER — Cold-start risk card (Day 1 utility)
+// ============================================================
+function renderColdStartRiskCard() {
+  const r = getColdStartRisk();
+  if (!r) return ''; // no profile yet
+  if (r.factors.length === 0) {
+    return `
+      <div class="cs-card cs-low">
+        <div class="cs-head">
+          <div class="cs-icon">✓</div>
+          <div class="cs-title-block">
+            <div class="cs-eyebrow">RIGHT NOW</div>
+            <div class="cs-title">Hunger risk: low</div>
+          </div>
+        </div>
+        <div class="cs-detail">${r.pctOfTdee != null ? `${r.pctOfTdee}% of maintenance today · ` : ''}${r.proteinPerKg.toFixed(1)}g protein per kg. Nothing flagged right now.</div>
+      </div>
+    `;
+  }
+  return `
+    <div class="cs-card cs-${r.riskLevel}">
+      <div class="cs-head">
+        <div class="cs-icon">${r.riskLevel === 'high' ? '⚠' : r.riskLevel === 'moderate' ? '◐' : '◯'}</div>
+        <div class="cs-title-block">
+          <div class="cs-eyebrow">RIGHT NOW · GENERIC</div>
+          <div class="cs-title">Hunger risk: ${r.riskLevel}</div>
+        </div>
+      </div>
+      <div class="cs-factor-list">
+        ${r.factors.slice(0, 4).map(f => `
+          <div class="cs-factor cs-f-${f.severity}">
+            <div class="cs-factor-label">${escapeHtml(f.label)}</div>
+            <div class="cs-factor-detail">${escapeHtml(f.detail)}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="cs-footer">Generic physiology rules · personal model takes over after 7 days of logging.</div>
+    </div>
+  `;
+}
+
+// ============================================================
+// RENDER — Contextual bandit recommendation card
+// Shows: top 3 picks for current time of day, with confidence
+// ============================================================
+function renderBanditCard() {
+  const rec = getBanditRecommendation(3);
+  if (rec.totalTrials < 2) {
+    return `
+      <div class="bandit-card empty">
+        <div class="bandit-head">
+          <div class="bandit-eyebrow">SMART PICKS</div>
+          <div class="bandit-title">Intervention recommender</div>
+        </div>
+        <div class="bandit-empty">Run a few Hunger Lab trials and this card will recommend interventions tuned to YOUR data and current time of day.</div>
+        <div class="bandit-mech">Uses continuous-reward Thompson sampling — each trial updates the model's belief about how much each intervention drops <em>your</em> hunger.</div>
+      </div>
+    `;
+  }
+  return `
+    <div class="bandit-card">
+      <div class="bandit-head">
+        <div class="bandit-eyebrow">SMART PICKS · ${rec.timeOfDay.toUpperCase()}</div>
+        <div class="bandit-title">Predicted hunger drop</div>
+      </div>
+      <div class="bandit-rec-list">
+        ${rec.recommendations.map((r, i) => {
+          const mean = r.posteriorMean;
+          const lo = r.ci95Lower;
+          const hi = r.ci95Upper;
+          const ciStr = `${lo >= 0 ? '+' : ''}${lo.toFixed(1)} to ${hi >= 0 ? '+' : ''}${hi.toFixed(1)}`;
+          const cls = i === 0 ? 'top' : '';
+          const noData = r.n === 0;
+          return `
+            <div class="bandit-rec ${cls}" onclick="startHungerLabFromBandit('${r.interv.id}')">
+              <div class="br-rank">#${i + 1}</div>
+              <div class="br-emoji">${r.interv.emoji}</div>
+              <div class="br-body">
+                <div class="br-name">${escapeHtml(r.interv.label)}</div>
+                <div class="br-meta">
+                  ${noData
+                    ? `untried · estimate from prior`
+                    : `~${mean >= 0 ? '−' : '+'}${Math.abs(mean).toFixed(1)} points · n=${r.n}${r.useContext ? ' · context' : ''} · 95% CI ${ciStr}`}
+                </div>
+              </div>
+              <div class="br-arrow">→</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      <div class="bandit-footer">Expected drop in your 1–10 hunger after 15 min. Wider CI = more uncertain — tap to explore. Recommendations sharpen with every trial.</div>
+    </div>
+  `;
+}
+
+// Helper to start a Hunger Lab trial pre-loaded with the bandit's pick
+function startHungerLabFromBandit(interventionId) {
+  set({ activeTab: 'hunger', hungerLabStep: 'rate-initial', banditSuggested: interventionId });
+}
+
+// ============================================================
+// RENDER — Trend slopes card (rebound risk from trajectory)
+// ============================================================
+function renderTrendSlopesCard() {
+  const t = getTrendSlopes();
+  if (!t.ready) {
+    return `
+      <div class="trends-card empty">
+        <div class="trends-eyebrow">REBOUND TRAJECTORY</div>
+        <div class="trends-title">7-day trajectory</div>
+        <div class="trends-empty">Need ${t.daysNeeded} days of logging to detect trends · ${t.daysHave} so far.</div>
+      </div>
+    `;
+  }
+  const riskColor = t.reboundRisk === 'high' ? 'high' : t.reboundRisk === 'moderate' ? 'moderate' : 'low';
+  return `
+    <div class="trends-card ${riskColor}">
+      <div class="trends-eyebrow">REBOUND TRAJECTORY</div>
+      <div class="trends-title">Risk: ${t.reboundRisk}</div>
+      <div class="trends-metrics">
+        ${t.hungerSlope ? `
+          <div class="tm-row ${t.hungerSlope.slope > 0.15 ? 'warn' : t.hungerSlope.slope < -0.15 ? 'good' : ''}">
+            <span class="tm-label">Hunger trend</span>
+            <span class="tm-val">${t.hungerSlope.slope > 0 ? '↑' : t.hungerSlope.slope < 0 ? '↓' : '→'} ${t.hungerSlope.slope > 0 ? '+' : ''}${t.hungerSlope.slope}/day</span>
+          </div>
+        ` : ''}
+        ${t.satSlope ? `
+          <div class="tm-row ${t.satSlope.slope < -0.15 ? 'warn' : t.satSlope.slope > 0.15 ? 'good' : ''}">
+            <span class="tm-label">Satisfaction</span>
+            <span class="tm-val">${t.satSlope.slope > 0 ? '↑' : t.satSlope.slope < 0 ? '↓' : '→'} ${t.satSlope.slope > 0 ? '+' : ''}${t.satSlope.slope}/day</span>
+          </div>
+        ` : ''}
+        ${t.cravingSlope ? `
+          <div class="tm-row ${t.cravingSlope.slope > 0.3 ? 'warn' : ''}">
+            <span class="tm-label">Cravings</span>
+            <span class="tm-val">${t.cravingSlope.slope > 0 ? '↑' : t.cravingSlope.slope < 0 ? '↓' : '→'} ${t.cravingSlope.slope > 0 ? '+' : ''}${t.cravingSlope.slope}/day</span>
+          </div>
+        ` : ''}
+      </div>
+      ${t.signals.length > 0 ? `
+        <div class="trends-signals">
+          ${t.signals.map(s => `
+            <div class="ts-signal ts-${s.kind}">
+              <span class="ts-bullet">●</span>
+              <div>
+                <div class="ts-label">${escapeHtml(s.label)}</div>
+                <div class="ts-detail">${escapeHtml(s.detail)}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      ` : '<div class="trends-stable">No warning signals — patterns look stable.</div>'}
+      <div class="trends-footer">Based on linear slopes of your last 7 days. Rebound = multiple warning signals stacking.</div>
+    </div>
+  `;
+}
+
 function renderHungerInsightsCard() {
   const stageA = trainStageAModel();
   const stageB = trainStageBModel();
@@ -5319,7 +6525,7 @@ function renderHungerInsightsCard() {
     <div class="insights-card">
       <div class="ic-label"><span class="ic-tag">PLATE INSIGHTS</span></div>
       <div class="ic-title">What predicts your hunger</div>
-      <div class="ic-sub">From ${stageA.daysUsed} day${stageA.daysUsed === 1 ? '' : 's'} of your data. Avg ${stageA.avgEpisodes} hunger episode${stageA.avgEpisodes === 1 ? '' : 's'}/day. Model fit: ${r2pct}%.</div>
+      <div class="ic-sub">From ${stageA.daysUsed} day${stageA.daysUsed === 1 ? '' : 's'} of data · ${stageA.featureCount} features tracked · avg ${stageA.avgEpisodes} episode${stageA.avgEpisodes === 1 ? '' : 's'}/day · model fit ${r2pct}%.</div>
       ${stageA.effects.length === 0 ? `
         <div class="ic-no-effects">No feature has a strong enough effect yet. Keep logging — patterns get clearer with more data.</div>
       ` : `
@@ -8059,8 +9265,12 @@ function renderInput() {
                 <div class="nmb-icon">+</div>
                 <div class="nmb-text">
                   <div class="nmb-title">No match for "${escapeHtml(d.searchQuery)}"</div>
-                  <div class="nmb-sub">Enter the numbers below — tick the box to remember this food next time.</div>
+                  <div class="nmb-sub">Search 3M products online, scan a barcode, or enter manually below.</div>
                 </div>
+              </div>
+              <div class="online-actions">
+                <button class="online-btn primary" onclick="triggerOnlineSearch('${escapeHtml(d.searchQuery)}', 'manual')">🌐 Search online</button>
+                <button class="online-btn" onclick="triggerBarcodeScanner('manual')">📷 Scan barcode</button>
               </div>
             ` : ''}
             ${renderStepper({ label: 'calories', value: parseFloat(d.cal) || 200, min: 0, max: 3000, step: 5, bigStep: 50, unit: 'kcal', onChange: "state.manualDraft.cal = VALUE; render()" })}
@@ -9980,7 +11190,10 @@ function renderHungerTab() {
       <div class="hth-title">Manage hunger, prevent rebound</div>
       <div class="hth-sub">Most diets fail when hunger wins. Plate tests what works for <em>you</em>.</div>
     </div>
+    ${renderColdStartRiskCard()}
     ${renderHungerCard()}
+    ${renderTrendSlopesCard()}
+    ${renderBanditCard()}
     ${renderHungerLabCard()}
     ${renderInterventionRankingCard()}
     ${renderHungerHistoryCard()}
@@ -10208,7 +11421,11 @@ function renderHungerLabCard() {
                 <button class="hlab-action-primary" style="width:100%; margin-top:10px" onclick="hungerLabSaveCustomFood()">Save "${escapeHtml(fd.searchQuery)}" + start →</button>
               </div>
             ` : `
-              <button class="hlab-action-secondary" style="width:100%; margin-top:10px" onclick="state.hungerTrial.foodDraft.addingCustom = true; state.hungerTrial.foodDraft.cal = 100; state.hungerTrial.foodDraft.p = 5; state.hungerTrial.foodDraft.c = 10; state.hungerTrial.foodDraft.f = 3; render()">+ Add as custom food</button>
+              <div class="online-actions" style="margin-top: 10px;">
+                <button class="online-btn primary" onclick="triggerOnlineSearch('${escapeHtml(fd.searchQuery)}', 'lab')">🌐 Search online</button>
+                <button class="online-btn" onclick="triggerBarcodeScanner('lab')">📷 Scan barcode</button>
+              </div>
+              <button class="hlab-action-secondary" style="width:100%; margin-top:10px" onclick="state.hungerTrial.foodDraft.addingCustom = true; state.hungerTrial.foodDraft.cal = 100; state.hungerTrial.foodDraft.p = 5; state.hungerTrial.foodDraft.c = 10; state.hungerTrial.foodDraft.f = 3; render()">+ Add as custom food manually</button>
               <button class="hlab-cancel" style="margin-top:6px" onclick="hungerLabConfirmFood(true)">Eat without tracking →</button>
             `}
           </div>
@@ -11657,6 +12874,128 @@ function renderDailyCheckinPrompt() {
   `;
 }
 
+// ============================================================
+// MODAL — Online search consent
+// ============================================================
+function renderOnlineConsentModal() {
+  if (!state.showConsentModal) return '';
+  return `
+    <div class="modal-backdrop" onclick="declineOnlineSearchConsent()"></div>
+    <div class="modal-card consent-modal">
+      <div class="consent-icon">🌐</div>
+      <div class="consent-title">Search the Open Food Facts database?</div>
+      <div class="consent-body">
+        Your meal log, weight, model — everything stays on this device. Always.
+        <br><br>
+        But to search beyond Plate's built-in foods, we need to send your search query to <strong>openfoodfacts.org</strong> — a free, non-profit, GDPR-friendly food database with 3 million products.
+        <br><br>
+        <strong>What's sent:</strong> just the search term (e.g. "kibbeh") or barcode number.
+        <br><strong>What's NOT sent:</strong> your name, your food log, your weight, any other personal data.
+      </div>
+      <div class="consent-buttons">
+        <button class="consent-btn-decline" onclick="declineOnlineSearchConsent()">Keep offline</button>
+        <button class="consent-btn-accept" onclick="acceptOnlineSearchConsent()">OK, search online</button>
+      </div>
+      <div class="consent-footer">You can change this any time in Settings.</div>
+    </div>
+  `;
+}
+
+// ============================================================
+// MODAL — Online search results
+// ============================================================
+function renderOnlineSearchModal() {
+  const s = state.onlineSearch;
+  if (!s) return '';
+  return `
+    <div class="modal-backdrop" onclick="cancelOnlineSearch()"></div>
+    <div class="modal-card online-search-modal">
+      <div class="osm-head">
+        <div class="osm-title">Online food search</div>
+        <button class="osm-close" onclick="cancelOnlineSearch()">×</button>
+      </div>
+      <div class="osm-query">Searching <strong>"${escapeHtml(s.query)}"</strong> · Open Food Facts</div>
+      ${s.loading ? `
+        <div class="osm-loading">
+          <div class="osm-spinner"></div>
+          <div class="osm-loading-msg">Searching 3 million foods…</div>
+        </div>
+      ` : s.error ? `
+        <div class="osm-error">
+          <div class="osm-error-icon">⚠</div>
+          <div class="osm-error-msg">${escapeHtml(s.error)}</div>
+          <button class="osm-retry" onclick="performOnlineSearch('${escapeHtml(s.query)}', '${s.fromContext}')">Retry</button>
+        </div>
+      ` : s.results.length === 0 ? `
+        <div class="osm-empty">
+          <div class="osm-empty-msg">No matches for "${escapeHtml(s.query)}".</div>
+          <div class="osm-empty-hint">Try simpler terms, or close and add it as a custom food.</div>
+        </div>
+      ` : `
+        <div class="osm-results">
+          ${s.results.map((food, i) => `
+            <button class="osm-result" onclick="acceptOnlineSearchResult(${i})">
+              <div class="osm-r-name">${escapeHtml(food.display)}</div>
+              <div class="osm-r-meta">
+                <span class="osm-r-cal">${food.cal} kcal/100g</span>
+                <span class="osm-r-macros">${food.p}g P · ${food.c}g C · ${food.f}g F</span>
+                ${food.brand ? `<span class="osm-r-brand">${escapeHtml(food.brand)}</span>` : ''}
+              </div>
+            </button>
+          `).join('')}
+        </div>
+        <div class="osm-footer">Tap any result to use it. It'll be saved locally so next time is instant.</div>
+      `}
+    </div>
+  `;
+}
+
+// ============================================================
+// MODAL — Barcode scanner
+// ============================================================
+function renderBarcodeScannerModal() {
+  const bc = state.barcodeScanner;
+  if (!bc) return '';
+  return `
+    <div class="modal-backdrop" onclick="closeBarcodeScanner()"></div>
+    <div class="modal-card barcode-modal">
+      <div class="bcm-head">
+        <div class="bcm-title">Scan barcode</div>
+        <button class="bcm-close" onclick="closeBarcodeScanner()">×</button>
+      </div>
+      ${bc.status === 'unsupported' ? `
+        <div class="bcm-error">
+          <div class="bcm-error-icon">⚠</div>
+          <div class="bcm-error-msg">${escapeHtml(bc.error || 'Not supported')}</div>
+        </div>
+      ` : bc.status === 'error' ? `
+        <div class="bcm-error">
+          <div class="bcm-error-icon">⚠</div>
+          <div class="bcm-error-msg">${escapeHtml(bc.error || 'Camera failed')}</div>
+          <div class="bcm-error-hint">Allow camera access in Settings if you denied it earlier.</div>
+        </div>
+      ` : bc.status === 'looking-up' ? `
+        <div class="bcm-status">
+          <div class="osm-spinner"></div>
+          <div class="bcm-status-msg">Found code: ${escapeHtml(bc.detectedCode || '')}<br>Looking up product…</div>
+        </div>
+      ` : bc.status === 'not-found' ? `
+        <div class="bcm-error">
+          <div class="bcm-error-icon">🔍</div>
+          <div class="bcm-error-msg">Barcode <code>${escapeHtml(bc.detectedCode || '')}</code> not found in Open Food Facts.</div>
+          <div class="bcm-error-hint">Some UK/regional products aren't there yet. Close and add it as a custom food.</div>
+        </div>
+      ` : `
+        <div class="bcm-camera">
+          <video id="barcode-video" class="bcm-video" autoplay playsinline muted></video>
+          <div class="bcm-frame"></div>
+        </div>
+        <div class="bcm-hint">Point at the barcode. Hold steady, even lighting.</div>
+      `}
+    </div>
+  `;
+}
+
 function renderDailyCheckinModal() {
   if (!state.showDailyCheckin) return '';
   const d = state.dailyCheckinDraft || {};
@@ -11901,6 +13240,9 @@ function render() {
     ${renderMilestoneCelebration()}
     ${renderPlantStageUp()}
     ${renderDailyCheckinModal()}
+    ${renderOnlineSearchModal()}
+    ${renderOnlineConsentModal()}
+    ${renderBarcodeScannerModal()}
     `;
 
     if (focusedId) {
@@ -11909,6 +13251,10 @@ function render() {
         el.focus();
         if (selStart != null) { try { el.setSelectionRange(selStart, selEnd); } catch {} }
       }
+    }
+    // Mount the barcode scanner once its <video> element is in the DOM
+    if (state.barcodeScanner && state.barcodeScanner.status === 'starting' && typeof attachBarcodeScanner === 'function') {
+      attachBarcodeScanner();
     }
   } catch (err) {
     // Don't leave the user with a blank screen — show the error so we can debug
