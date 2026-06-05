@@ -1713,6 +1713,41 @@
   .hpt-btn:active { background: rgba(196, 160, 106, 0.08); }
   .hpt-btn > span:first-child { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; color: #2C5F5D; }
   .hpt-sub { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; }
+
+  /* ACHIEVEMENTS — milestone grid */
+  .achievements-card { background: white; border: 1px solid #E5E0D2; border-radius: 18px; padding: 18px 20px 16px; margin-bottom: 14px; animation: fadeSlideIn 0.3s ease-out; }
+  .ach-head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .ach-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; color: #1E2E2A; }
+  .ach-sub { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin-top: 3px; }
+  .ach-share-btn { display: inline-flex; align-items: center; gap: 5px; padding: 8px 12px; background: #EEF4F0; color: #2C5F5D; border: 1px solid #DCE9E2; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; cursor: pointer; flex-shrink: 0; }
+  .ach-share-btn:active { transform: scale(0.96); background: #DCE9E2; }
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+  .ach-tile { padding: 12px 10px; border-radius: 12px; text-align: center; transition: all 0.3s; border: 1px solid #E5E0D2; }
+  .ach-tile.unlocked { background: #EEF4F0; border-color: #DCE9E2; }
+  .ach-tile.locked { background: #FAF8F2; opacity: 0.55; filter: grayscale(0.7); }
+  .ach-tile-icon { font-size: 28px; line-height: 1; margin-bottom: 6px; }
+  .ach-tile-title { font-family: 'Fraunces', serif; font-size: 13px; font-weight: 500; color: #1E2E2A; line-height: 1.25; margin-bottom: 3px; }
+  .ach-tile-desc { font-size: 11px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.35; }
+
+  /* UNLOCK TOAST — subtle slide-in when new milestone fires */
+  .unlock-toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 12px 14px 12px 16px; background: #1E2E2A; color: #F4F2EC; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); max-width: 360px; width: calc(100% - 32px); z-index: 9000; cursor: pointer; animation: unlockSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes unlockSlideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  .ut-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
+  .ut-text { flex: 1; min-width: 0; }
+  .ut-eyebrow { font-family: 'Fraunces', serif; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; opacity: 0.7; text-transform: uppercase; }
+  .ut-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; margin-top: 2px; }
+  .ut-desc { font-size: 12px; opacity: 0.75; font-style: italic; font-family: 'Fraunces', serif; margin-top: 1px; }
+  .ut-close { background: transparent; border: none; color: rgba(244,242,236,0.6); font-size: 22px; line-height: 1; padding: 0 4px; cursor: pointer; flex-shrink: 0; }
+
+  /* SHARE MODAL */
+  .share-modal { background: #FAF8F2; border-radius: 22px; max-width: 440px; width: 92%; max-height: 80vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+  .share-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid #E5E0D2; flex-shrink: 0; }
+  .share-title { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500; color: #1E2E2A; }
+  .share-body { padding: 18px 20px 22px; }
+  .share-preview { padding: 18px; background: white; border: 1px solid #E5E0D2; border-radius: 14px; font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+  .share-note { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin: 12px 4px 14px; text-align: center; }
+  .share-go-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 16px; background: #1E2E2A; color: #F4F2EC; border: none; border-radius: 14px; font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; cursor: pointer; }
+  .share-go-btn:active { transform: scale(0.985); background: #2C5F5D; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -4347,6 +4382,8 @@ const state = {
   momentsFlow: null,         // { momentId, step, data } when a Moment is active
   notesDraft: '',            // current text in the notes pad
   hungerPatternsExpanded: false,  // toggle for the "patterns & analytics" collapsible
+  lastUnlocked: null,             // most recent achievement unlock (for toast)
+  showShareModal: false,          // share-wins modal
   savedMeals: [],            // [{ id, name, components: [{name, cal, c, p, f, pieces}], createdAt, useCount }]
   chatInputValue: '',
   chatListening: false,
@@ -4412,6 +4449,7 @@ function set(patch) { Object.assign(state, patch); render(); }
 // Storage
 // ============================================================
 const STORAGE_ENTRIES = 'plate-entries-v2';
+const STORAGE_ACHIEVEMENTS = 'plate-achievements';
 const STORAGE_WEIGHT = 'plate-weight';
 const STORAGE_GOAL = 'plate-goal';
 const STORAGE_CHAT = 'plate-chat';
@@ -6758,6 +6796,87 @@ function loadPlantLastStage() { try { const v = localStorage.getItem(STORAGE_PLA
 function savePlantLastStage(s) { try { localStorage.setItem(STORAGE_PLANT_LAST_STAGE, String(s)); } catch {} }
 function loadPlantLastWatered() { try { const v = localStorage.getItem(STORAGE_PLANT_LAST_WATERED); return v ? parseInt(v) : 0; } catch { return 0; } }
 function savePlantLastWatered(ts) { try { localStorage.setItem(STORAGE_PLANT_LAST_WATERED, String(ts)); } catch {} }
+
+// ============================================================
+// ACHIEVEMENTS — process-focused milestones that reward
+// engagement, experimentation, and self-knowledge.
+// Never celebrate restriction, deficit, or weight loss.
+// ============================================================
+const ACHIEVEMENTS = [
+  // Foundation
+  { id: 'first_log',     icon: '🌱', title: 'First log',         desc: 'You logged your first food', test: s => s.entries.filter(e=>e.type!=='activity').length >= 1 },
+  { id: 'log_10',        icon: '📝', title: '10 entries',        desc: 'Ten meals captured',          test: s => s.entries.filter(e=>e.type!=='activity').length >= 10 },
+  { id: 'log_50',        icon: '📚', title: '50 entries',        desc: 'A real picture of your eating', test: s => s.entries.filter(e=>e.type!=='activity').length >= 50 },
+  { id: 'log_200',       icon: '🗂️', title: '200 entries',       desc: 'Deep data — Plate can find patterns', test: s => s.entries.filter(e=>e.type!=='activity').length >= 200 },
+  // Consistency (days, not deficit)
+  { id: 'week_logged',   icon: '📅', title: 'One full week',     desc: 'Seven days of logging',       test: s => uniqueLogDays(s) >= 7 },
+  { id: 'month_logged',  icon: '📆', title: 'A month in',        desc: 'Thirty days of self-awareness', test: s => uniqueLogDays(s) >= 30 },
+  { id: 'three_months',  icon: '🗓️', title: 'Three months',      desc: 'Real long-term data',          test: s => uniqueLogDays(s) >= 90 },
+  // Hunger experiments
+  { id: 'first_trial',   icon: '🧪', title: 'First experiment',  desc: 'Tried a Hunger Lab intervention', test: s => completedHungerTrials(s) >= 1 },
+  { id: 'five_trials',   icon: '🔬', title: 'Five experiments',  desc: 'Building your evidence base',  test: s => completedHungerTrials(s) >= 5 },
+  { id: 'trial_success', icon: '✨', title: 'Beat a craving',    desc: 'Successfully waited one out',  test: s => successfulHungerTrials(s) >= 1 },
+  // Self-awareness
+  { id: 'first_checkin', icon: '💭', title: 'Daily check-in',    desc: 'Started tracking how you feel', test: s => (s.dailyCheckins||[]).length >= 1 },
+  { id: 'ten_checkins',  icon: '📊', title: 'Ten check-ins',     desc: 'Patterns starting to emerge',  test: s => (s.dailyCheckins||[]).length >= 10 },
+  { id: 'first_moment',  icon: '🎯', title: 'Used Moments',      desc: 'Reached for support over food', test: s => (state.entries.filter(e=>e.type!=='activity').length > 0) && (loadNotes && Object.keys(loadNotes()).length >= 1) },
+  // Personalization
+  { id: 'custom_food',   icon: '✏️', title: 'Customised',        desc: 'Added a food Plate didn\'t know', test: s => (s.customFoods||[]).length >= 1 },
+  { id: 'saved_meal',    icon: '⭐', title: 'Saved a meal',      desc: 'One-tap logging unlocked',     test: s => (s.savedMeals||[]).length >= 1 },
+  { id: 'three_saved',   icon: '🍱', title: 'Three saved meals', desc: 'Building your routine',        test: s => (s.savedMeals||[]).length >= 3 },
+];
+
+function uniqueLogDays(s) {
+  const days = new Set();
+  for (const e of s.entries) if (e.type !== 'activity') days.add(entryDate(e.timestamp));
+  return days.size;
+}
+function completedHungerTrials(s) {
+  return (s.hungerTrials || []).filter(t => t.finalHunger != null).length;
+}
+function successfulHungerTrials(s) {
+  return (s.hungerTrials || []).filter(t => t.finalHunger != null && t.initialHunger != null && t.finalHunger < t.initialHunger - 1).length;
+}
+
+function loadAchievements() {
+  try { const raw = localStorage.getItem(STORAGE_ACHIEVEMENTS); return raw ? JSON.parse(raw) : {}; }
+  catch { return {}; }
+}
+function saveAchievements(a) { try { localStorage.setItem(STORAGE_ACHIEVEMENTS, JSON.stringify(a)); } catch {} }
+
+// Run all checks; returns { unlocked: {id:ts}, newlyUnlocked: [achievement objects] }
+function checkAchievements() {
+  const unlocked = loadAchievements();
+  const newly = [];
+  for (const a of ACHIEVEMENTS) {
+    if (!unlocked[a.id]) {
+      try {
+        if (a.test(state)) {
+          unlocked[a.id] = Date.now();
+          newly.push(a);
+        }
+      } catch (e) { /* ignore individual test errors */ }
+    }
+  }
+  if (newly.length > 0) {
+    saveAchievements(unlocked);
+    // Queue a subtle toast for the most recent unlock (don't spam if multiple)
+    state.lastUnlocked = newly[newly.length - 1];
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+      if (state.lastUnlocked && state.lastUnlocked.id === newly[newly.length - 1].id) {
+        state.lastUnlocked = null;
+        render();
+      }
+    }, 5000);
+  }
+  return { unlocked, newly };
+}
+
+function dismissLastUnlocked() {
+  state.lastUnlocked = null;
+  render();
+}
 
 function checkPlantStageUp() {
   const current = getPlantState();
@@ -10744,6 +10863,8 @@ function checkAndAwardBadges() {
   checkMilestones();
   // Check for plant stage-up
   checkPlantStageUp();
+  // Check for achievement unlocks (process-focused milestones)
+  try { checkAchievements(); } catch (e) { console.warn('Achievement check failed', e); }
   // Snapshot Plate Score for trend tracking
   try { savePlateScoreSnapshot(); } catch {}
   return newly;
@@ -12923,6 +13044,139 @@ function renderWhyIntelligenceCard() {
   `;
 }
 
+// ============================================================
+// ACHIEVEMENTS CARD — visible list of unlocked + locked milestones
+// ============================================================
+function renderAchievementsCard() {
+  const unlocked = loadAchievements();
+  const total = ACHIEVEMENTS.length;
+  const unlockedCount = Object.keys(unlocked).filter(id => ACHIEVEMENTS.find(a => a.id === id)).length;
+  // Sort: unlocked first (most recent), then locked
+  const sorted = [...ACHIEVEMENTS].sort((a, b) => {
+    const aU = !!unlocked[a.id], bU = !!unlocked[b.id];
+    if (aU && !bU) return -1;
+    if (!aU && bU) return 1;
+    if (aU && bU) return (unlocked[b.id] || 0) - (unlocked[a.id] || 0);
+    return 0;
+  });
+  return `
+    <div class="achievements-card">
+      <div class="ach-head-row">
+        <div>
+          <div class="ach-title">Milestones</div>
+          <div class="ach-sub">${unlockedCount} of ${total} unlocked · all process-focused</div>
+        </div>
+        <button class="ach-share-btn" onclick="openShareWins()">${icons.send || '↗'} Share</button>
+      </div>
+      <div class="ach-grid">
+        ${sorted.map(a => {
+          const isUnlocked = !!unlocked[a.id];
+          return `
+            <div class="ach-tile ${isUnlocked ? 'unlocked' : 'locked'}" title="${escapeHtml(a.desc)}">
+              <div class="ach-tile-icon">${a.icon}</div>
+              <div class="ach-tile-title">${escapeHtml(a.title)}</div>
+              <div class="ach-tile-desc">${escapeHtml(a.desc)}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// Subtle banner that floats in when a new achievement unlocks
+function renderUnlockToast() {
+  if (!state.lastUnlocked) return '';
+  const a = state.lastUnlocked;
+  return `
+    <div class="unlock-toast" onclick="dismissLastUnlocked()">
+      <div class="ut-icon">${a.icon}</div>
+      <div class="ut-text">
+        <div class="ut-eyebrow">Milestone unlocked</div>
+        <div class="ut-title">${escapeHtml(a.title)}</div>
+        <div class="ut-desc">${escapeHtml(a.desc)}</div>
+      </div>
+      <button class="ut-close" onclick="event.stopPropagation(); dismissLastUnlocked()" aria-label="Dismiss">×</button>
+    </div>
+  `;
+}
+
+// ============================================================
+// SHARE — generate a personal summary the user can copy/share
+// ============================================================
+function buildShareText() {
+  const plant = getPlantState();
+  const { label: plantLabel } = getPlantStageLabel(plant.stage, plant.health);
+  const days = uniqueLogDays(state);
+  const trials = completedHungerTrials(state);
+  const successes = successfulHungerTrials(state);
+  const unlocked = loadAchievements();
+  const unlockedCount = Object.keys(unlocked).filter(id => ACHIEVEMENTS.find(a => a.id === id)).length;
+
+  const lines = [];
+  lines.push(`🌱 My Plate journey so far`);
+  lines.push('');
+  lines.push(`${plant.stage > 0 ? '🪴 ' + plantLabel : '🌱 Just getting started'}`);
+  lines.push(`📅 ${days} day${days === 1 ? '' : 's'} of logging`);
+  if (trials > 0) lines.push(`🧪 ${trials} hunger experiment${trials === 1 ? '' : 's'} (${successes} successful)`);
+  if (unlockedCount > 0) lines.push(`🏅 ${unlockedCount}/${ACHIEVEMENTS.length} milestones unlocked`);
+  lines.push('');
+  lines.push(`Plate is an evidence-led hunger-management app — not a calorie tracker.`);
+  return lines.join('\n');
+}
+
+function openShareWins() {
+  set({ showShareModal: true });
+}
+function closeShareWins() {
+  set({ showShareModal: false });
+}
+
+async function doShare() {
+  const text = buildShareText();
+  // Try native Web Share API on mobile
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'My Plate journey', text });
+      return;
+    } catch (e) {
+      // User cancelled, fall through to clipboard
+      if (e.name === 'AbortError') return;
+    }
+  }
+  // Clipboard fallback
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('Copied. Paste anywhere you want to share.');
+    } catch {
+      alert('Couldn\'t copy — long-press to select the text in the share box.');
+    }
+  } else {
+    alert('Long-press the text above to copy.');
+  }
+}
+
+function renderShareModal() {
+  if (!state.showShareModal) return '';
+  const text = buildShareText();
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) closeShareWins()">
+      <div class="share-modal">
+        <div class="share-header">
+          <div class="share-title">Share your journey</div>
+          <button class="icon-btn" onclick="closeShareWins()" aria-label="Close">${icons.x}</button>
+        </div>
+        <div class="share-body">
+          <div class="share-preview">${escapeHtml(text).replace(/\n/g, '<br/>')}</div>
+          <div class="share-note">Process-focused. No weight or calorie data is shared.</div>
+          <button class="share-go-btn" onclick="doShare()">${icons.send || '↗'} ${navigator.share ? 'Share' : 'Copy to clipboard'}</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function renderPlantCard() {
   const p = getPlantState();
   const { label, sub } = getPlantStageLabel(p.stage, p.health);
@@ -13792,9 +14046,11 @@ function renderWinsTab() {
         <div class="body">Every entry you log, every urge you beat, every workout — they all show up here as numbers that only go up. Bad day? Wins page still has your numbers. That's the point.</div>
       </div>
       ${renderPlantCard()}
+      ${renderAchievementsCard()}
     ` : `
 
     ${renderPlantCard()}
+    ${renderAchievementsCard()}
 
     ${isPlateau ? `
       <div class="wins-callout">
@@ -17261,6 +17517,8 @@ function render() {
     ${renderOnlineConsentModal()}
     ${renderBarcodeScannerModal()}
     ${renderLabelScanner()}
+    ${renderShareModal()}
+    ${renderUnlockToast()}
     `;
 
     if (focusedId) {
