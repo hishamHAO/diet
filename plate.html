@@ -14280,6 +14280,10 @@ function renderYouTab() {
       </div>
     `}
 
+    <!-- GARDEN: plant + achievements, always visible -->
+    ${renderPlantCard()}
+    ${renderAchievementsCard()}
+
     <!-- DAILY: quick actions for today -->
     <div class="you-section ${isOpen('daily') ? 'open' : ''}">
       ${sectionHeader('daily', '📋', 'Daily check-in', todayCheckin ? `✓ done${checkinStreak >= 2 ? ` · ${checkinStreak}-day streak` : ''}` : 'Sleep, stress, hunger, weight · 20s', todayCheckin ? '✓' : null)}
