@@ -5168,45 +5168,83 @@ function closeLabelScanner() {
 // and US "Calories X" formats. Returns null for fields it can't find.
 function parseNutritionLabel(text) {
   if (!text) return { kcal: null, protein: null, carbs: null, fat: null, per: 'unknown' };
-  // Normalize: lowercase, single spaces, remove most punctuation noise
+  // Normalize: lowercase, collapse whitespace, convert decimal commas to dots only between digits
   const norm = text.toLowerCase()
     .replace(/[\u2013\u2014]/g, '-')
     .replace(/[\u201C\u201D\u2018\u2019]/g, "'")
-    .replace(/[,]/g, '.')              // Some EU labels use comma as decimal
+    .replace(/(\d)\s*,\s*(\d)/g, '$1.$2')   // 1,5 → 1.5 (EU decimal), preserve "1,000"
     .replace(/\s+/g, ' ')
     .trim();
 
   const result = { kcal: null, protein: null, carbs: null, fat: null, per: 'unknown', rawNorm: norm };
 
-  // --- Energy / Calories ---
-  // EU-style: "energy 250 kcal" or "energy: 1050 kj / 250 kcal"
-  let m = norm.match(/energy[^\d-]{0,12}(?:[\d.]+\s*kj[^\d-]{0,8})?(\d{2,4}(?:\.\d+)?)\s*kcal/);
-  if (!m) m = norm.match(/(\d{2,4}(?:\.\d+)?)\s*kcal/);
-  if (!m) m = norm.match(/calories?[^\d-]{0,8}(\d{2,4}(?:\.\d+)?)/);
+  // Helper: extract first number after a label pattern.
+  // Tries STRICT (with "g" unit) first to avoid grabbing % daily-value numbers,
+  // then LOOSE (any number within reasonable gap) as fallback.
+  function extractAfter(labelPattern, opts = {}) {
+    const { maxGap = 30, unit = 'g', minVal = 0, maxVal = 300 } = opts;
+    // Strict: label … digits unit (e.g. "Protein 5.2g")
+    const strict = new RegExp(`${labelPattern}[^\\d]{0,${maxGap}}(\\d{1,3}(?:\\.\\d+)?)\\s*${unit}`, 'i');
+    let m = norm.match(strict);
+    if (m) {
+      const v = parseFloat(m[1]);
+      if (v >= minVal && v <= maxVal) return v;
+    }
+    // Loose: label … digits (no unit required). Capture small numbers only (<150)
+    // to avoid grabbing % values or unrelated digits.
+    const loose = new RegExp(`${labelPattern}[^\\d]{0,${maxGap}}(\\d{1,3}(?:\\.\\d+)?)`, 'i');
+    m = norm.match(loose);
+    if (m) {
+      const v = parseFloat(m[1]);
+      // Only accept small numbers in loose mode — likely a g value
+      if (v >= minVal && v <= 150) return v;
+    }
+    return null;
+  }
+
+  // --- Energy / kcal ---
+  // Most labels: "Energy 1050 kJ / 250 kcal" or "Calories 250"
+  // Tolerant of OCR artifacts (dots/spaces) between number and "kcal"
+  let m = norm.match(/(\d{2,4}(?:\.\d+)?)[\s./|]{0,4}kcal/i);
   if (m) result.kcal = parseFloat(m[1]);
+  if (result.kcal == null) {
+    m = norm.match(/calories?[^\d]{0,20}(\d{2,4}(?:\.\d+)?)/i);
+    if (m) result.kcal = parseFloat(m[1]);
+  }
 
   // --- Protein ---
-  m = norm.match(/protein[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
-  if (!m) m = norm.match(/(\d{1,3}(?:\.\d+)?)\s*g\s*protein/);
-  if (m) result.protein = parseFloat(m[1]);
+  result.protein = extractAfter('protein\\s*(?:total)?', { maxVal: 300 });
 
-  // --- Carbohydrate ---
-  m = norm.match(/carbohydrate[s]?[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
-  if (!m) m = norm.match(/total\s+carb[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
-  if (!m) m = norm.match(/carbs?[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
-  if (m) result.carbs = parseFloat(m[1]);
+  // --- Carbohydrate (try most specific first to skip "of which sugars" sub-row) ---
+  result.carbs = extractAfter('total\\s+carb(?:ohydrate)?s?');
+  if (result.carbs == null) result.carbs = extractAfter('carbohydrate?s?');
+  if (result.carbs == null) result.carbs = extractAfter('carbs?\\b');
 
-  // --- Fat (try "total fat" first to avoid matching "saturated fat") ---
-  m = norm.match(/total\s+fat[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
-  if (!m) m = norm.match(/(?:^|[^a-z])fat[^a-z]{1,12}(\d{1,3}(?:\.\d+)?)\s*g/);
-  if (m) result.fat = parseFloat(m[1]);
+  // --- Fat (must avoid "saturated fat", "trans fat", "of which saturates") ---
+  // First: try "total fat" — this is the unambiguous US label form
+  result.fat = extractAfter('total\\s+fat');
+  if (result.fat == null) {
+    // Scan all "fat <number>" occurrences; skip ones preceded by qualifiers
+    const matches = [...norm.matchAll(/(\w+\s+)?fat[^\d]{0,30}(\d{1,3}(?:\.\d+)?)\s*g?/gi)];
+    for (const fm of matches) {
+      const startIdx = fm.index || 0;
+      const before = norm.slice(Math.max(0, startIdx - 30), startIdx + (fm[1] || '').length);
+      // Skip qualifier words that mean this isn't the main fat value
+      if (/saturate[ds]?|trans|polyunsaturate|monounsaturate|of\s*which|unsaturated/i.test(before)) continue;
+      const v = parseFloat(fm[2]);
+      if (v >= 0 && v <= 200) {
+        result.fat = v;
+        break;
+      }
+    }
+  }
 
   // --- Per: 100g vs serving ---
   if (/per\s+100\s*g/.test(norm) || /\bper\s*100g/.test(norm)) result.per = '100g';
   else if (/per\s+(?:serving|portion)/.test(norm)) result.per = 'serving';
   else if (/serving\s+size/.test(norm)) result.per = 'serving';
 
-  // Sanity sanitise — if any value is suspiciously high (>2000 kcal, >300g macro), drop it
+  // Sanity bounds
   if (result.kcal != null && (result.kcal > 2000 || result.kcal < 0)) result.kcal = null;
   if (result.protein != null && result.protein > 300) result.protein = null;
   if (result.carbs != null && result.carbs > 300) result.carbs = null;
