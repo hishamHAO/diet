@@ -6010,7 +6010,7 @@ function createSavedMealFromToday() {
     name: name.trim(),
     components: recentMeal.map(e => ({
       name: e.name,
-      cal: e.cal || 0,
+      cal: entryCalories(e),
       c: e.carbs || 0,
       p: e.protein || 0,
       f: e.fat || 0,
@@ -11299,7 +11299,7 @@ function getMomentsContext() {
 
   const today = todayISO();
   const todayEntries = state.entries.filter(e => entryDate(e.timestamp) === today && e.type !== 'activity');
-  const todayCal = todayEntries.reduce((s, e) => s + (e.cal || 0), 0);
+  const todayCal = todayEntries.reduce((s, e) => s + entryCalories(e), 0);
   const dailyGoal = state.dailyGoal || 2000;
 
   // Last sleep from checkins
@@ -11311,8 +11311,8 @@ function getMomentsContext() {
   let eveCal = 0, totalCal = 0;
   const weekEntries = state.entries.filter(e => e.timestamp >= now - 7*day && e.type !== 'activity');
   for (const e of weekEntries) {
-    totalCal += e.cal || 0;
-    if (new Date(e.timestamp).getHours() >= 18) eveCal += e.cal || 0;
+    totalCal += entryCalories(e);
+    if (new Date(e.timestamp).getHours() >= 18) eveCal += entryCalories(e);
   }
   const evePct = totalCal > 100 ? Math.round((eveCal / totalCal) * 100) : null;
 
@@ -11974,6 +11974,12 @@ function todayISO() {
 function entryDate(ts) {
   const d = new Date(ts);
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+// Get calories from an entry. Entries are stored with `calories` (canonical),
+// but some older / draft paths use `cal`. Read both, normalised.
+function entryCalories(e) {
+  if (!e) return 0;
+  return Number(e.calories != null ? e.calories : (e.cal != null ? e.cal : 0)) || 0;
 }
 function formatTime(ts) { return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
 function formatDateLabel(iso) {
@@ -12678,7 +12684,7 @@ function renderTotals() {
         <div class="progress-bar"><div class="progress-fill ${over ? 'over' : ''}" style="width: ${Math.min(100, (net/goal)*100)}%"></div></div>
         <div class="progress-meta">
           <span>${pct}% of goal</span>
-          <span>${Math.max(0, goal - Math.round(net))} kcal ${over ? 'over' : 'left'}</span>
+          <span>${over ? `${Math.round(net) - goal} kcal over` : `${goal - Math.round(net)} kcal left`}</span>
         </div>
       </div>
       <div class="macros">
@@ -14895,7 +14901,7 @@ function createSavedMealFromHistory(sample) {
     name: name.trim(),
     components: sample.map(e => ({
       name: e.name,
-      cal: e.cal || 0,
+      cal: entryCalories(e),
       c: e.carbs || 0,
       p: e.protein || 0,
       f: e.fat || 0,
@@ -14947,7 +14953,7 @@ function renderMealDistribution() {
   const actualByMeal = { breakfast: 0, lunch: 0, dinner: 0, snack: 0 };
   for (const e of dayEntries) {
     const slot = getMealTag(e.timestamp);
-    actualByMeal[slot] = (actualByMeal[slot] || 0) + (e.cal || 0);
+    actualByMeal[slot] = (actualByMeal[slot] || 0) + entryCalories(e);
   }
   return `
     <div class="meal-dist-card">
@@ -15111,7 +15117,7 @@ function renderWeeklyChart() {
     d.setDate(d.getDate() - i);
     const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     const dayEntries = state.entries.filter(e => entryDate(e.timestamp) === iso && e.type !== 'activity');
-    const food = dayEntries.reduce((s, e) => s + (e.cal || 0), 0);
+    const food = dayEntries.reduce((s, e) => s + entryCalories(e), 0);
     days.push({ date: d, iso, food, hasData: dayEntries.length > 0 });
   }
 
@@ -15356,7 +15362,7 @@ function computeReboundRisk() {
     if (!dayKeys.has(iso)) break;
     const dayCal = state.entries
       .filter(e => entryDate(e.timestamp) === iso && e.type !== 'activity')
-      .reduce((s, e) => s + (e.cal || 0), 0);
+      .reduce((s, e) => s + entryCalories(e), 0);
     // Consider a day "in deficit" if calories < 95% of maintenance
     if (dayCal > 0 && dayCal < maintenance * 0.95) streak++;
     else break;
@@ -15420,8 +15426,8 @@ function computeReboundRisk() {
   let eveCal = 0, totalCal = 0;
   for (const e of recentEntries) {
     const hr = new Date(e.timestamp).getHours();
-    totalCal += e.cal || 0;
-    if (hr >= 18) eveCal += e.cal || 0;
+    totalCal += entryCalories(e);
+    if (hr >= 18) eveCal += entryCalories(e);
   }
   let backloadPoints = 0;
   let backloadDetail = 'Not enough data';
@@ -15697,7 +15703,7 @@ function renderDietBreakCard() {
   for (let i = 0; i < 90; i++) {
     const iso = `${cursor.getFullYear()}-${String(cursor.getMonth()+1).padStart(2,'0')}-${String(cursor.getDate()).padStart(2,'0')}`;
     if (!dayKeys.has(iso)) break;
-    const dayCal = state.entries.filter(e => entryDate(e.timestamp) === iso && e.type !== 'activity').reduce((s, e) => s + (e.cal || 0), 0);
+    const dayCal = state.entries.filter(e => entryDate(e.timestamp) === iso && e.type !== 'activity').reduce((s, e) => s + entryCalories(e), 0);
     if (dayCal > 0 && dayCal < maintenance * 0.95) streak++;
     else break;
     cursor.setDate(cursor.getDate() - 1);
