@@ -5961,11 +5961,13 @@ function logSavedMeal(mealId) {
   const now = Date.now();
   const newEntries = [];
   for (const c of meal.components) {
+    const kcal = c.cal || c.calories || 0;
     newEntries.push({
       id: `e_${now}_${Math.random().toString(36).slice(2, 7)}`,
       name: c.name,
       timestamp: now,
-      cal: c.cal || 0,
+      calories: kcal,           // canonical field name used by all consumers
+      cal: kcal,                // alias for backward compatibility with any old code
       carbs: c.c || 0,
       protein: c.p || 0,
       fat: c.f || 0,
