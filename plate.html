@@ -1785,6 +1785,14 @@
   .reminder-row .k { font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; }
   .time-input { padding: 8px 12px; background: #FAF8F2; border: 1px solid #E5E0D2; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; }
   .time-input:focus { outline: none; border-color: #c4a06a; }
+
+  /* Pending-entry time picker — let the user adjust when food was actually eaten */
+  .pending-time-row { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; padding: 10px 12px; background: #FAF8F2; border: 1px dashed #E5E0D2; border-radius: 12px; flex-wrap: wrap; }
+  .ptr-label { font-family: 'Fraunces', serif; font-size: 13px; color: #6b6a5c; flex: 1; min-width: 130px; }
+  .ptr-input { padding: 7px 10px; background: white; border: 1px solid #E5E0D2; border-radius: 8px; font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; flex-shrink: 0; }
+  .ptr-input:focus { outline: none; border-color: #c4a06a; }
+  .ptr-now { padding: 7px 12px; background: white; color: #2C5F5D; border: 1px solid #DCE9E2; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; cursor: pointer; flex-shrink: 0; }
+  .ptr-now:active { transform: scale(0.94); background: #EEF4F0; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -4488,6 +4496,7 @@ function set(patch) { Object.assign(state, patch); render(); }
 // ============================================================
 // Storage
 // ============================================================
+const PLATE_VERSION = '2026-06-05.2';
 const STORAGE_ENTRIES = 'plate-entries-v2';
 const STORAGE_ACHIEVEMENTS = 'plate-achievements';
 const STORAGE_TUTORIAL = 'plate-tutorial-dismissed';
@@ -6420,6 +6429,118 @@ function getLast7Days() {
     });
   }
   return result;
+}
+
+// ============================================================
+// BACKUP & RESTORE — full JSON snapshot of all Plate data.
+// Critical safety net: PWAs lose localStorage when uninstalled.
+// ============================================================
+const BACKUP_KEYS = [
+  'plate-entries-v2',
+  'plate-weight',
+  'plate-goal',
+  'plate-chat',
+  'plate-why',
+  'plate-pause',
+  'plate-wellbeing',
+  'plate-daily-checkin',
+  'plate-checkin-dismissed-today',
+  'plate-hunger-lab',
+  'plate-custom-foods',
+  'plate-saved-meals',
+  'plate-achievements',
+  'plate-tutorial-dismissed',
+  'plate-meal-times',
+  'plate-notes',
+  'plate-onboarded',
+  'plate-profile',
+  'plate-measurements',
+  'plate-pulse',
+  'plate-water',
+  'plate-meal-split',
+  'plate-chart-range',
+  'plate-online-search-consent',
+  'plate-plant-last-watered',
+  'plate-plant-stage',
+  'plate-urges',
+  'plate-earned-badges',
+  'plate-streak-best',
+  'plate-deficit-streak',
+  'plate-comeback',
+  'plate-trial-history',
+  'plate-bandit-state',
+  'plate-cascade',
+];
+
+function exportBackup() {
+  const data = { _meta: { app: 'Plate', version: PLATE_VERSION, exportedAt: new Date().toISOString() } };
+  for (const key of BACKUP_KEYS) {
+    try {
+      const val = localStorage.getItem(key);
+      if (val != null) data[key] = val;
+    } catch {}
+  }
+  // Also sweep any other plate-* keys we may have missed
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('plate-') && !(k in data)) {
+        data[k] = localStorage.getItem(k);
+      }
+    }
+  } catch {}
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const stamp = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `plate-backup-${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  try { localStorage.setItem('plate-last-backup', String(Date.now())); } catch {}
+}
+
+function triggerBackupImport() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json,.json';
+  input.onchange = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!data || typeof data !== 'object') throw new Error('Invalid backup file.');
+      // Sanity check — must contain at least the entries key, or _meta marking it as Plate
+      const isPlate = (data._meta && data._meta.app === 'Plate') || ('plate-entries-v2' in data);
+      if (!isPlate) throw new Error('This file doesn\'t look like a Plate backup.');
+      const stamp = data._meta && data._meta.exportedAt ? new Date(data._meta.exportedAt).toLocaleString() : 'an unknown time';
+      if (!confirm(`Restore from backup dated ${stamp}?\n\nThis will REPLACE all current data on this device. Continue?`)) return;
+      // Apply each key
+      let restored = 0;
+      for (const [k, v] of Object.entries(data)) {
+        if (k === '_meta') continue;
+        if (!k.startsWith('plate-')) continue;
+        try { localStorage.setItem(k, v); restored++; } catch {}
+      }
+      alert(`Restored ${restored} item${restored === 1 ? '' : 's'}. Plate will reload now.`);
+      location.reload();
+    } catch (err) {
+      alert('Couldn\'t restore: ' + (err.message || 'invalid file'));
+    }
+  };
+  input.click();
+}
+
+function getLastBackupAge() {
+  try {
+    const last = parseInt(localStorage.getItem('plate-last-backup'), 10);
+    if (!last) return null;
+    const days = (Date.now() - last) / 86400000;
+    return Math.floor(days);
+  } catch { return null; }
 }
 
 function exportCSV() {
@@ -12005,6 +12126,39 @@ function getEntryTimestamp() {
   return d.getTime();
 }
 
+// Convert a timestamp to a "HH:MM" string for use in <input type="time">
+function formatTimestampForInput(ts) {
+  if (!ts) ts = Date.now();
+  const d = new Date(ts);
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
+// Convert a "HH:MM" string back to a full timestamp, preserving the date
+// portion from the previous timestamp (so changing time doesn't change day).
+function parseTimeInputToTimestamp(hhmm, baseTimestamp) {
+  if (!hhmm) return baseTimestamp || Date.now();
+  const parts = hhmm.split(':');
+  if (parts.length !== 2) return baseTimestamp || Date.now();
+  const h = parseInt(parts[0], 10), m = parseInt(parts[1], 10);
+  if (isNaN(h) || isNaN(m)) return baseTimestamp || Date.now();
+  const base = new Date(baseTimestamp || Date.now());
+  base.setHours(h, m, 0, 0);
+  return base.getTime();
+}
+
+// Update the timestamp on the active pending entry (single or multi)
+function setPendingTimestamp(hhmm) {
+  if (!state.pending) return;
+  const newTs = parseTimeInputToTimestamp(hhmm, state.pending.timestamp);
+  state.pending = { ...state.pending, timestamp: newTs };
+  render();
+}
+function setPendingTimestampToNow() {
+  if (!state.pending) return;
+  state.pending = { ...state.pending, timestamp: getEntryTimestamp() };
+  render();
+}
+
 // ============================================================
 // Speech recognition
 // ============================================================
@@ -12293,7 +12447,7 @@ function saveManual() {
   if (cal <= 0) { set({ error: 'Please enter calories or pick a food.' }); return; }
   const entry = {
     id: Date.now().toString(),
-    timestamp: getEntryTimestamp(),
+    timestamp: d.timestamp || getEntryTimestamp(),
     spoken: name,
     name,
     calories: Math.round(cal),
@@ -12775,6 +12929,11 @@ function renderInput() {
             <span class="sat-skip-help">We ask later how it actually was — useful if there's a gap.</span>
           </div>
           <div class="pending-heard">Heard: "${escapeHtml(p.spoken)}"</div>
+          <div class="pending-time-row">
+            <label class="ptr-label">When did you eat this?</label>
+            <input type="time" class="ptr-input" value="${formatTimestampForInput(p.timestamp)}" onchange="setPendingTimestamp(this.value)"/>
+            <button class="ptr-now" onclick="setPendingTimestampToNow()">now</button>
+          </div>
           <div class="pending-actions">
             <button class="secondary-btn" onclick="cancelEntry()">${icons.xSm}<span>Discard</span></button>
             <button class="primary-btn" onclick="confirmEntry()">${icons.checkSm}<span>Save</span></button>
@@ -12923,6 +13082,11 @@ function renderInput() {
               </label>
             ` : ''}
           `}
+          <div class="pending-time-row">
+            <label class="ptr-label">When did you eat this?</label>
+            <input type="time" class="ptr-input" value="${formatTimestampForInput(d.timestamp || getEntryTimestamp())}" onchange="state.manualDraft.timestamp = parseTimeInputToTimestamp(this.value, state.manualDraft.timestamp || getEntryTimestamp()); render()"/>
+            <button class="ptr-now" onclick="state.manualDraft.timestamp = getEntryTimestamp(); render()">now</button>
+          </div>
           <button class="primary-btn" onclick="saveManual()">${icons.checkSm}<span>Save entry</span></button>
         </div>
         <div class="text-card" style="margin-top:10px">
@@ -17477,6 +17641,15 @@ function renderSettingsModal() {
         </div>
 
         <div class="modal-section">
+          <div class="modal-section-title">backup & restore</div>
+          <div style="font-size: 13px; color: #6b6a5c; line-height: 1.5; font-family: 'Fraunces', serif; font-style: italic; margin-bottom: 10px;">
+            Save a full backup file you can keep in iCloud Drive, Files, or anywhere. Restore from it if you ever lose your phone, switch device, or have to reinstall Plate.${getLastBackupAge() != null ? ` Last backup: ${getLastBackupAge() === 0 ? 'today' : getLastBackupAge() + ' day' + (getLastBackupAge() === 1 ? '' : 's') + ' ago'}.` : ' Never backed up yet.'}
+          </div>
+          <button class="primary-btn" onclick="exportBackup()" style="margin-top:0; margin-bottom:8px">${icons.download}<span>Save backup file</span></button>
+          <button class="secondary-btn" onclick="triggerBackupImport()" style="width:100%; flex:none">${icons.upload || icons.download}<span>Restore from backup</span></button>
+        </div>
+
+        <div class="modal-section">
           <div class="modal-section-title">data (${entryCount} entries${photoCount > 0 ? ', ' + photoCount + ' photos' : ''})</div>
           <button class="primary-btn" onclick="exportCSV()" style="margin-top:0; margin-bottom:8px">${icons.download}<span>Export as CSV</span></button>
           ${photoCount > 0 ? `<button class="secondary-btn" onclick="clearAllPhotos()" style="margin-bottom:8px">${icons.trash}<span>Remove all photos</span></button>` : ''}
@@ -17507,6 +17680,11 @@ function renderSettingsModal() {
           <textarea id="feedback-input" style="width:100%; min-height: 80px; padding: 10px 12px; background: #FAF8F2; border: 1px solid #E5E0D2; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; resize: vertical; box-sizing: border-box;" placeholder="What worked, what didn't, what's confusing..."></textarea>
           <button class="primary-btn" style="margin-top: 8px" onclick="submitFeedback()">${icons.send}<span>Copy feedback to clipboard</span></button>
           <div style="font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin-top: 6px;">Copies to your clipboard with a snapshot of your stats — paste it into a message back to whoever sent you Plate.</div>
+        </div>
+
+        <div style="text-align:center; padding: 16px 0 4px; font-family: 'Fraunces', serif; font-size: 11px; color: #8a8975; font-style: italic; line-height: 1.5">
+          Plate · v${PLATE_VERSION}<br/>
+          If you don't see this version, swipe up to close and reopen the app.
         </div>
 
         <div class="modal-actions">
