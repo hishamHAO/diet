@@ -271,22 +271,20 @@
 
   /* MEAL DISTRIBUTION CARD */
   .meal-dist-card { background: white; border: 1px solid #E5E0D2; border-radius: 18px; padding: 18px 20px; margin-bottom: 16px; }
+  .md-head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
   .md-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: #1E2E2A; margin-bottom: 2px; }
-  .md-sub { font-size: 13px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin-bottom: 14px; }
-  .md-list { display: flex; flex-direction: column; gap: 12px; }
-  .md-row { display: flex; flex-direction: column; gap: 6px; }
-  .md-row-head { display: flex; align-items: baseline; gap: 8px; }
-  .md-emoji { font-size: 17px; }
-  .md-label { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; color: #1E2E2A; flex: 1; }
-  .md-vals { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; }
-  .md-vals strong { font-weight: 500; font-size: 16px; }
-  .md-slash, .md-unit { color: #8a8975; font-weight: 400; }
-  .md-bar { width: 100%; height: 8px; background: #F0EEE6; border-radius: 4px; overflow: hidden; }
-  .md-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
-  .md-empty .md-fill { background: #E5E0D2; }
-  .md-under .md-fill { background: #c4a06a; }
-  .md-good .md-fill { background: #5a7a3a; }
-  .md-over .md-fill { background: #B85C38; }
+  .md-sub { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; }
+  .md-status { font-family: 'Fraunces', serif; font-size: 13px; font-weight: 500; flex-shrink: 0; text-align: right; max-width: 50%; line-height: 1.3; }
+  .md-empty { padding: 14px 0 4px; font-size: 13px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; }
+  .md-timeline { width: 100%; height: auto; display: block; margin: 6px 0 12px; }
+  .md-split-bar { display: flex; height: 22px; border-radius: 11px; overflow: hidden; margin-bottom: 12px; }
+  .md-split-before, .md-split-after { display: flex; align-items: center; justify-content: center; transition: flex 0.4s ease; }
+  .md-split-l { font-family: 'Fraunces', serif; font-size: 11px; color: white; font-weight: 500; padding: 0 8px; white-space: nowrap; }
+  .md-totals { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .md-total-block { background: #FAF8F2; border-radius: 9px; padding: 9px 12px; }
+  .md-total-l { font-family: 'Fraunces', serif; font-size: 11px; color: #6b6a5c; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+  .md-total-v { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; }
+  .md-blurb { font-family: 'Fraunces', serif; font-size: 12px; color: #6b6a5c; font-style: italic; line-height: 1.45; }
 
   /* WATER TRACKING CARD */
   .water-card { background: white; border: 1px solid #E5E0D2; border-radius: 18px; padding: 18px 20px; margin-bottom: 16px; }
@@ -14942,45 +14940,156 @@ function renderCaloriesTab() {
 // rebound binges.
 // ============================================================
 function renderMealDistribution() {
-  const dailyGoal = state.dailyGoal || 2000;
-  const split = state.mealSplit || { breakfast: 25, lunch: 30, dinner: 30, snack: 15 };
-  const meals = [
-    { id: 'breakfast', label: 'Breakfast', emoji: '🌅', pct: split.breakfast },
-    { id: 'lunch',     label: 'Lunch',     emoji: '🥗', pct: split.lunch },
-    { id: 'dinner',    label: 'Dinner',    emoji: '🍽',  pct: split.dinner },
-    { id: 'snack',     label: 'Snacks',    emoji: '🍎', pct: split.snack },
-  ];
-  // Group today's entries by meal slot
-  const dayEntries = state.entries.filter(e => entryDate(e.timestamp) === state.selectedDate && e.type !== 'activity');
-  const actualByMeal = { breakfast: 0, lunch: 0, dinner: 0, snack: 0 };
-  for (const e of dayEntries) {
-    const slot = getMealTag(e.timestamp);
-    actualByMeal[slot] = (actualByMeal[slot] || 0) + entryCalories(e);
+  // Time-of-day distribution — shows when calories actually happened
+  // across the day, without assuming a 3- or 4-meal pattern. The
+  // headline metric is % of calories after 6pm, which is what the
+  // rebound research (Garaulet, Scheer) actually measures.
+  const dayEntries = state.entries
+    .filter(e => entryDate(e.timestamp) === state.selectedDate && e.type !== 'activity')
+    .sort((a, b) => a.timestamp - b.timestamp);
+
+  if (dayEntries.length === 0) {
+    return `
+      <div class="meal-dist-card">
+        <div class="md-title">Today's distribution</div>
+        <div class="md-sub">When you ate, spread across the day</div>
+        <div class="md-empty">No meals logged yet today.</div>
+      </div>
+    `;
   }
+
+  // Totals + before/after 6pm split
+  let totalCal = 0, beforeSix = 0, afterSix = 0;
+  for (const e of dayEntries) {
+    const k = entryCalories(e);
+    totalCal += k;
+    const hr = new Date(e.timestamp).getHours();
+    if (hr < 18) beforeSix += k;
+    else afterSix += k;
+  }
+  const afterPct = totalCal > 0 ? Math.round((afterSix / totalCal) * 100) : 0;
+  const beforePct = 100 - afterPct;
+
+  // Status (matches rebound-risk evening-loading thresholds)
+  let statusColor, statusLabel, statusBlurb;
+  if (totalCal < 200) {
+    statusColor = '#8a8975';
+    statusLabel = 'Just getting started';
+    statusBlurb = 'Light intake so far — not enough to judge pacing.';
+  } else if (afterPct < 40) {
+    statusColor = '#5a7a3a';
+    statusLabel = 'Well-distributed';
+    statusBlurb = 'Energy spread evenly across the day.';
+  } else if (afterPct < 50) {
+    statusColor = '#c4a06a';
+    statusLabel = 'Slightly back-loaded';
+    statusBlurb = 'A bit weighted to evening. Watch tomorrow.';
+  } else if (afterPct < 60) {
+    statusColor = '#B85C38';
+    statusLabel = 'Back-loaded';
+    statusBlurb = 'Most of today\'s intake is after 6pm. Linked to overshoot and worse sleep (Garaulet).';
+  } else {
+    statusColor = '#933';
+    statusLabel = 'Heavily back-loaded';
+    statusBlurb = 'Almost all calories landed late. Try shifting some toward earlier tomorrow.';
+  }
+
+  // Build timeline (5am to 1am next day, 20-hour window)
+  const startHour = 5, endHour = 25;
+  const totalHours = endHour - startHour;
+  const width = 340, height = 110;
+  const padding = 14;
+  const innerWidth = width - 2 * padding;
+  const barAreaTop = 18, barAreaBottom = 78;
+  const barAreaHeight = barAreaBottom - barAreaTop;
+
+  const maxKcal = Math.max(...dayEntries.map(entryCalories), 100);
+
+  const bars = dayEntries.map(e => {
+    const d = new Date(e.timestamp);
+    let hr = d.getHours() + d.getMinutes() / 60;
+    if (hr < startHour) hr += 24;
+    if (hr > endHour) return null;
+    const x = padding + ((hr - startHour) / totalHours) * innerWidth;
+    const k = entryCalories(e);
+    const barHeight = Math.max(4, (k / maxKcal) * barAreaHeight);
+    const y = barAreaBottom - barHeight;
+    const isLate = d.getHours() >= 18;
+    const hp = (typeof isHyperpalatable === 'function') ? isHyperpalatable(e) : false;
+    return { x, y, height: barHeight, kcal: k, isLate, hp, name: e.name };
+  }).filter(Boolean);
+
+  // 6pm threshold position
+  const sixPmX = padding + ((18 - startHour) / totalHours) * innerWidth;
+
+  // Hour labels — keep sparse to avoid clutter
+  const hourMarks = [
+    { h: 6, label: '6am' },
+    { h: 9, label: '9am' },
+    { h: 12, label: '12pm' },
+    { h: 15, label: '3pm' },
+    { h: 18, label: '6pm' },
+    { h: 21, label: '9pm' },
+    { h: 24, label: '12am' },
+  ];
+
+  const svg = `
+    <svg viewBox="0 0 ${width} ${height}" class="md-timeline" preserveAspectRatio="xMidYMid meet">
+      <!-- baseline -->
+      <line x1="${padding}" y1="${barAreaBottom}" x2="${width - padding}" y2="${barAreaBottom}" stroke="#E5E0D2" stroke-width="1"/>
+      <!-- 6pm threshold -->
+      <line x1="${sixPmX}" y1="${barAreaTop - 6}" x2="${sixPmX}" y2="${barAreaBottom + 4}" stroke="#c4a06a" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="${sixPmX + 4}" y="${barAreaTop}" font-family="Fraunces, serif" font-size="9" fill="#c4a06a" font-style="italic">6pm</text>
+      <!-- bars -->
+      ${bars.map(b => `
+        <rect x="${b.x - 4}" y="${b.y}" width="8" height="${b.height}" rx="2"
+          fill="${b.isLate ? '#B85C38' : '#5a7a3a'}" opacity="0.85">
+          <title>${escapeHtml(b.name)} · ${b.kcal} kcal</title>
+        </rect>
+        ${b.hp ? `<circle cx="${b.x}" cy="${b.y - 5}" r="2.5" fill="#B85C38" stroke="white" stroke-width="0.5"><title>Hyperpalatable</title></circle>` : ''}
+      `).join('')}
+      <!-- hour labels -->
+      ${hourMarks.map(m => {
+        const x = padding + ((m.h - startHour) / totalHours) * innerWidth;
+        return `<text x="${x}" y="${height - 8}" font-family="Fraunces, serif" font-size="10" fill="#8a8975" text-anchor="middle">${m.label}</text>`;
+      }).join('')}
+    </svg>
+  `;
+
+  // Split bar: visual representation of before/after split
+  const splitBar = `
+    <div class="md-split-bar">
+      <div class="md-split-before" style="flex: ${beforePct}; background: #5a7a3a">
+        ${beforePct >= 18 ? `<span class="md-split-l">${beforePct}% before 6pm</span>` : ''}
+      </div>
+      <div class="md-split-after" style="flex: ${afterPct}; background: ${statusColor}">
+        ${afterPct >= 18 ? `<span class="md-split-l">${afterPct}% after</span>` : ''}
+      </div>
+    </div>
+  `;
+
   return `
     <div class="meal-dist-card">
-      <div class="md-title">Meal pacing</div>
-      <div class="md-sub">Spread the day to avoid late-evening overshoot</div>
-      <div class="md-list">
-        ${meals.map(m => {
-          const target = Math.round(dailyGoal * m.pct / 100);
-          const actual = Math.round(actualByMeal[m.id] || 0);
-          const pct = target > 0 ? Math.min(120, (actual / target) * 100) : 0;
-          const status = actual === 0 ? 'empty' : actual > target * 1.15 ? 'over' : actual >= target * 0.85 ? 'good' : 'under';
-          return `
-            <div class="md-row md-${status}">
-              <div class="md-row-head">
-                <span class="md-emoji">${m.emoji}</span>
-                <span class="md-label">${m.label}</span>
-                <span class="md-vals">
-                  <strong>${actual}</strong><span class="md-slash"> / ${target}</span><span class="md-unit"> kcal</span>
-                </span>
-              </div>
-              <div class="md-bar"><div class="md-fill" style="width:${pct}%"></div></div>
-            </div>
-          `;
-        }).join('')}
+      <div class="md-head-row">
+        <div>
+          <div class="md-title">Today's distribution</div>
+          <div class="md-sub">${dayEntries.length} eating occasion${dayEntries.length === 1 ? '' : 's'} · ${totalCal} kcal total</div>
+        </div>
+        <div class="md-status" style="color:${statusColor}">${statusLabel}</div>
       </div>
+      ${svg}
+      ${splitBar}
+      <div class="md-totals">
+        <div class="md-total-block">
+          <div class="md-total-l">Before 6pm</div>
+          <div class="md-total-v" style="color:#5a7a3a">${beforeSix} kcal</div>
+        </div>
+        <div class="md-total-block">
+          <div class="md-total-l">After 6pm</div>
+          <div class="md-total-v" style="color:${statusColor}">${afterSix} kcal</div>
+        </div>
+      </div>
+      <div class="md-blurb">${escapeHtml(statusBlurb)}</div>
     </div>
   `;
 }
