@@ -1651,6 +1651,68 @@
   .bcm-error-msg { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; line-height: 1.5; margin-bottom: 8px; }
   .bcm-error-hint { font-size: 12px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; }
   .bcm-error code { background: #F0EEE6; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+
+  /* Label scanner — OCR for nutrition panels */
+  .manual-scan-btn { padding: 6px 12px; background: #EEF4F0; color: #2C5F5D; border: 1px solid #DCE9E2; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; cursor: pointer; flex-shrink: 0; }
+  .manual-scan-btn:active { transform: scale(0.95); background: #DCE9E2; }
+  .label-scanner-modal { background: #FAF8F2; border-radius: 22px; max-width: 480px; width: 92%; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+  .ls-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; border-bottom: 1px solid #E5E0D2; flex-shrink: 0; }
+  .ls-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 500; color: #1E2E2A; }
+  .ls-camera-wrap { position: relative; aspect-ratio: 3/4; max-height: 65vh; background: #1E2E2A; overflow: hidden; }
+  #label-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ls-frame-overlay { position: absolute; inset: 12% 8%; border: 2px solid rgba(255,255,255,0.85); border-radius: 14px; box-shadow: 0 0 0 9999px rgba(30,46,42,0.55); pointer-events: none; }
+  .ls-hint { position: absolute; bottom: 100px; left: 0; right: 0; padding: 0 24px; font-family: 'Fraunces', serif; font-size: 13px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.6); text-align: center; font-style: italic; }
+  .ls-shutter { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,0.25); border: 3px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+  .ls-shutter:active { transform: translateX(-50%) scale(0.92); }
+  .ls-shutter-inner { width: 50px; height: 50px; border-radius: 50%; background: white; }
+  .ls-processing { padding: 36px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .ls-thumb { width: 110px; height: 140px; object-fit: cover; border-radius: 10px; border: 1px solid #E5E0D2; }
+  .ls-spinner { width: 28px; height: 28px; border: 3px solid #E5E0D2; border-top-color: #2C5F5D; border-radius: 50%; animation: ls-spin 0.9s linear infinite; }
+  @keyframes ls-spin { to { transform: rotate(360deg); } }
+  .ls-processing-text { font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; font-weight: 500; }
+  .ls-processing-sub { font-size: 12px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; max-width: 260px; }
+  .ls-review { padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .ls-review .ls-thumb { align-self: center; }
+  .ls-review-h { font-family: 'Fraunces', serif; font-size: 11px; font-weight: 500; color: #6b6a5c; letter-spacing: 0.06em; text-transform: uppercase; }
+  .ls-vals { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ls-val { padding: 12px 14px; background: white; border: 1px solid #E5E0D2; border-radius: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .ls-val.missing { background: #FFF5EC; border-color: #F3DDC5; }
+  .ls-val.missing strong { color: #B85C38; font-style: italic; }
+  .ls-val-l { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #8a8975; font-weight: 500; }
+  .ls-val strong { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; color: #1E2E2A; }
+  .ls-per-note { font-size: 12px; color: #6b6a5c; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.5; padding: 0 4px; }
+  .ls-actions { display: flex; gap: 8px; }
+  .ls-actions button { flex: 1; }
+  .ls-raw summary { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; cursor: pointer; padding: 8px 0; }
+  .ls-raw pre { background: #F0EEE6; padding: 10px; border-radius: 8px; font-size: 11px; line-height: 1.4; max-height: 200px; overflow: auto; white-space: pre-wrap; word-break: break-word; margin: 0; }
+  .ls-error { padding: 32px 24px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .ls-error-h { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; color: #B85C38; }
+  .ls-error-m { font-family: 'Fraunces', serif; font-size: 13px; color: #1E2E2A; line-height: 1.55; max-width: 320px; }
+  .ls-error .ls-actions { width: 100%; }
+
+  /* HUNGER TAB v3 — plain-language hero with single primary action */
+  .hunger-hero-v3 { padding: 6px 2px 16px; }
+  .hhv3-eyebrow { font-family: 'Fraunces', serif; font-size: 11px; font-weight: 500; color: #2C5F5D; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .hhv3-desc { font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; line-height: 1.5; margin-bottom: 16px; }
+  .hhv3-primary { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 18px; background: #1E2E2A; color: #F4F2EC; border: none; border-radius: 16px; cursor: pointer; text-align: left; font-family: inherit; transition: all 0.15s; margin-bottom: 8px; }
+  .hhv3-primary:active { transform: scale(0.985); background: #2C5F5D; }
+  .hhv3-icon { font-size: 26px; flex-shrink: 0; }
+  .hhv3-text { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .hhv3-lbl { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; }
+  .hhv3-sub { font-size: 13px; opacity: 0.8; font-style: italic; font-family: 'Fraunces', serif; line-height: 1.35; }
+  .hhv3-arrow { font-size: 26px; opacity: 0.65; flex-shrink: 0; }
+  .hhv3-secondary { width: 100%; padding: 12px 16px; background: white; color: #1E2E2A; border: 1px solid #E5E0D2; border-radius: 14px; cursor: pointer; text-align: left; font-family: inherit; display: flex; align-items: center; gap: 10px; transition: all 0.15s; margin-bottom: 8px; }
+  .hhv3-secondary:active { transform: scale(0.985); background: #FAF8F2; }
+  .hhv3-sec-icon { font-size: 18px; flex-shrink: 0; }
+  .hhv3-sec-text { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; flex: 1; line-height: 1.35; }
+  .hhv3-sec-text em { font-style: italic; color: #2C5F5D; text-decoration: underline; text-decoration-color: rgba(44,95,93,0.3); text-underline-offset: 3px; }
+  .hhv3-footnote { font-family: 'Fraunces', serif; font-size: 12px; color: #8a8975; font-style: italic; text-align: center; padding: 4px 0 2px; }
+
+  .hunger-patterns-toggle { margin: 6px 0 12px; }
+  .hpt-btn { width: 100%; padding: 12px 16px; background: transparent; border: 1px dashed #c4a06a; border-radius: 12px; cursor: pointer; text-align: left; font-family: inherit; display: flex; flex-direction: column; gap: 2px; }
+  .hpt-btn:active { background: rgba(196, 160, 106, 0.08); }
+  .hpt-btn > span:first-child { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; color: #2C5F5D; }
+  .hpt-sub { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -4284,6 +4346,7 @@ const state = {
   // Moments — structured decision-support flows (replaces gimmicky chat)
   momentsFlow: null,         // { momentId, step, data } when a Moment is active
   notesDraft: '',            // current text in the notes pad
+  hungerPatternsExpanded: false,  // toggle for the "patterns & analytics" collapsible
   savedMeals: [],            // [{ id, name, components: [{name, cal, c, p, f, pieces}], createdAt, useCount }]
   chatInputValue: '',
   chatListening: false,
@@ -4330,6 +4393,9 @@ const state = {
   // Barcode scanner
   barcodeScanner: null,         // { active, status, result, error }
   barcodeStreamHandle: null,    // ref to the stream so we can stop it
+  // Nutrition label scanner — OCR on a label photo to extract macros
+  labelScanner: null,           // { active, status, parsed, ocrText, fromContext, error }
+  labelStreamHandle: null,
   showCustomFoods: false,
   customFoodDraft: null,
   measurements: [],
@@ -4996,6 +5062,239 @@ function declineOnlineSearchConsent() {
 // ============================================================
 // BARCODE SCANNER CONTROLLER
 // ============================================================
+
+// ============================================================
+// LABEL SCANNER — point camera at nutrition panel, OCR extracts
+// kcal / protein / carbs / fat. Uses Tesseract.js loaded on demand.
+// Reliable because labels have known structure (unlike meal-photo
+// calorie estimation, which is genuinely unsolved).
+// ============================================================
+let _tesseractLoadPromise = null;
+function ensureTesseractLoaded() {
+  if (typeof window !== 'undefined' && window.Tesseract) return Promise.resolve();
+  if (_tesseractLoadPromise) return _tesseractLoadPromise;
+  _tesseractLoadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => {
+      _tesseractLoadPromise = null;
+      reject(new Error('Could not load OCR library — check internet connection.'));
+    };
+    document.head.appendChild(script);
+  });
+  return _tesseractLoadPromise;
+}
+
+function triggerLabelScanner(fromContext) {
+  state.labelScanner = {
+    active: true,
+    status: 'camera',
+    fromContext: fromContext || 'manual',
+    parsed: null,
+    ocrText: '',
+    capturedImage: null,
+    error: null,
+  };
+  render();
+  startLabelScannerCamera();
+}
+
+async function startLabelScannerCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }
+    });
+    state.labelStreamHandle = stream;
+    // Wait for the next tick so the video element exists, then attach
+    setTimeout(() => {
+      const v = document.getElementById('label-video');
+      if (v) { v.srcObject = stream; v.play().catch(() => {}); }
+    }, 50);
+  } catch (err) {
+    state.labelScanner = { ...state.labelScanner, status: 'error', error: 'Camera access denied or not available. ' + (err.message || '') };
+    render();
+  }
+}
+
+function stopLabelScannerCamera() {
+  if (state.labelStreamHandle) {
+    try { state.labelStreamHandle.getTracks().forEach(t => t.stop()); } catch {}
+    state.labelStreamHandle = null;
+  }
+}
+
+async function captureLabel() {
+  const video = document.getElementById('label-video');
+  if (!video || !state.labelScanner) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth || 1080;
+  canvas.height = video.videoHeight || 1920;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+  stopLabelScannerCamera();
+  state.labelScanner = { ...state.labelScanner, status: 'processing', capturedImage: dataUrl };
+  render();
+  try {
+    await ensureTesseractLoaded();
+    if (!window.Tesseract) throw new Error('OCR library unavailable.');
+    const { data } = await window.Tesseract.recognize(dataUrl, 'eng');
+    const text = (data && data.text) || '';
+    const parsed = parseNutritionLabel(text);
+    state.labelScanner = { ...state.labelScanner, status: 'review', ocrText: text, parsed };
+    render();
+  } catch (err) {
+    state.labelScanner = { ...state.labelScanner, status: 'error', error: err.message || 'OCR failed.' };
+    render();
+  }
+}
+
+function rescanLabel() {
+  if (!state.labelScanner) return;
+  state.labelScanner = { ...state.labelScanner, status: 'camera', parsed: null, ocrText: '', capturedImage: null, error: null };
+  render();
+  startLabelScannerCamera();
+}
+
+function closeLabelScanner() {
+  stopLabelScannerCamera();
+  state.labelScanner = null;
+  render();
+}
+
+// Parse OCR text into kcal/protein/carbs/fat. Handles UK/EU "Energy X kcal"
+// and US "Calories X" formats. Returns null for fields it can't find.
+function parseNutritionLabel(text) {
+  if (!text) return { kcal: null, protein: null, carbs: null, fat: null, per: 'unknown' };
+  // Normalize: lowercase, single spaces, remove most punctuation noise
+  const norm = text.toLowerCase()
+    .replace(/[\u2013\u2014]/g, '-')
+    .replace(/[\u201C\u201D\u2018\u2019]/g, "'")
+    .replace(/[,]/g, '.')              // Some EU labels use comma as decimal
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const result = { kcal: null, protein: null, carbs: null, fat: null, per: 'unknown', rawNorm: norm };
+
+  // --- Energy / Calories ---
+  // EU-style: "energy 250 kcal" or "energy: 1050 kj / 250 kcal"
+  let m = norm.match(/energy[^\d-]{0,12}(?:[\d.]+\s*kj[^\d-]{0,8})?(\d{2,4}(?:\.\d+)?)\s*kcal/);
+  if (!m) m = norm.match(/(\d{2,4}(?:\.\d+)?)\s*kcal/);
+  if (!m) m = norm.match(/calories?[^\d-]{0,8}(\d{2,4}(?:\.\d+)?)/);
+  if (m) result.kcal = parseFloat(m[1]);
+
+  // --- Protein ---
+  m = norm.match(/protein[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
+  if (!m) m = norm.match(/(\d{1,3}(?:\.\d+)?)\s*g\s*protein/);
+  if (m) result.protein = parseFloat(m[1]);
+
+  // --- Carbohydrate ---
+  m = norm.match(/carbohydrate[s]?[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
+  if (!m) m = norm.match(/total\s+carb[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
+  if (!m) m = norm.match(/carbs?[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
+  if (m) result.carbs = parseFloat(m[1]);
+
+  // --- Fat (try "total fat" first to avoid matching "saturated fat") ---
+  m = norm.match(/total\s+fat[^\d-]{0,12}(\d{1,3}(?:\.\d+)?)\s*g/);
+  if (!m) m = norm.match(/(?:^|[^a-z])fat[^a-z]{1,12}(\d{1,3}(?:\.\d+)?)\s*g/);
+  if (m) result.fat = parseFloat(m[1]);
+
+  // --- Per: 100g vs serving ---
+  if (/per\s+100\s*g/.test(norm) || /\bper\s*100g/.test(norm)) result.per = '100g';
+  else if (/per\s+(?:serving|portion)/.test(norm)) result.per = 'serving';
+  else if (/serving\s+size/.test(norm)) result.per = 'serving';
+
+  // Sanity sanitise — if any value is suspiciously high (>2000 kcal, >300g macro), drop it
+  if (result.kcal != null && (result.kcal > 2000 || result.kcal < 0)) result.kcal = null;
+  if (result.protein != null && result.protein > 300) result.protein = null;
+  if (result.carbs != null && result.carbs > 300) result.carbs = null;
+  if (result.fat != null && result.fat > 300) result.fat = null;
+
+  return result;
+}
+
+function applyLabelToManual() {
+  const p = state.labelScanner && state.labelScanner.parsed;
+  if (!p) return;
+  // If manualDraft doesn't exist (user came from elsewhere), start it
+  if (!state.manualDraft) {
+    startManual();
+  }
+  state.manualDraft = {
+    ...state.manualDraft,
+    cal: p.kcal != null ? p.kcal : (state.manualDraft.cal || 0),
+    c: p.carbs != null ? p.carbs : (state.manualDraft.c || 0),
+    p: p.protein != null ? p.protein : (state.manualDraft.p || 0),
+    f: p.fat != null ? p.fat : (state.manualDraft.f || 0),
+    name: state.manualDraft.name || 'Scanned label',
+    matchedFood: null,
+    altMatches: [],
+  };
+  state.labelScanner = null;
+  render();
+}
+
+function renderLabelScanner() {
+  if (!state.labelScanner) return '';
+  const s = state.labelScanner;
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) closeLabelScanner()">
+      <div class="label-scanner-modal">
+        <div class="ls-header">
+          <div class="ls-title">Scan nutrition label</div>
+          <button class="icon-btn" onclick="closeLabelScanner()" aria-label="Close">${icons.x}</button>
+        </div>
+        ${s.status === 'camera' ? `
+          <div class="ls-camera-wrap">
+            <video id="label-video" autoplay playsinline muted></video>
+            <div class="ls-frame-overlay"></div>
+            <div class="ls-hint">Frame the nutrition panel. Hold steady, good light.</div>
+            <button class="ls-shutter" onclick="captureLabel()" aria-label="Capture">
+              <div class="ls-shutter-inner"></div>
+            </button>
+          </div>
+        ` : s.status === 'processing' ? `
+          <div class="ls-processing">
+            ${s.capturedImage ? `<img src="${s.capturedImage}" alt="" class="ls-thumb"/>` : ''}
+            <div class="ls-spinner"></div>
+            <div class="ls-processing-text">Reading label…</div>
+            <div class="ls-processing-sub">First scan downloads the OCR library (~2MB). Later scans are faster.</div>
+          </div>
+        ` : s.status === 'review' ? `
+          <div class="ls-review">
+            ${s.capturedImage ? `<img src="${s.capturedImage}" alt="" class="ls-thumb"/>` : ''}
+            <div class="ls-review-h">Got these values</div>
+            <div class="ls-vals">
+              <div class="ls-val ${s.parsed.kcal == null ? 'missing' : ''}"><span class="ls-val-l">Calories</span><strong>${s.parsed.kcal != null ? Math.round(s.parsed.kcal) + ' kcal' : 'not found'}</strong></div>
+              <div class="ls-val ${s.parsed.protein == null ? 'missing' : ''}"><span class="ls-val-l">Protein</span><strong>${s.parsed.protein != null ? s.parsed.protein + 'g' : 'not found'}</strong></div>
+              <div class="ls-val ${s.parsed.carbs == null ? 'missing' : ''}"><span class="ls-val-l">Carbs</span><strong>${s.parsed.carbs != null ? s.parsed.carbs + 'g' : 'not found'}</strong></div>
+              <div class="ls-val ${s.parsed.fat == null ? 'missing' : ''}"><span class="ls-val-l">Fat</span><strong>${s.parsed.fat != null ? s.parsed.fat + 'g' : 'not found'}</strong></div>
+            </div>
+            <div class="ls-per-note">${s.parsed.per === '100g' ? 'Values per 100g' : s.parsed.per === 'serving' ? 'Values per serving' : 'Could not detect "per 100g" vs "per serving" — check the label.'} Check the numbers before saving — OCR isn't perfect.</div>
+            <div class="ls-actions">
+              <button class="primary-btn" onclick="applyLabelToManual()">${icons.checkSm}<span>Use these values</span></button>
+              <button class="secondary-btn" onclick="rescanLabel()">Re-scan</button>
+            </div>
+            <details class="ls-raw">
+              <summary>Show raw OCR text (debug)</summary>
+              <pre>${escapeHtml(s.ocrText || '(empty)')}</pre>
+            </details>
+          </div>
+        ` : s.status === 'error' ? `
+          <div class="ls-error">
+            <div class="ls-error-h">Couldn't scan</div>
+            <div class="ls-error-m">${escapeHtml(s.error || 'Unknown error')}</div>
+            <div class="ls-actions">
+              <button class="secondary-btn" onclick="closeLabelScanner()">Close</button>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
 
 function triggerBarcodeScanner(fromContext) {
   if (!isBarcodeScannerSupported()) {
@@ -11992,7 +12291,10 @@ function renderInput() {
         <div class="text-card">
           <div class="text-card-head">
             <div class="lbl">add manually</div>
-            <button class="back-link" onclick="set({mode:'voice', manualDraft:null, error:''})"><span class="back-arrow">←</span>Back</button>
+            <div style="display:flex; gap:6px; align-items:center">
+              <button class="manual-scan-btn" onclick="triggerLabelScanner('manual')" title="Scan a nutrition label">📷 Scan label</button>
+              <button class="back-link" onclick="set({mode:'voice', manualDraft:null, error:''})"><span class="back-arrow">←</span>Back</button>
+            </div>
           </div>
           <div class="form-label" style="margin-top:4px">${matched ? 'food (matched)' : 'food name'}</div>
           <input id="m-search" class="form-input" type="text" placeholder="e.g. peanut, chicken thigh, apple" value="${escapeHtml(d.searchQuery !== undefined ? d.searchQuery : (d.name || ''))}" oninput="manualSearch(this.value)" autocomplete="off" />
@@ -12098,11 +12400,12 @@ function renderInput() {
                 <div class="nmb-icon">+</div>
                 <div class="nmb-text">
                   <div class="nmb-title">No match for "${escapeHtml(d.searchQuery)}"</div>
-                  <div class="nmb-sub">Scan a barcode, or enter macros manually below.</div>
+                  <div class="nmb-sub">Scan a label, scan a barcode, or enter macros manually below.</div>
                 </div>
               </div>
               <div class="online-actions">
-                <button class="online-btn primary" onclick="triggerBarcodeScanner('manual')">📷 Scan barcode</button>
+                <button class="online-btn primary" onclick="triggerLabelScanner('manual')">📷 Scan label</button>
+                <button class="online-btn" onclick="triggerBarcodeScanner('manual')">▥ Scan barcode</button>
               </div>
             ` : ''}
             ${renderStepper({ label: 'calories', value: parseFloat(d.cal) || 200, min: 0, max: 3000, step: 5, bigStep: 50, unit: 'kcal', onChange: "state.manualDraft.cal = VALUE; render()" })}
@@ -14258,33 +14561,65 @@ function renderWeeklyChart() {
 // ============================================================
 // HUNGER TAB — the flagship metric for rebound prevention
 // ============================================================
+// Entry point for Hunger Lab from anywhere — goes through the red-flag check
+function startHungerLab() {
+  set({ activeTab: 'hunger', hungerLabStep: 'red-flag-check' });
+}
+
 function renderHungerTab() {
   const step = state.hungerLabStep || 'home';
   const inActiveTrial = step !== 'home' && step !== 'summary';
   // When a trial is mid-flight, take over the tab so the user focuses on it.
-  // 'summary' shows alongside the home content so user sees their result + next steps.
   if (inActiveTrial) {
     return `
       ${renderHungerLabCard()}
     `;
   }
+  const patternsOpen = !!state.hungerPatternsExpanded;
   return `
-    <div class="hunger-tab-hero">
-      <div class="hth-eyebrow">PLATE'S CORE</div>
-      <div class="hth-title">Manage hunger, prevent rebound</div>
-      <div class="hth-sub">Most diets fail when hunger wins. Plate tests what works for <em>you</em>.</div>
-    </div>
-    ${renderReboundRiskCard()}
+    ${renderHungerWhatNowHero()}
     ${renderDietBreakCard()}
-    ${renderGlycemicForecastCard()}
-    ${renderProteinAdequacyCard()}
-    ${renderColdStartRiskCard()}
-    ${renderHungerCard()}
-    ${renderTrendSlopesCard()}
-    ${renderBanditCard()}
     ${renderHungerLabCard()}
-    ${renderInterventionRankingCard()}
-    ${renderHungerHistoryCard()}
+    ${renderReboundRiskCard()}
+    ${renderProteinAdequacyCard()}
+    ${renderGlycemicForecastCard()}
+    <div class="hunger-patterns-toggle">
+      <button class="hpt-btn" onclick="set({hungerPatternsExpanded: !state.hungerPatternsExpanded})">
+        <span>${patternsOpen ? '▾' : '▸'} Patterns &amp; analytics</span>
+        <span class="hpt-sub">${patternsOpen ? 'Hide' : 'Trend slopes, intervention ranking, history'}</span>
+      </button>
+    </div>
+    ${patternsOpen ? `
+      ${renderColdStartRiskCard()}
+      ${renderHungerCard()}
+      ${renderTrendSlopesCard()}
+      ${renderBanditCard()}
+      ${renderInterventionRankingCard()}
+      ${renderHungerHistoryCard()}
+    ` : ''}
+  `;
+}
+
+// Action-oriented hero: explains what the tab is for, then offers a clear primary action
+function renderHungerWhatNowHero() {
+  return `
+    <div class="hunger-hero-v3">
+      <div class="hhv3-eyebrow">HUNGER MANAGEMENT</div>
+      <div class="hhv3-desc">When hunger hits between meals, it isn't always real hunger. This tab helps you tell the difference — and gives you something to do besides eat.</div>
+      <button class="hhv3-primary" onclick="startHungerLab()">
+        <span class="hhv3-icon">🧪</span>
+        <span class="hhv3-text">
+          <span class="hhv3-lbl">I'm hungry right now</span>
+          <span class="hhv3-sub">Pick an alternative, wait 5–20 min, see if it fades</span>
+        </span>
+        <span class="hhv3-arrow">›</span>
+      </button>
+      <button class="hhv3-secondary" onclick="openMoments()">
+        <span class="hhv3-sec-icon">🎯</span>
+        <span class="hhv3-sec-text">Not really hungry, just struggling? <em>Open Moments</em></span>
+      </button>
+      <div class="hhv3-footnote">Your stats and patterns are below ↓</div>
+    </div>
   `;
 }
 
@@ -16887,6 +17222,7 @@ function render() {
     ${renderOnlineSearchModal()}
     ${renderOnlineConsentModal()}
     ${renderBarcodeScannerModal()}
+    ${renderLabelScanner()}
     `;
 
     if (focusedId) {
