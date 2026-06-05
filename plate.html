@@ -1665,6 +1665,14 @@
   .ls-shutter { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,0.25); border: 3px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
   .ls-shutter:active { transform: translateX(-50%) scale(0.92); }
   .ls-shutter-inner { width: 50px; height: 50px; border-radius: 50%; background: white; }
+  .ls-gallery-btn { position: absolute; bottom: 34px; right: 18px; display: flex; align-items: center; gap: 6px; padding: 9px 14px; background: rgba(255,255,255,0.92); border: none; border-radius: 999px; cursor: pointer; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; color: #1E2E2A; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+  .ls-gallery-btn:active { transform: scale(0.94); background: white; }
+  .ls-gallery-icon { font-size: 14px; }
+  .ls-name-block { background: #FFF5EC; border: 1px solid #F3DDC5; border-radius: 12px; padding: 12px 14px; }
+  .ls-name-label { display: block; font-family: 'Fraunces', serif; font-size: 11px; font-weight: 500; color: #B85C38; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .ls-name-input { width: 100%; padding: 9px 12px; background: white; border: 1px solid #F3DDC5; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; box-sizing: border-box; }
+  .ls-name-input:focus { outline: none; border-color: #B85C38; }
+  .ls-name-hint { font-size: 11px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin-top: 5px; }
   .ls-processing { padding: 36px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
   .ls-thumb { width: 110px; height: 140px; object-fit: cover; border-radius: 10px; border: 1px solid #E5E0D2; }
   .ls-spinner { width: 28px; height: 28px; border: 3px solid #E5E0D2; border-top-color: #2C5F5D; border-radius: 50%; animation: ls-spin 0.9s linear infinite; }
@@ -1748,6 +1756,37 @@
   .share-note { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin: 12px 4px 14px; text-align: center; }
   .share-go-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 16px; background: #1E2E2A; color: #F4F2EC; border: none; border-radius: 14px; font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; cursor: pointer; }
   .share-go-btn:active { transform: scale(0.985); background: #2C5F5D; }
+
+  /* TUTORIAL CARDS — first-run guidance per tab */
+  .tutorial-card { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; background: #EEF4F0; border: 1.5px solid #DCE9E2; border-radius: 14px; margin-bottom: 14px; position: relative; animation: fadeSlideIn 0.3s ease-out; }
+  .tut-icon { font-size: 22px; line-height: 1; flex-shrink: 0; padding-top: 2px; }
+  .tut-body { flex: 1; min-width: 0; padding-right: 18px; }
+  .tut-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; color: #2C5F5D; margin-bottom: 4px; }
+  .tut-text { font-family: 'Fraunces', serif; font-size: 13px; color: #1E2E2A; line-height: 1.5; margin-bottom: 10px; }
+  .tut-dismiss-btn { padding: 6px 14px; background: #2C5F5D; color: #F4F2EC; border: none; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; cursor: pointer; }
+  .tut-dismiss-btn:active { transform: scale(0.96); background: #1E2E2A; }
+  .tut-close { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: rgba(44,95,93,0.5); font-size: 20px; line-height: 1; padding: 4px 8px; cursor: pointer; }
+  .tut-close:active { color: #2C5F5D; }
+
+  /* MEAL REMINDER BANNER — appears in-app when notification fires */
+  .meal-reminder-banner { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; padding: 14px 16px; background: white; border: 1.5px solid #c4a06a; border-radius: 16px; box-shadow: 0 8px 28px rgba(0,0,0,0.18); max-width: 420px; width: calc(100% - 32px); z-index: 9000; animation: unlockSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .mrb-icon { font-size: 26px; line-height: 1; flex-shrink: 0; }
+  .mrb-body { flex: 1; min-width: 0; padding-right: 18px; }
+  .mrb-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; color: #1E2E2A; margin-bottom: 4px; text-transform: capitalize; }
+  .mrb-text { font-family: 'Fraunces', serif; font-size: 13px; color: #6b6a5c; line-height: 1.45; margin-bottom: 10px; }
+  .mrb-text em { font-style: italic; color: #B85C38; }
+  .mrb-actions { display: flex; gap: 6px; }
+  .mrb-btn { padding: 8px 14px; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; cursor: pointer; }
+  .mrb-btn.primary { background: #1E2E2A; color: #F4F2EC; border: none; }
+  .mrb-btn.ghost { background: transparent; color: #6b6a5c; border: 1px solid #E5E0D2; }
+  .mrb-close { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: rgba(0,0,0,0.4); font-size: 20px; line-height: 1; padding: 4px 8px; cursor: pointer; }
+
+  /* TIME INPUTS for meal reminders */
+  .reminder-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px; border-bottom: 1px solid #E5E0D2; }
+  .reminder-row:last-of-type { border-bottom: none; }
+  .reminder-row .k { font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; }
+  .time-input { padding: 8px 12px; background: #FAF8F2; border: 1px solid #E5E0D2; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; }
+  .time-input:focus { outline: none; border-color: #c4a06a; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -4384,6 +4423,9 @@ const state = {
   hungerPatternsExpanded: false,  // toggle for the "patterns & analytics" collapsible
   lastUnlocked: null,             // most recent achievement unlock (for toast)
   showShareModal: false,          // share-wins modal
+  tutorialDismissed: {},          // { log: ts, calories: ts, hunger: ts, you: ts }
+  mealTimes: null,                // { breakfast: 'HH:MM', lunch, dinner, enabled }
+  notifPermission: 'default',     // 'default' | 'granted' | 'denied'
   savedMeals: [],            // [{ id, name, components: [{name, cal, c, p, f, pieces}], createdAt, useCount }]
   chatInputValue: '',
   chatListening: false,
@@ -4450,6 +4492,8 @@ function set(patch) { Object.assign(state, patch); render(); }
 // ============================================================
 const STORAGE_ENTRIES = 'plate-entries-v2';
 const STORAGE_ACHIEVEMENTS = 'plate-achievements';
+const STORAGE_TUTORIAL = 'plate-tutorial-dismissed';
+const STORAGE_MEAL_TIMES = 'plate-meal-times';
 const STORAGE_WEIGHT = 'plate-weight';
 const STORAGE_GOAL = 'plate-goal';
 const STORAGE_CHAT = 'plate-chat';
@@ -5181,7 +5225,7 @@ async function captureLabel() {
     const { data } = await window.Tesseract.recognize(dataUrl, 'eng');
     const text = (data && data.text) || '';
     const parsed = parseNutritionLabel(text);
-    state.labelScanner = { ...state.labelScanner, status: 'review', ocrText: text, parsed };
+    state.labelScanner = { ...state.labelScanner, status: 'review', ocrText: text, parsed, editedName: parsed.suggestedName || '' };
     render();
   } catch (err) {
     state.labelScanner = { ...state.labelScanner, status: 'error', error: err.message || 'OCR failed.' };
@@ -5204,6 +5248,44 @@ function closeLabelScanner() {
 
 // Parse OCR text into kcal/protein/carbs/fat. Handles UK/EU "Energy X kcal"
 // and US "Calories X" formats. Returns null for fields it can't find.
+// Extract a likely food/product name from OCR text. The product name is
+// almost always at the TOP of a label (largest text, before "Nutrition" /
+// "Energy" / "per 100g" appears). Heuristic: take the first few lines
+// before nutrition info starts, filter out noise.
+function extractFoodName(text) {
+  if (!text) return null;
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+  if (lines.length === 0) return null;
+  // Find index where nutrition section starts
+  const nutriRe = /^(nutrition|typical\s*values?|per\s*100|per\s*serving|amount\s*per|serving\s*size|nutritional\s*info|nutrition\s*facts|energy\b|calories?\b)/i;
+  let stopIdx = lines.length;
+  for (let i = 0; i < lines.length; i++) {
+    if (nutriRe.test(lines[i])) { stopIdx = i; break; }
+    // Also stop if a line looks like a nutrient value (kcal / kJ)
+    if (/\b\d{1,4}\s*(kcal|kj)\b/i.test(lines[i])) { stopIdx = i; break; }
+  }
+  // Take first 1-3 lines before nutrition
+  const candidates = lines.slice(0, Math.min(stopIdx, 3));
+  // Filter junk: very short (<3 chars), purely numeric, common boilerplate
+  const junkRe = /^(ingredients?|allergens?|net\s*weight|contains|store|best\s*before|bbe|warning|may\s*contain|barcode)/i;
+  const filtered = candidates.filter(l => {
+    if (l.length < 3) return false;
+    if (/^\d+([.,]\d+)?\s*(g|kg|ml|l|oz)?$/i.test(l)) return false; // just a weight
+    if (junkRe.test(l)) return false;
+    return true;
+  });
+  if (filtered.length === 0) return null;
+  // Combine first 1-2 lines — often "BRAND" then "Product name"
+  let name = filtered.slice(0, 2).join(' ');
+  // Title-case if all-caps (more readable)
+  if (name === name.toUpperCase() && name.length > 6) {
+    name = name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
+  // Clean up extra whitespace
+  name = name.replace(/\s+/g, ' ').trim();
+  return name.length > 60 ? name.slice(0, 60) : name;
+}
+
 function parseNutritionLabel(text) {
   if (!text) return { kcal: null, protein: null, carbs: null, fat: null, per: 'unknown' };
   // Normalize: lowercase, collapse whitespace, convert decimal commas to dots only between digits
@@ -5288,6 +5370,9 @@ function parseNutritionLabel(text) {
   if (result.carbs != null && result.carbs > 300) result.carbs = null;
   if (result.fat != null && result.fat > 300) result.fat = null;
 
+  // Also extract a candidate food name from the OCR text
+  result.suggestedName = extractFoodName(text);
+
   return result;
 }
 
@@ -5298,18 +5383,76 @@ function applyLabelToManual() {
   if (!state.manualDraft) {
     startManual();
   }
+  // Use user-edited name from review screen if they changed it, otherwise the OCR suggestion
+  const finalName = (state.labelScanner.editedName != null && state.labelScanner.editedName.trim())
+    ? state.labelScanner.editedName.trim()
+    : (p.suggestedName || state.manualDraft.name || 'Scanned label');
   state.manualDraft = {
     ...state.manualDraft,
     cal: p.kcal != null ? p.kcal : (state.manualDraft.cal || 0),
     c: p.carbs != null ? p.carbs : (state.manualDraft.c || 0),
     p: p.protein != null ? p.protein : (state.manualDraft.p || 0),
     f: p.fat != null ? p.fat : (state.manualDraft.f || 0),
-    name: state.manualDraft.name || 'Scanned label',
+    name: finalName,
+    searchQuery: finalName,
     matchedFood: null,
     altMatches: [],
   };
   state.labelScanner = null;
   render();
+}
+
+// Gallery upload — accepts a photo the user already took (e.g. using their
+// phone's document/text scanner which handles curved surfaces better than
+// real-time camera capture).
+function triggerGalleryUpload() {
+  // Create hidden file input on the fly
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    await processLabelImage(file);
+  };
+  input.click();
+}
+
+async function processLabelImage(fileOrBlob) {
+  // Read as data URL
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Could not read file'));
+    reader.readAsDataURL(fileOrBlob);
+  });
+  // Initialise scanner if needed
+  if (!state.labelScanner) {
+    state.labelScanner = { active: true, status: 'processing', fromContext: 'manual', parsed: null, ocrText: '', capturedImage: dataUrl, error: null };
+  } else {
+    stopLabelScannerCamera();
+    state.labelScanner = { ...state.labelScanner, status: 'processing', capturedImage: dataUrl };
+  }
+  render();
+  try {
+    await ensureTesseractLoaded();
+    if (!window.Tesseract) throw new Error('OCR library unavailable.');
+    const { data } = await window.Tesseract.recognize(dataUrl, 'eng');
+    const text = (data && data.text) || '';
+    const parsed = parseNutritionLabel(text);
+    state.labelScanner = { ...state.labelScanner, status: 'review', ocrText: text, parsed, editedName: parsed.suggestedName || '' };
+    render();
+  } catch (err) {
+    state.labelScanner = { ...state.labelScanner, status: 'error', error: err.message || 'OCR failed.' };
+    render();
+  }
+}
+
+// Update name as user types in the review screen
+function setScannerName(name) {
+  if (!state.labelScanner) return;
+  state.labelScanner.editedName = name;
+  // No render — keeps input focused. State updates for when apply is hit.
 }
 
 function renderLabelScanner() {
@@ -5326,9 +5469,13 @@ function renderLabelScanner() {
           <div class="ls-camera-wrap">
             <video id="label-video" autoplay playsinline muted></video>
             <div class="ls-frame-overlay"></div>
-            <div class="ls-hint">Frame the nutrition panel. Hold steady, good light.</div>
+            <div class="ls-hint">Curved labels (bottles) work better via gallery — take a photo with your camera's document mode first, then upload below.</div>
             <button class="ls-shutter" onclick="captureLabel()" aria-label="Capture">
               <div class="ls-shutter-inner"></div>
+            </button>
+            <button class="ls-gallery-btn" onclick="triggerGalleryUpload()" aria-label="Choose from gallery">
+              <span class="ls-gallery-icon">🖼</span>
+              <span class="ls-gallery-lbl">From gallery</span>
             </button>
           </div>
         ` : s.status === 'processing' ? `
@@ -5341,14 +5488,19 @@ function renderLabelScanner() {
         ` : s.status === 'review' ? `
           <div class="ls-review">
             ${s.capturedImage ? `<img src="${s.capturedImage}" alt="" class="ls-thumb"/>` : ''}
-            <div class="ls-review-h">Got these values</div>
+            <div class="ls-name-block">
+              <label class="ls-name-label">Food name</label>
+              <input type="text" class="ls-name-input" id="ls-name-input" value="${escapeHtml(s.editedName || '')}" placeholder="What is this? (e.g. Tesco baked beans)" oninput="setScannerName(this.value)" />
+              ${s.parsed.suggestedName ? `<div class="ls-name-hint">Auto-detected from label · edit if wrong</div>` : `<div class="ls-name-hint">Couldn't detect the product name — type it here.</div>`}
+            </div>
+            <div class="ls-review-h">Nutrition values</div>
             <div class="ls-vals">
               <div class="ls-val ${s.parsed.kcal == null ? 'missing' : ''}"><span class="ls-val-l">Calories</span><strong>${s.parsed.kcal != null ? Math.round(s.parsed.kcal) + ' kcal' : 'not found'}</strong></div>
               <div class="ls-val ${s.parsed.protein == null ? 'missing' : ''}"><span class="ls-val-l">Protein</span><strong>${s.parsed.protein != null ? s.parsed.protein + 'g' : 'not found'}</strong></div>
               <div class="ls-val ${s.parsed.carbs == null ? 'missing' : ''}"><span class="ls-val-l">Carbs</span><strong>${s.parsed.carbs != null ? s.parsed.carbs + 'g' : 'not found'}</strong></div>
               <div class="ls-val ${s.parsed.fat == null ? 'missing' : ''}"><span class="ls-val-l">Fat</span><strong>${s.parsed.fat != null ? s.parsed.fat + 'g' : 'not found'}</strong></div>
             </div>
-            <div class="ls-per-note">${s.parsed.per === '100g' ? 'Values per 100g' : s.parsed.per === 'serving' ? 'Values per serving' : 'Could not detect "per 100g" vs "per serving" — check the label.'} Check the numbers before saving — OCR isn't perfect.</div>
+            <div class="ls-per-note">${s.parsed.per === '100g' ? 'Values per 100g' : s.parsed.per === 'serving' ? 'Values per serving' : 'Could not detect "per 100g" vs "per serving" — check the label.'} Edit any value after applying.</div>
             <div class="ls-actions">
               <button class="primary-btn" onclick="applyLabelToManual()">${icons.checkSm}<span>Use these values</span></button>
               <button class="secondary-btn" onclick="rescanLabel()">Re-scan</button>
@@ -5363,6 +5515,7 @@ function renderLabelScanner() {
             <div class="ls-error-h">Couldn't scan</div>
             <div class="ls-error-m">${escapeHtml(s.error || 'Unknown error')}</div>
             <div class="ls-actions">
+              <button class="secondary-btn" onclick="triggerGalleryUpload()">Try from gallery</button>
               <button class="secondary-btn" onclick="closeLabelScanner()">Close</button>
             </div>
           </div>
@@ -6876,6 +7029,192 @@ function checkAchievements() {
 function dismissLastUnlocked() {
   state.lastUnlocked = null;
   render();
+}
+
+// ============================================================
+// FIRST-RUN TUTORIAL CARDS — one card per tab, shown once until
+// dismissed. Tells new users what each tab is actually for.
+// ============================================================
+const TUTORIALS = {
+  today: {
+    icon: '📝',
+    title: 'Log tab',
+    body: 'Track meals here. Voice is fastest ("two eggs and toast"), Type lets you search Plate\'s 1,600+ foods, Exercise logs workouts. The 📷 button scans nutrition labels.',
+  },
+  calories: {
+    icon: '🔥',
+    title: 'Calories tab',
+    body: 'Your daily intake, deficit, weekly trends, and water tracking. Plate calculates your target from your profile — adjust in You → Profile.',
+  },
+  hunger: {
+    icon: '⚡',
+    title: 'Hunger tab — the core',
+    body: 'Plate\'s most important feature. When hunger hits between meals, tap "I\'m hungry right now" to run a 5-20 min experiment that tells real hunger from craving. Diagnostics live below.',
+  },
+  you: {
+    icon: '👤',
+    title: 'You tab',
+    body: 'Your reason for using Plate, daily check-ins, profile, milestones, and the plant that grows with you. Tap any section to expand it.',
+  },
+};
+
+function loadTutorialDismissed() {
+  try { const raw = localStorage.getItem(STORAGE_TUTORIAL); return raw ? JSON.parse(raw) : {}; }
+  catch { return {}; }
+}
+function saveTutorialDismissed(d) { try { localStorage.setItem(STORAGE_TUTORIAL, JSON.stringify(d)); } catch {} }
+
+function dismissTutorial(tabId) {
+  const d = loadTutorialDismissed();
+  d[tabId] = Date.now();
+  saveTutorialDismissed(d);
+  state.tutorialDismissed = d;
+  render();
+}
+
+function renderTutorialCard(tabId) {
+  const t = TUTORIALS[tabId];
+  if (!t) return '';
+  const dismissed = state.tutorialDismissed || {};
+  if (dismissed[tabId]) return '';
+  return `
+    <div class="tutorial-card">
+      <div class="tut-icon">${t.icon}</div>
+      <div class="tut-body">
+        <div class="tut-title">${escapeHtml(t.title)}</div>
+        <div class="tut-text">${escapeHtml(t.body)}</div>
+        <button class="tut-dismiss-btn" onclick="dismissTutorial('${tabId}')">Got it</button>
+      </div>
+      <button class="tut-close" onclick="dismissTutorial('${tabId}')" aria-label="Dismiss">×</button>
+    </div>
+  `;
+}
+
+// ============================================================
+// MEAL TIME REMINDERS — pre-meal hunger pulse check.
+// NOT "time to eat" — that would induce eating-by-clock and undermine
+// hunger restoration. Instead: "your usual lunch is in 30 min — how
+// hungry are you right now?". Same scheduling utility, opposite framing.
+// ============================================================
+function loadMealTimes() {
+  try { const raw = localStorage.getItem(STORAGE_MEAL_TIMES); return raw ? JSON.parse(raw) : null; }
+  catch { return null; }
+}
+function saveMealTimes(mt) { try { localStorage.setItem(STORAGE_MEAL_TIMES, JSON.stringify(mt)); } catch {} }
+
+function setMealTime(meal, time) {
+  if (!state.mealTimes) state.mealTimes = { breakfast: '08:00', lunch: '12:30', dinner: '19:00', enabled: false };
+  state.mealTimes[meal] = time;
+  saveMealTimes(state.mealTimes);
+  if (state.mealTimes.enabled) scheduleNextMealReminder();
+  render();
+}
+function toggleMealReminders() {
+  if (!state.mealTimes) state.mealTimes = { breakfast: '08:00', lunch: '12:30', dinner: '19:00', enabled: false };
+  if (!state.mealTimes.enabled) {
+    // Asking for permission before turning on
+    requestNotifPermission().then(perm => {
+      state.mealTimes.enabled = (perm === 'granted');
+      state.notifPermission = perm;
+      saveMealTimes(state.mealTimes);
+      if (state.mealTimes.enabled) scheduleNextMealReminder();
+      render();
+    });
+  } else {
+    state.mealTimes.enabled = false;
+    saveMealTimes(state.mealTimes);
+    if (window._mealReminderTimer) { clearTimeout(window._mealReminderTimer); window._mealReminderTimer = null; }
+    render();
+  }
+}
+
+async function requestNotifPermission() {
+  if (!('Notification' in window)) return 'unsupported';
+  if (Notification.permission === 'granted') return 'granted';
+  if (Notification.permission === 'denied') return 'denied';
+  try {
+    const result = await Notification.requestPermission();
+    return result;
+  } catch { return 'denied'; }
+}
+
+// Computes the next meal time in milliseconds from now, returns
+// { mealName, ms } or null if none within next 24h.
+function nextMealReminder() {
+  const mt = state.mealTimes;
+  if (!mt || !mt.enabled) return null;
+  const now = new Date();
+  const meals = [
+    { name: 'breakfast', time: mt.breakfast },
+    { name: 'lunch', time: mt.lunch },
+    { name: 'dinner', time: mt.dinner },
+  ].filter(m => m.time);
+  // Convert each to next occurrence (today if not yet passed, otherwise tomorrow)
+  // Reminder fires 25 min BEFORE the meal time
+  const remindOffsetMs = 25 * 60 * 1000;
+  let best = null;
+  for (const m of meals) {
+    const [h, mn] = m.time.split(':').map(n => parseInt(n, 10));
+    if (isNaN(h) || isNaN(mn)) continue;
+    const target = new Date(now);
+    target.setHours(h, mn, 0, 0);
+    const remindAt = target.getTime() - remindOffsetMs;
+    let delta = remindAt - now.getTime();
+    if (delta < 0) delta += 24 * 60 * 60 * 1000; // schedule for tomorrow if today passed
+    if (!best || delta < best.ms) best = { mealName: m.name, ms: delta, mealTime: m.time };
+  }
+  return best;
+}
+
+function scheduleNextMealReminder() {
+  if (window._mealReminderTimer) { clearTimeout(window._mealReminderTimer); window._mealReminderTimer = null; }
+  const next = nextMealReminder();
+  if (!next) return;
+  window._mealReminderTimer = setTimeout(() => {
+    fireMealReminder(next.mealName, next.mealTime);
+    // Reschedule for the next one
+    scheduleNextMealReminder();
+  }, next.ms);
+}
+
+function fireMealReminder(mealName, mealTime) {
+  const title = `Pre-${mealName} check`;
+  const body = `Your usual ${mealName} is around ${mealTime}. How hungry are you right now? Tap to log a quick check.`;
+  // Try browser notification first
+  if ('Notification' in window && Notification.permission === 'granted') {
+    try {
+      const n = new Notification(title, { body, icon: '/favicon.ico', tag: 'plate-meal-' + mealName });
+      n.onclick = () => { try { window.focus(); } catch {} openDailyCheckin(); };
+    } catch {}
+  }
+  // Also queue an in-app banner the next time render runs
+  state.mealReminderActive = { mealName, mealTime, firedAt: Date.now() };
+  render();
+}
+
+function dismissMealReminder() {
+  state.mealReminderActive = null;
+  render();
+}
+
+// In-app banner for the reminder — shows when user has Plate open at the time
+function renderMealReminderBanner() {
+  if (!state.mealReminderActive) return '';
+  const { mealName, mealTime } = state.mealReminderActive;
+  return `
+    <div class="meal-reminder-banner">
+      <div class="mrb-icon">⏰</div>
+      <div class="mrb-body">
+        <div class="mrb-title">Your usual ${escapeHtml(mealName)} is around ${escapeHtml(mealTime)}</div>
+        <div class="mrb-text">Pause for a second — how hungry are you <em>right now</em>, 1-10? If low, you might not need it on the clock.</div>
+        <div class="mrb-actions">
+          <button class="mrb-btn primary" onclick="dismissMealReminder(); openDailyCheckin()">Quick check-in</button>
+          <button class="mrb-btn ghost" onclick="dismissMealReminder()">Dismiss</button>
+        </div>
+      </div>
+      <button class="mrb-close" onclick="dismissMealReminder()" aria-label="Close">×</button>
+    </div>
+  `;
 }
 
 function checkPlantStageUp() {
@@ -14261,6 +14600,7 @@ function renderYouTab() {
   `;
 
   return `
+    ${renderTutorialCard('you')}
     <div class="screen-title">You</div>
     <div class="screen-sub">Your settings and history</div>
 
@@ -14291,6 +14631,26 @@ function renderYouTab() {
         <div class="you-section-body">
           <div style="font-size: 16px; color:#6b6a5c; line-height:1.5; margin-bottom:10px">${todayCheckin ? `${state.dailyCheckins.length} total check-ins logged` : `${checkinStreak > 0 ? `${checkinStreak}-day streak · ` : ''}${state.dailyCheckins.length} total`}</div>
           <button class="secondary-btn" style="width:100%; flex:none" onclick="openDailyCheckin()">${todayCheckin ? 'Update today' : "Do today's check-in"}</button>
+        </div>
+      ` : ''}
+    </div>
+
+    <!-- MEAL REMINDERS — pre-meal hunger pulse check -->
+    <div class="you-section ${isOpen('reminders') ? 'open' : ''}">
+      ${sectionHeader('reminders', '⏰', 'Meal reminders', state.mealTimes && state.mealTimes.enabled ? 'On · pre-meal hunger checks' : 'Off · pre-meal hunger checks', state.mealTimes && state.mealTimes.enabled ? '✓' : null)}
+      ${isOpen('reminders') ? `
+        <div class="you-section-body">
+          <div style="font-size: 13px; color:#6b6a5c; line-height:1.5; margin-bottom:12px; font-style:italic; font-family:'Fraunces',serif">25 minutes before each meal, Plate asks you to rate your hunger 1-10. The goal isn't to remind you to eat — it's to notice whether the clock or your body is driving the meal.</div>
+          ${('Notification' in window) ? `
+            <div class="reminder-row"><span class="k">Breakfast</span><input type="time" class="v time-input" value="${(state.mealTimes && state.mealTimes.breakfast) || '08:00'}" oninput="setMealTime('breakfast', this.value)" /></div>
+            <div class="reminder-row"><span class="k">Lunch</span><input type="time" class="v time-input" value="${(state.mealTimes && state.mealTimes.lunch) || '12:30'}" oninput="setMealTime('lunch', this.value)" /></div>
+            <div class="reminder-row"><span class="k">Dinner</span><input type="time" class="v time-input" value="${(state.mealTimes && state.mealTimes.dinner) || '19:00'}" oninput="setMealTime('dinner', this.value)" /></div>
+            <button class="${state.mealTimes && state.mealTimes.enabled ? 'secondary-btn' : 'primary-btn'}" style="margin-top:12px; width:100%; flex:none" onclick="toggleMealReminders()">${state.mealTimes && state.mealTimes.enabled ? 'Turn off reminders' : 'Turn on reminders'}</button>
+            ${state.notifPermission === 'denied' ? `<div style="margin-top:10px; font-size:12px; color:#B85C38; font-style:italic; font-family:'Fraunces',serif; line-height:1.5">Notifications blocked. Enable in your browser/iPhone Settings → Plate → Notifications, then come back.</div>` : ''}
+            ${state.mealTimes && state.mealTimes.enabled ? `<div style="margin-top:10px; font-size:11px; color:#8a8975; font-style:italic; font-family:'Fraunces',serif; line-height:1.5">Note: PWA notifications work best when Plate is added to your Home Screen and you've recently opened it. iOS 16.4+ required.</div>` : ''}
+          ` : `
+            <div style="font-size:13px; color:#B85C38; font-style:italic; font-family:'Fraunces',serif; line-height:1.5">Your browser doesn't support notifications. Try adding Plate to your Home Screen first.</div>
+          `}
         </div>
       ` : ''}
     </div>
@@ -14467,6 +14827,7 @@ function renderPlateScoreChip() {
 function renderTodayTab() {
   const isToday = state.selectedDate === todayISO();
   return `
+    ${renderTutorialCard('today')}
     ${renderDateBar()}
     ${isToday ? renderDailyCheckinPrompt() : ''}
     ${renderMultiConfirm()}
@@ -14554,6 +14915,7 @@ function createSavedMealFromHistory(sample) {
 function renderCaloriesTab() {
   const isToday = state.selectedDate === todayISO();
   return `
+    ${renderTutorialCard('calories')}
     ${renderDateBar()}
     ${renderTotals()}
     ${renderPauseBanner()}
@@ -14875,6 +15237,7 @@ function renderHungerTab() {
   }
   const patternsOpen = !!state.hungerPatternsExpanded;
   return `
+    ${renderTutorialCard('hunger')}
     ${renderHungerWhatNowHero()}
     ${renderDietBreakCard()}
     ${renderHungerLabCard()}
@@ -17523,6 +17886,7 @@ function render() {
     ${renderLabelScanner()}
     ${renderShareModal()}
     ${renderUnlockToast()}
+    ${renderMealReminderBanner()}
     `;
 
     if (focusedId) {
@@ -17579,6 +17943,13 @@ function init() {
   state.mealSplit = loadMealSplit();
   state.chartRange = loadChartRange();
   state.savedMeals = loadSavedMeals();
+  state.tutorialDismissed = loadTutorialDismissed();
+  state.mealTimes = loadMealTimes();
+  state.notifPermission = ('Notification' in window) ? Notification.permission : 'unsupported';
+  // Start meal reminder scheduler if enabled
+  if (state.mealTimes && state.mealTimes.enabled) {
+    try { scheduleNextMealReminder(); } catch (e) { console.warn('Meal scheduler failed', e); }
+  }
   const profile = loadProfile();
   if (profile) {
     state.profile = profile;
