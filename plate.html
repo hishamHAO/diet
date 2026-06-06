@@ -1874,6 +1874,19 @@
   .dp-template-row input { width: 18px; height: 18px; }
   .dp-template-name { width: 100%; margin-top: 10px; padding: 9px 12px; background: white; border: 1px solid #F3DDC5; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; box-sizing: border-box; }
   .dp-template-name:focus { outline: none; border-color: #B85C38; }
+
+  /* Tier 2 quick-estimate styling */
+  .dp-tile-quick { background: #FAF8F2; border-style: dashed; }
+  .dp-tile-quick:active { background: #EEF4F0; }
+  .dp-quick-portion { background: white; border: 1px solid #E5E0D2; border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+  .dp-quick-label { font-family: 'Fraunces', serif; font-size: 12px; color: #6b6a5c; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+  .dp-quick-mult-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 14px; }
+  .dp-quick-mult-val { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 500; color: #1E2E2A; min-width: 80px; text-align: center; }
+  .dp-quick-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .dp-preset-btn { padding: 8px 0; background: #F4F2EC; border: 1px solid #E5E0D2; border-radius: 8px; font-family: 'Fraunces', serif; font-size: 13px; color: #1E2E2A; cursor: pointer; }
+  .dp-preset-btn.active { background: #2C5F5D; color: white; border-color: #2C5F5D; }
+  .dp-preset-btn:active { transform: scale(0.96); }
+  .dp-quick-note { padding: 12px; background: #FFF5EC; border: 1px dashed #F3DDC5; border-radius: 10px; font-family: 'Fraunces', serif; font-size: 12px; color: #6b6a5c; font-style: italic; line-height: 1.5; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -4582,7 +4595,7 @@ function set(patch) { Object.assign(state, patch); render(); }
 // ============================================================
 // Storage
 // ============================================================
-const PLATE_VERSION = '2026-06-06.1';
+const PLATE_VERSION = '2026-06-06.3';
 const STORAGE_ENTRIES = 'plate-entries-v2';
 const STORAGE_ACHIEVEMENTS = 'plate-achievements';
 const STORAGE_TUTORIAL = 'plate-tutorial-dismissed';
@@ -4982,6 +4995,745 @@ const COMPOSITE_DISHES = [
       { name: 'Olives', cal: 80, c: 2, p: 1, f: 8 },
       { name: 'Olive oil + onion', cal: 80, c: 2, p: 0, f: 9 },
     ]},
+  // --- ADDED IN EXPANSION ---
+  { id: 'avocado_toast', name: 'Avocado toast', icon: '🥑', category: 'breakfast',
+    aliases: ['avo toast'],
+    components: [
+      { name: 'Sourdough toast', cal: 130, c: 26, p: 5, f: 1 },
+      { name: 'Avocado (half)', cal: 160, c: 9, p: 2, f: 15 },
+      { name: 'Olive oil + lemon', cal: 50, c: 0, p: 0, f: 6 },
+    ]},
+  { id: 'eggs_benedict', name: 'Eggs Benedict', icon: '🍳', category: 'breakfast',
+    aliases: ['benedict'],
+    components: [
+      { name: 'English muffin (1)', cal: 130, c: 25, p: 5, f: 1 },
+      { name: 'Poached eggs (2)', cal: 140, c: 1, p: 12, f: 10 },
+      { name: 'Bacon/ham', cal: 90, c: 0, p: 8, f: 6 },
+      { name: 'Hollandaise sauce', cal: 200, c: 1, p: 3, f: 21 },
+    ]},
+  { id: 'french_toast', name: 'French toast', icon: '🍞', category: 'breakfast',
+    aliases: ['eggy bread'],
+    components: [
+      { name: 'Bread (2 slices)', cal: 180, c: 34, p: 6, f: 2 },
+      { name: 'Egg + milk dip', cal: 110, c: 2, p: 8, f: 7 },
+      { name: 'Maple syrup', cal: 100, c: 26, p: 0, f: 0 },
+      { name: 'Butter (cooking)', cal: 70, c: 0, p: 0, f: 8 },
+    ]},
+  { id: 'pancakes', name: 'Pancakes + syrup', icon: '🥞', category: 'breakfast',
+    aliases: ['pancake stack'],
+    components: [
+      { name: 'Pancakes (3 medium)', cal: 280, c: 50, p: 8, f: 5 },
+      { name: 'Maple syrup', cal: 100, c: 26, p: 0, f: 0 },
+      { name: 'Butter', cal: 70, c: 0, p: 0, f: 8 },
+    ]},
+  { id: 'porridge', name: 'Porridge with berries', icon: '🥣', category: 'breakfast',
+    aliases: ['oatmeal', 'oats'],
+    components: [
+      { name: 'Oats (50g dry)', cal: 180, c: 32, p: 7, f: 3 },
+      { name: 'Milk', cal: 90, c: 9, p: 6, f: 3 },
+      { name: 'Mixed berries', cal: 40, c: 9, p: 1, f: 0 },
+      { name: 'Honey', cal: 60, c: 17, p: 0, f: 0 },
+    ]},
+  { id: 'granola_bowl', name: 'Granola + yoghurt bowl', icon: '🥣', category: 'breakfast',
+    aliases: ['yogurt bowl'],
+    components: [
+      { name: 'Granola (50g)', cal: 230, c: 35, p: 5, f: 8 },
+      { name: 'Greek yoghurt (150g)', cal: 95, c: 6, p: 15, f: 0 },
+      { name: 'Fresh fruit', cal: 50, c: 12, p: 1, f: 0 },
+      { name: 'Honey drizzle', cal: 40, c: 11, p: 0, f: 0 },
+    ]},
+  { id: 'smoothie_bowl', name: 'Smoothie bowl', icon: '🍓', category: 'breakfast',
+    aliases: ['acai bowl'],
+    components: [
+      { name: 'Smoothie base', cal: 200, c: 40, p: 4, f: 3 },
+      { name: 'Granola topping', cal: 110, c: 17, p: 2, f: 4 },
+      { name: 'Fresh fruit + nuts', cal: 90, c: 14, p: 2, f: 3 },
+    ]},
+  { id: 'breakfast_wrap', name: 'Breakfast wrap', icon: '🌯', category: 'breakfast',
+    aliases: ['breakfast burrito'],
+    components: [
+      { name: 'Tortilla', cal: 200, c: 32, p: 6, f: 5 },
+      { name: 'Scrambled egg', cal: 140, c: 1, p: 12, f: 10 },
+      { name: 'Sausage/bacon', cal: 150, c: 1, p: 9, f: 12 },
+      { name: 'Cheese + salsa', cal: 110, c: 4, p: 5, f: 8 },
+    ]},
+  { id: 'bacon_sandwich', name: 'Bacon sandwich', icon: '🥪', category: 'breakfast',
+    aliases: ['bacon butty', 'bacon sarnie'],
+    components: [
+      { name: 'Bread (2 slices)', cal: 180, c: 34, p: 6, f: 2 },
+      { name: 'Bacon (3 rashers)', cal: 195, c: 0, p: 17, f: 14 },
+      { name: 'Butter/sauce', cal: 60, c: 1, p: 0, f: 6 },
+    ]},
+  { id: 'eggs_on_toast', name: 'Eggs on toast', icon: '🍳', category: 'breakfast',
+    aliases: ['scrambled eggs on toast'],
+    components: [
+      { name: 'Toast (2 slices)', cal: 180, c: 34, p: 6, f: 2 },
+      { name: 'Eggs (2 scrambled)', cal: 180, c: 1, p: 12, f: 14 },
+      { name: 'Butter', cal: 70, c: 0, p: 0, f: 8 },
+    ]},
+  { id: 'tuna_sandwich', name: 'Tuna mayo sandwich', icon: '🥪', category: 'lunch',
+    aliases: ['tuna sarnie'],
+    components: [
+      { name: 'Bread (2 slices)', cal: 180, c: 34, p: 6, f: 2 },
+      { name: 'Tuna + mayo', cal: 220, c: 1, p: 18, f: 16 },
+      { name: 'Lettuce/cucumber', cal: 5, c: 1, p: 0, f: 0 },
+    ]},
+  { id: 'blt', name: 'BLT sandwich', icon: '🥓', category: 'lunch',
+    aliases: ['bacon lettuce tomato'],
+    components: [
+      { name: 'Bread (2 slices)', cal: 180, c: 34, p: 6, f: 2 },
+      { name: 'Bacon (3 rashers)', cal: 195, c: 0, p: 17, f: 14 },
+      { name: 'Lettuce + tomato', cal: 15, c: 3, p: 1, f: 0 },
+      { name: 'Mayo', cal: 90, c: 0, p: 0, f: 10 },
+    ]},
+  { id: 'jacket_beans', name: 'Jacket potato + beans', icon: '🥔', category: 'lunch',
+    aliases: ['baked potato beans'],
+    components: [
+      { name: 'Baked potato (large)', cal: 280, c: 60, p: 7, f: 0 },
+      { name: 'Baked beans', cal: 160, c: 30, p: 9, f: 1 },
+      { name: 'Butter + cheese', cal: 130, c: 0, p: 6, f: 11 },
+    ]},
+  { id: 'jacket_tuna', name: 'Jacket potato + tuna', icon: '🥔', category: 'lunch',
+    aliases: ['baked potato tuna'],
+    components: [
+      { name: 'Baked potato (large)', cal: 280, c: 60, p: 7, f: 0 },
+      { name: 'Tuna + mayo', cal: 220, c: 1, p: 18, f: 16 },
+      { name: 'Sweetcorn', cal: 60, c: 12, p: 2, f: 1 },
+    ]},
+  { id: 'jacket_cheese', name: 'Jacket potato + cheese & beans', icon: '🥔', category: 'lunch',
+    aliases: ['cheese and beans potato'],
+    components: [
+      { name: 'Baked potato (large)', cal: 280, c: 60, p: 7, f: 0 },
+      { name: 'Cheese (40g)', cal: 165, c: 0, p: 10, f: 14 },
+      { name: 'Baked beans', cal: 160, c: 30, p: 9, f: 1 },
+    ]},
+  { id: 'soup_bread', name: 'Soup + bread roll', icon: '🍲', category: 'lunch',
+    aliases: ['soup and roll'],
+    components: [
+      { name: 'Vegetable soup', cal: 180, c: 28, p: 5, f: 5 },
+      { name: 'Bread roll', cal: 150, c: 28, p: 5, f: 2 },
+      { name: 'Butter', cal: 70, c: 0, p: 0, f: 8 },
+    ]},
+  { id: 'chicken_wrap', name: 'Chicken wrap', icon: '🌯', category: 'lunch',
+    aliases: ['chicken tortilla wrap'],
+    components: [
+      { name: 'Tortilla wrap', cal: 200, c: 32, p: 6, f: 5 },
+      { name: 'Grilled chicken', cal: 180, c: 0, p: 30, f: 6 },
+      { name: 'Salad + sauce', cal: 80, c: 6, p: 1, f: 6 },
+    ]},
+  { id: 'club_sandwich', name: 'Club sandwich', icon: '🥪', category: 'lunch',
+    aliases: ['triple decker'],
+    components: [
+      { name: 'Bread (3 slices)', cal: 270, c: 51, p: 9, f: 3 },
+      { name: 'Chicken', cal: 150, c: 0, p: 25, f: 5 },
+      { name: 'Bacon', cal: 130, c: 0, p: 11, f: 9 },
+      { name: 'Lettuce + tomato + mayo', cal: 110, c: 3, p: 1, f: 11 },
+    ]},
+  { id: 'paneer_butter', name: 'Paneer butter masala + naan', icon: '🍛', category: 'indian',
+    aliases: ['paneer makhani'],
+    components: [
+      { name: 'Paneer butter masala', cal: 380, c: 12, p: 16, f: 30 },
+      { name: 'Naan bread', cal: 300, c: 55, p: 9, f: 5 },
+    ]},
+  { id: 'palak_paneer', name: 'Palak paneer + rice', icon: '🥬', category: 'indian',
+    aliases: ['spinach paneer'],
+    components: [
+      { name: 'Palak paneer', cal: 320, c: 12, p: 16, f: 24 },
+      { name: 'Basmati rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'aloo_gobi', name: 'Aloo gobi + rice', icon: '🥔', category: 'indian',
+    aliases: ['potato cauliflower curry'],
+    components: [
+      { name: 'Aloo gobi', cal: 220, c: 28, p: 6, f: 11 },
+      { name: 'Basmati rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Chapati', cal: 100, c: 18, p: 3, f: 2 },
+    ]},
+  { id: 'veg_biryani', name: 'Vegetable biryani', icon: '🍚', category: 'indian',
+    aliases: ['veggie biryani'],
+    components: [
+      { name: 'Biryani rice + spices', cal: 350, c: 65, p: 7, f: 7 },
+      { name: 'Mixed vegetables', cal: 80, c: 14, p: 3, f: 2 },
+      { name: 'Raita', cal: 50, c: 5, p: 3, f: 2 },
+    ]},
+  { id: 'dosa', name: 'Dosa with sambar', icon: '🥞', category: 'indian',
+    aliases: ['masala dosa'],
+    components: [
+      { name: 'Dosa (2)', cal: 250, c: 42, p: 7, f: 6 },
+      { name: 'Potato filling', cal: 120, c: 22, p: 3, f: 3 },
+      { name: 'Sambar + chutney', cal: 100, c: 14, p: 5, f: 3 },
+    ]},
+  { id: 'paratha_curry', name: 'Paratha + curry', icon: '🫓', category: 'indian',
+    aliases: ['aloo paratha'],
+    components: [
+      { name: 'Paratha (2)', cal: 340, c: 48, p: 8, f: 12 },
+      { name: 'Vegetable curry', cal: 200, c: 22, p: 5, f: 11 },
+      { name: 'Pickle/chutney', cal: 30, c: 4, p: 0, f: 2 },
+    ]},
+  { id: 'samosas', name: 'Samosas (3) + chutney', icon: '🔺', category: 'indian',
+    aliases: ['samosa'],
+    components: [
+      { name: 'Samosas (3)', cal: 360, c: 36, p: 9, f: 20 },
+      { name: 'Mint chutney', cal: 40, c: 8, p: 1, f: 0 },
+      { name: 'Tamarind chutney', cal: 50, c: 12, p: 0, f: 0 },
+    ]},
+  { id: 'pho', name: 'Pho (Vietnamese noodle soup)', icon: '🍜', category: 'asian',
+    aliases: ['vietnamese pho', 'beef pho'],
+    components: [
+      { name: 'Rice noodles', cal: 220, c: 50, p: 4, f: 0 },
+      { name: 'Beef slices', cal: 180, c: 0, p: 25, f: 9 },
+      { name: 'Pho broth', cal: 50, c: 6, p: 4, f: 1 },
+      { name: 'Herbs + lime + sprouts', cal: 15, c: 3, p: 1, f: 0 },
+    ]},
+  { id: 'bibimbap', name: 'Bibimbap', icon: '🍱', category: 'asian',
+    aliases: ['korean rice bowl'],
+    components: [
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Beef bulgogi', cal: 200, c: 5, p: 26, f: 9 },
+      { name: 'Vegetables (assorted)', cal: 80, c: 12, p: 3, f: 3 },
+      { name: 'Fried egg + gochujang', cal: 130, c: 6, p: 7, f: 9 },
+    ]},
+  { id: 'jp_curry', name: 'Japanese curry + rice', icon: '🍛', category: 'asian',
+    aliases: ['katsu curry'],
+    components: [
+      { name: 'Japanese curry sauce', cal: 200, c: 24, p: 5, f: 10 },
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Chicken katsu', cal: 320, c: 18, p: 28, f: 15 },
+    ]},
+  { id: 'gyoza_set', name: 'Gyoza (6) + rice', icon: '🥟', category: 'asian',
+    aliases: ['dumplings'],
+    components: [
+      { name: 'Gyoza (6 pieces)', cal: 300, c: 32, p: 12, f: 13 },
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Dipping sauce', cal: 20, c: 4, p: 1, f: 0 },
+    ]},
+  { id: 'miso_rice', name: 'Miso soup + rice', icon: '🍚', category: 'asian',
+    aliases: [],
+    components: [
+      { name: 'Miso soup', cal: 60, c: 6, p: 4, f: 2 },
+      { name: 'Steamed rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Tofu + seaweed', cal: 70, c: 2, p: 7, f: 4 },
+    ]},
+  { id: 'spring_rolls', name: 'Spring rolls (4) + rice', icon: '🥢', category: 'asian',
+    aliases: ['vegetable spring rolls'],
+    components: [
+      { name: 'Spring rolls (4)', cal: 280, c: 30, p: 6, f: 14 },
+      { name: 'Sweet chilli sauce', cal: 60, c: 14, p: 0, f: 0 },
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'chow_mein', name: 'Chow mein', icon: '🍜', category: 'asian',
+    aliases: ['chicken chow mein'],
+    components: [
+      { name: 'Egg noodles', cal: 280, c: 50, p: 9, f: 4 },
+      { name: 'Chicken strips', cal: 180, c: 0, p: 28, f: 7 },
+      { name: 'Vegetables + sauce', cal: 100, c: 12, p: 3, f: 5 },
+    ]},
+  { id: 'sweet_sour', name: 'Sweet & sour chicken + rice', icon: '🍗', category: 'asian',
+    aliases: [],
+    components: [
+      { name: 'Battered chicken', cal: 320, c: 22, p: 24, f: 14 },
+      { name: 'Sweet & sour sauce', cal: 180, c: 42, p: 1, f: 1 },
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'paella', name: 'Paella', icon: '🥘', category: 'european',
+    aliases: ['seafood paella', 'spanish paella'],
+    components: [
+      { name: 'Paella rice', cal: 320, c: 60, p: 7, f: 5 },
+      { name: 'Chicken/seafood', cal: 220, c: 1, p: 28, f: 10 },
+      { name: 'Vegetables + saffron', cal: 60, c: 11, p: 2, f: 1 },
+    ]},
+  { id: 'schnitzel', name: 'Schnitzel + potatoes', icon: '🍖', category: 'european',
+    aliases: ['wiener schnitzel'],
+    components: [
+      { name: 'Schnitzel (breaded pork)', cal: 420, c: 22, p: 32, f: 22 },
+      { name: 'Potato wedges', cal: 280, c: 42, p: 5, f: 11 },
+      { name: 'Lemon + parsley', cal: 10, c: 2, p: 0, f: 0 },
+    ]},
+  { id: 'moussaka', name: 'Moussaka', icon: '🍆', category: 'european',
+    aliases: ['greek moussaka'],
+    components: [
+      { name: 'Lamb mince + sauce', cal: 320, c: 10, p: 22, f: 22 },
+      { name: 'Aubergine + potato', cal: 140, c: 22, p: 3, f: 4 },
+      { name: 'Bechamel topping', cal: 200, c: 12, p: 7, f: 14 },
+    ]},
+  { id: 'gyros', name: 'Gyros wrap', icon: '🌯', category: 'european',
+    aliases: ['greek gyros'],
+    components: [
+      { name: 'Pita bread', cal: 180, c: 36, p: 6, f: 1 },
+      { name: 'Gyros meat', cal: 280, c: 2, p: 26, f: 18 },
+      { name: 'Tzatziki + salad', cal: 100, c: 6, p: 4, f: 7 },
+    ]},
+  { id: 'croque', name: 'Croque monsieur', icon: '🥪', category: 'european',
+    aliases: ['french toasted sandwich'],
+    components: [
+      { name: 'Bread (2 thick slices)', cal: 220, c: 38, p: 7, f: 3 },
+      { name: 'Ham', cal: 90, c: 1, p: 14, f: 3 },
+      { name: 'Cheese + bechamel', cal: 280, c: 6, p: 14, f: 22 },
+    ]},
+  { id: 'tagine', name: 'Tagine + couscous', icon: '🥘', category: 'middle-eastern',
+    aliases: ['moroccan tagine', 'chicken tagine'],
+    components: [
+      { name: 'Chicken tagine', cal: 320, c: 14, p: 28, f: 16 },
+      { name: 'Couscous', cal: 220, c: 44, p: 7, f: 0 },
+      { name: 'Vegetables + apricots', cal: 70, c: 14, p: 2, f: 1 },
+    ]},
+  { id: 'shakshuka', name: 'Shakshuka', icon: '🍳', category: 'middle-eastern',
+    aliases: ['eggs in tomato sauce'],
+    components: [
+      { name: 'Tomato + pepper sauce', cal: 140, c: 18, p: 4, f: 6 },
+      { name: 'Poached eggs (2)', cal: 140, c: 1, p: 12, f: 10 },
+      { name: 'Pita/bread', cal: 180, c: 36, p: 6, f: 1 },
+    ]},
+  { id: 'koshari', name: 'Koshari', icon: '🥘', category: 'middle-eastern',
+    aliases: ['egyptian koshari'],
+    components: [
+      { name: 'Rice + pasta + lentils', cal: 380, c: 72, p: 14, f: 4 },
+      { name: 'Tomato sauce', cal: 80, c: 14, p: 3, f: 2 },
+      { name: 'Fried onions + chickpeas', cal: 180, c: 22, p: 6, f: 8 },
+    ]},
+  { id: 'mezze_plate', name: 'Mezze plate', icon: '🫒', category: 'middle-eastern',
+    aliases: ['lebanese mezze'],
+    components: [
+      { name: 'Hummus + baba ganoush', cal: 280, c: 24, p: 10, f: 17 },
+      { name: 'Pita bread', cal: 180, c: 36, p: 6, f: 1 },
+      { name: 'Olives + feta + salad', cal: 180, c: 6, p: 8, f: 14 },
+    ]},
+  { id: 'mac_cheese', name: 'Mac & cheese', icon: '🧀', category: 'american',
+    aliases: ['macaroni cheese'],
+    components: [
+      { name: 'Cooked pasta', cal: 280, c: 56, p: 10, f: 1 },
+      { name: 'Cheese sauce', cal: 320, c: 12, p: 14, f: 24 },
+    ]},
+  { id: 'wings', name: 'Buffalo wings + ranch', icon: '🍗', category: 'american',
+    aliases: ['chicken wings'],
+    components: [
+      { name: 'Wings (8 pieces)', cal: 480, c: 6, p: 42, f: 32 },
+      { name: 'Buffalo sauce', cal: 80, c: 4, p: 1, f: 7 },
+      { name: 'Ranch + celery', cal: 130, c: 4, p: 1, f: 12 },
+    ]},
+  { id: 'nachos', name: 'Loaded nachos', icon: '🌽', category: 'american',
+    aliases: ['cheesy nachos'],
+    components: [
+      { name: 'Tortilla chips', cal: 340, c: 42, p: 5, f: 18 },
+      { name: 'Cheese + jalapenos', cal: 220, c: 6, p: 12, f: 17 },
+      { name: 'Beef/beans + salsa', cal: 220, c: 18, p: 14, f: 11 },
+      { name: 'Sour cream + guac', cal: 140, c: 4, p: 2, f: 13 },
+    ]},
+  { id: 'hot_dog', name: 'Hot dog + chips', icon: '🌭', category: 'american',
+    aliases: ['hotdog'],
+    components: [
+      { name: 'Hot dog + bun', cal: 340, c: 28, p: 13, f: 19 },
+      { name: 'Ketchup + mustard', cal: 30, c: 7, p: 0, f: 0 },
+      { name: 'Chips', cal: 380, c: 50, p: 5, f: 18 },
+    ]},
+  { id: 'chicken_nuggets', name: 'Chicken nuggets + chips', icon: '🍗', category: 'american',
+    aliases: ['nuggets meal'],
+    components: [
+      { name: 'Chicken nuggets (8)', cal: 380, c: 22, p: 22, f: 22 },
+      { name: 'Chips', cal: 380, c: 50, p: 5, f: 18 },
+      { name: 'BBQ/sweet sauce', cal: 60, c: 14, p: 0, f: 0 },
+    ]},
+  { id: 'aglio_olio', name: 'Spaghetti aglio e olio', icon: '🍝', category: 'italian',
+    aliases: ['garlic oil pasta'],
+    components: [
+      { name: 'Cooked pasta', cal: 280, c: 56, p: 10, f: 1 },
+      { name: 'Olive oil + garlic + chilli', cal: 200, c: 2, p: 1, f: 22 },
+      { name: 'Parmesan', cal: 50, c: 0, p: 4, f: 3 },
+    ]},
+  { id: 'arrabbiata', name: 'Penne arrabbiata', icon: '🌶️', category: 'italian',
+    aliases: ['spicy tomato pasta'],
+    components: [
+      { name: 'Cooked penne', cal: 280, c: 56, p: 10, f: 1 },
+      { name: 'Spicy tomato sauce', cal: 120, c: 16, p: 4, f: 4 },
+      { name: 'Parmesan', cal: 50, c: 0, p: 4, f: 3 },
+    ]},
+  { id: 'gnocchi', name: 'Gnocchi + sauce', icon: '🥔', category: 'italian',
+    aliases: [],
+    components: [
+      { name: 'Gnocchi', cal: 350, c: 64, p: 8, f: 5 },
+      { name: 'Tomato/butter sauce', cal: 140, c: 14, p: 3, f: 8 },
+      { name: 'Parmesan', cal: 50, c: 0, p: 4, f: 3 },
+    ]},
+  { id: 'ravioli', name: 'Ravioli + sauce', icon: '🍝', category: 'italian',
+    aliases: ['cheese ravioli'],
+    components: [
+      { name: 'Stuffed ravioli', cal: 380, c: 50, p: 18, f: 12 },
+      { name: 'Tomato or cream sauce', cal: 140, c: 12, p: 3, f: 9 },
+      { name: 'Parmesan', cal: 50, c: 0, p: 4, f: 3 },
+    ]},
+  { id: 'fettuccine_alfredo', name: 'Fettuccine Alfredo', icon: '🍝', category: 'italian',
+    aliases: ['alfredo pasta'],
+    components: [
+      { name: 'Fettuccine', cal: 280, c: 56, p: 10, f: 1 },
+      { name: 'Alfredo sauce', cal: 320, c: 6, p: 8, f: 30 },
+      { name: 'Parmesan', cal: 80, c: 0, p: 7, f: 5 },
+    ]},
+  { id: 'apple_pie', name: 'Apple pie + cream', icon: '🥧', category: 'dessert',
+    aliases: ['apple crumble'],
+    components: [
+      { name: 'Apple pie slice', cal: 320, c: 44, p: 3, f: 14 },
+      { name: 'Whipped cream/ice cream', cal: 140, c: 12, p: 2, f: 10 },
+    ]},
+  { id: 'cheesecake', name: 'Cheesecake slice', icon: '🍰', category: 'dessert',
+    aliases: [],
+    components: [
+      { name: 'Cheesecake (1 slice)', cal: 400, c: 32, p: 7, f: 28 },
+      { name: 'Fruit topping', cal: 50, c: 12, p: 0, f: 0 },
+    ]},
+  { id: 'tiramisu', name: 'Tiramisu', icon: '☕', category: 'dessert',
+    aliases: [],
+    components: [
+      { name: 'Tiramisu serving', cal: 380, c: 36, p: 7, f: 23 },
+      { name: 'Cocoa dusting', cal: 10, c: 2, p: 1, f: 0 },
+    ]},
+  { id: 'brownie', name: 'Brownie + ice cream', icon: '🍫', category: 'dessert',
+    aliases: [],
+    components: [
+      { name: 'Brownie', cal: 320, c: 40, p: 4, f: 16 },
+      { name: 'Vanilla ice cream', cal: 180, c: 22, p: 3, f: 9 },
+    ]},
+  { id: 'chocolate_mousse', name: 'Chocolate mousse', icon: '🍫', category: 'dessert',
+    aliases: [],
+    components: [
+      { name: 'Chocolate mousse', cal: 280, c: 24, p: 5, f: 19 },
+      { name: 'Whipped cream', cal: 70, c: 4, p: 1, f: 6 },
+    ]},
+];
+
+// ============================================================
+// QUICK_DISHES — Tier 2: single-entry estimates for the long tail.
+// No component breakdown; one combined entry per dish.
+// ============================================================
+const QUICK_DISHES = [
+  { id: 'croissant', name: 'Croissant', icon: '🥐', category: 'breakfast', cal: 270, c: 30, p: 5, f: 14, aliases: [] },
+  { id: 'pain_choc', name: 'Pain au chocolat', icon: '🥐', category: 'breakfast', cal: 310, c: 32, p: 5, f: 18, aliases: ['chocolate croissant'] },
+  { id: 'blueberry_muffin', name: 'Blueberry muffin', icon: '🧁', category: 'breakfast', cal: 380, c: 54, p: 5, f: 16, aliases: [] },
+  { id: 'chocolate_muffin', name: 'Chocolate muffin', icon: '🧁', category: 'breakfast', cal: 420, c: 58, p: 6, f: 19, aliases: [] },
+  { id: 'banana_muffin', name: 'Banana muffin', icon: '🧁', category: 'breakfast', cal: 360, c: 52, p: 5, f: 14, aliases: [] },
+  { id: 'bagel_cc', name: 'Bagel + cream cheese', icon: '🥯', category: 'breakfast', cal: 380, c: 56, p: 12, f: 12, aliases: [] },
+  { id: 'plain_bagel', name: 'Plain bagel', icon: '🥯', category: 'breakfast', cal: 280, c: 56, p: 10, f: 2, aliases: [] },
+  { id: 'english_muffin', name: 'English muffin + butter', icon: '🍞', category: 'breakfast', cal: 220, c: 32, p: 6, f: 8, aliases: [] },
+  { id: 'cereal_milk', name: 'Cereal + milk (medium bowl)', icon: '🥣', category: 'breakfast', cal: 280, c: 50, p: 9, f: 5, aliases: ['breakfast cereal'] },
+  { id: 'cornflakes', name: 'Cornflakes + milk', icon: '🥣', category: 'breakfast', cal: 200, c: 38, p: 7, f: 3, aliases: [] },
+  { id: 'cheerios', name: 'Cheerios + milk', icon: '🥣', category: 'breakfast', cal: 220, c: 38, p: 9, f: 4, aliases: [] },
+  { id: 'weetabix', name: 'Weetabix (2) + milk', icon: '🌾', category: 'breakfast', cal: 230, c: 40, p: 10, f: 4, aliases: [] },
+  { id: 'shredded_wheat', name: 'Shredded wheat + milk', icon: '🌾', category: 'breakfast', cal: 240, c: 44, p: 10, f: 3, aliases: [] },
+  { id: 'granola_bar', name: 'Granola bar', icon: '🍫', category: 'breakfast', cal: 180, c: 28, p: 3, f: 6, aliases: ['cereal bar'] },
+  { id: 'protein_bar', name: 'Protein bar', icon: '💪', category: 'breakfast', cal: 220, c: 22, p: 20, f: 7, aliases: [] },
+  { id: 'breakfast_burrito_q', name: 'Breakfast burrito', icon: '🌯', category: 'breakfast', cal: 560, c: 48, p: 22, f: 30, aliases: [] },
+  { id: 'breakfast_sandwich_q', name: 'Breakfast sandwich', icon: '🥪', category: 'breakfast', cal: 480, c: 36, p: 22, f: 26, aliases: ['mcmuffin', 'egg mcmuffin'] },
+  { id: 'hash_browns', name: 'Hash browns (2)', icon: '🥔', category: 'breakfast', cal: 280, c: 30, p: 3, f: 18, aliases: [] },
+  { id: 'waffle', name: 'Belgian waffle + syrup', icon: '🧇', category: 'breakfast', cal: 380, c: 56, p: 7, f: 14, aliases: [] },
+  { id: 'crepe_sweet', name: 'Sweet crepe (nutella/jam)', icon: '🥞', category: 'breakfast', cal: 320, c: 44, p: 7, f: 13, aliases: [] },
+  { id: 'crepe_savoury', name: 'Savoury crepe (ham/cheese)', icon: '🥞', category: 'breakfast', cal: 380, c: 32, p: 16, f: 21, aliases: [] },
+  { id: 'fruit_salad', name: 'Fruit salad (bowl)', icon: '🍓', category: 'breakfast', cal: 130, c: 32, p: 2, f: 0, aliases: [] },
+  { id: 'yogurt_parfait', name: 'Yoghurt parfait', icon: '🥄', category: 'breakfast', cal: 280, c: 42, p: 12, f: 7, aliases: [] },
+  { id: 'full_eng_veg', name: 'Full vegetarian breakfast', icon: '🍳', category: 'breakfast', cal: 580, c: 50, p: 25, f: 30, aliases: ['veggie breakfast'] },
+  { id: 'smashed_avo', name: 'Smashed avo on toast', icon: '🥑', category: 'breakfast', cal: 380, c: 32, p: 9, f: 24, aliases: [] },
+  { id: 'omelette_3_egg', name: 'Three-egg omelette', icon: '🍳', category: 'breakfast', cal: 320, c: 4, p: 22, f: 24, aliases: [] },
+  { id: 'frittata', name: 'Frittata slice', icon: '🥧', category: 'breakfast', cal: 250, c: 6, p: 16, f: 18, aliases: [] },
+  { id: 'quiche_lorraine', name: 'Quiche Lorraine slice', icon: '🥧', category: 'breakfast', cal: 380, c: 24, p: 14, f: 25, aliases: [] },
+  { id: 'breakfast_smoothie', name: 'Breakfast smoothie', icon: '🥤', category: 'breakfast', cal: 280, c: 50, p: 8, f: 6, aliases: [] },
+  { id: 'protein_shake', name: 'Protein shake (whey + milk)', icon: '🥤', category: 'breakfast', cal: 200, c: 8, p: 30, f: 4, aliases: [] },
+  { id: 'tomato_soup', name: 'Tomato soup', icon: '🍅', category: 'soups', cal: 180, c: 28, p: 4, f: 6, aliases: [] },
+  { id: 'chicken_noodle', name: 'Chicken noodle soup', icon: '🍜', category: 'soups', cal: 220, c: 28, p: 14, f: 5, aliases: [] },
+  { id: 'minestrone', name: 'Minestrone soup', icon: '🍲', category: 'soups', cal: 200, c: 32, p: 8, f: 4, aliases: [] },
+  { id: 'french_onion', name: 'French onion soup', icon: '🧅', category: 'soups', cal: 280, c: 24, p: 9, f: 16, aliases: [] },
+  { id: 'mushroom_soup', name: 'Mushroom soup', icon: '🍄', category: 'soups', cal: 200, c: 18, p: 5, f: 12, aliases: ['cream of mushroom'] },
+  { id: 'lentil_soup', name: 'Lentil soup', icon: '🍲', category: 'soups', cal: 240, c: 36, p: 14, f: 4, aliases: [] },
+  { id: 'vegetable_soup', name: 'Vegetable soup', icon: '🥕', category: 'soups', cal: 160, c: 26, p: 5, f: 4, aliases: [] },
+  { id: 'broccoli_cheese', name: 'Broccoli cheese soup', icon: '🥦', category: 'soups', cal: 280, c: 18, p: 11, f: 18, aliases: [] },
+  { id: 'butternut_soup', name: 'Butternut squash soup', icon: '🎃', category: 'soups', cal: 220, c: 32, p: 5, f: 9, aliases: [] },
+  { id: 'miso_soup_q', name: 'Miso soup', icon: '🥣', category: 'soups', cal: 60, c: 6, p: 4, f: 2, aliases: [] },
+  { id: 'wonton_soup', name: 'Wonton soup', icon: '🥟', category: 'soups', cal: 240, c: 30, p: 14, f: 7, aliases: [] },
+  { id: 'pumpkin_soup', name: 'Pumpkin soup', icon: '🎃', category: 'soups', cal: 200, c: 28, p: 5, f: 8, aliases: [] },
+  { id: 'gazpacho', name: 'Gazpacho', icon: '🍅', category: 'soups', cal: 140, c: 18, p: 4, f: 6, aliases: [] },
+  { id: 'leek_potato', name: 'Leek and potato soup', icon: '🥔', category: 'soups', cal: 220, c: 28, p: 5, f: 10, aliases: [] },
+  { id: 'clam_chowder', name: 'Clam chowder', icon: '🍲', category: 'soups', cal: 320, c: 24, p: 14, f: 18, aliases: [] },
+  { id: 'beef_barley', name: 'Beef and barley soup', icon: '🍲', category: 'soups', cal: 280, c: 30, p: 18, f: 8, aliases: [] },
+  { id: 'chicken_rice_soup', name: 'Chicken and rice soup', icon: '🍚', category: 'soups', cal: 240, c: 32, p: 16, f: 4, aliases: [] },
+  { id: 'hot_sour', name: 'Hot and sour soup', icon: '🍲', category: 'soups', cal: 180, c: 16, p: 9, f: 7, aliases: [] },
+  { id: 'tom_yum', name: 'Tom yum soup', icon: '🍲', category: 'soups', cal: 200, c: 14, p: 16, f: 8, aliases: [] },
+  { id: 'laksa', name: 'Laksa', icon: '🍜', category: 'soups', cal: 480, c: 48, p: 18, f: 22, aliases: [] },
+  { id: 'cobb_salad', name: 'Cobb salad', icon: '🥗', category: 'salads', cal: 480, c: 14, p: 30, f: 32, aliases: [] },
+  { id: 'waldorf', name: 'Waldorf salad', icon: '🥗', category: 'salads', cal: 340, c: 28, p: 6, f: 22, aliases: [] },
+  { id: 'nicoise', name: 'Niçoise salad', icon: '🥗', category: 'salads', cal: 380, c: 22, p: 28, f: 18, aliases: ['nicoise'] },
+  { id: 'chef_salad', name: 'Chef salad', icon: '🥗', category: 'salads', cal: 420, c: 14, p: 28, f: 26, aliases: [] },
+  { id: 'chicken_salad', name: 'Chicken salad', icon: '🥗', category: 'salads', cal: 380, c: 8, p: 32, f: 22, aliases: [] },
+  { id: 'tuna_salad', name: 'Tuna salad', icon: '🥗', category: 'salads', cal: 320, c: 6, p: 28, f: 18, aliases: [] },
+  { id: 'pasta_salad', name: 'Pasta salad', icon: '🥗', category: 'salads', cal: 380, c: 48, p: 10, f: 14, aliases: [] },
+  { id: 'potato_salad', name: 'Potato salad', icon: '🥔', category: 'salads', cal: 320, c: 36, p: 5, f: 16, aliases: [] },
+  { id: 'coleslaw', name: 'Coleslaw', icon: '🥬', category: 'salads', cal: 180, c: 14, p: 2, f: 13, aliases: [] },
+  { id: 'quinoa_salad', name: 'Quinoa salad', icon: '🥗', category: 'salads', cal: 320, c: 42, p: 10, f: 11, aliases: [] },
+  { id: 'kale_salad', name: 'Kale salad', icon: '🥬', category: 'salads', cal: 260, c: 22, p: 8, f: 16, aliases: [] },
+  { id: 'beetroot_salad', name: 'Beetroot + feta salad', icon: '🥗', category: 'salads', cal: 280, c: 22, p: 10, f: 16, aliases: [] },
+  { id: 'asian_noodle_salad', name: 'Asian noodle salad', icon: '🥗', category: 'salads', cal: 380, c: 52, p: 12, f: 13, aliases: [] },
+  { id: 'three_bean', name: 'Three-bean salad', icon: '🥗', category: 'salads', cal: 220, c: 32, p: 10, f: 5, aliases: [] },
+  { id: 'israeli_salad', name: 'Israeli/Arab salad', icon: '🥗', category: 'salads', cal: 130, c: 14, p: 3, f: 7, aliases: ['arab salad'] },
+  { id: 'tabbouleh', name: 'Tabbouleh', icon: '🥬', category: 'salads', cal: 200, c: 24, p: 5, f: 9, aliases: [] },
+  { id: 'fattoush', name: 'Fattoush', icon: '🥗', category: 'salads', cal: 240, c: 26, p: 5, f: 13, aliases: [] },
+  { id: 'caprese', name: 'Caprese salad', icon: '🍅', category: 'salads', cal: 280, c: 8, p: 12, f: 22, aliases: [] },
+  { id: 'rocket_parmesan', name: 'Rocket + parmesan salad', icon: '🥬', category: 'salads', cal: 220, c: 6, p: 9, f: 18, aliases: [] },
+  { id: 'caesar_no_chicken', name: 'Caesar salad (no chicken)', icon: '🥗', category: 'salads', cal: 290, c: 18, p: 9, f: 21, aliases: [] },
+  { id: 'cheese_sandwich', name: 'Cheese sandwich', icon: '🧀', category: 'lunch', cal: 380, c: 36, p: 16, f: 19, aliases: [] },
+  { id: 'ham_cheese', name: 'Ham + cheese sandwich', icon: '🥪', category: 'lunch', cal: 420, c: 36, p: 22, f: 21, aliases: [] },
+  { id: 'chicken_sandwich', name: 'Chicken sandwich', icon: '🥪', category: 'lunch', cal: 380, c: 38, p: 28, f: 12, aliases: [] },
+  { id: 'egg_mayo_sandwich', name: 'Egg mayo sandwich', icon: '🥚', category: 'lunch', cal: 360, c: 34, p: 14, f: 18, aliases: [] },
+  { id: 'beef_sandwich', name: 'Beef sandwich', icon: '🥪', category: 'lunch', cal: 420, c: 36, p: 26, f: 18, aliases: [] },
+  { id: 'turkey_sandwich', name: 'Turkey + cranberry sandwich', icon: '🦃', category: 'lunch', cal: 380, c: 42, p: 25, f: 11, aliases: [] },
+  { id: 'hummus_sandwich', name: 'Hummus + veg sandwich', icon: '🥪', category: 'lunch', cal: 340, c: 44, p: 12, f: 13, aliases: [] },
+  { id: 'toastie', name: 'Cheese toastie', icon: '🥪', category: 'lunch', cal: 460, c: 38, p: 20, f: 24, aliases: ['grilled cheese'] },
+  { id: 'panini_chicken', name: 'Chicken panini', icon: '🥪', category: 'lunch', cal: 480, c: 42, p: 30, f: 18, aliases: [] },
+  { id: 'panini_mozzarella', name: 'Mozzarella + tomato panini', icon: '🥪', category: 'lunch', cal: 460, c: 42, p: 18, f: 22, aliases: [] },
+  { id: 'banh_mi', name: 'Banh mi', icon: '🥖', category: 'lunch', cal: 480, c: 56, p: 22, f: 18, aliases: ['vietnamese sandwich'] },
+  { id: 'philly_cheese', name: 'Philly cheesesteak', icon: '🥖', category: 'lunch', cal: 680, c: 48, p: 38, f: 36, aliases: [] },
+  { id: 'reuben', name: 'Reuben sandwich', icon: '🥪', category: 'lunch', cal: 640, c: 42, p: 28, f: 36, aliases: [] },
+  { id: 'cuban_sandwich', name: 'Cuban sandwich', icon: '🥪', category: 'lunch', cal: 580, c: 46, p: 32, f: 28, aliases: [] },
+  { id: 'sloppy_joe', name: 'Sloppy joe', icon: '🍔', category: 'lunch', cal: 480, c: 42, p: 24, f: 21, aliases: [] },
+  { id: 'french_dip', name: 'French dip sandwich', icon: '🥖', category: 'lunch', cal: 540, c: 48, p: 32, f: 22, aliases: [] },
+  { id: 'meatball_sub', name: 'Meatball sub', icon: '🥖', category: 'lunch', cal: 620, c: 58, p: 30, f: 28, aliases: [] },
+  { id: 'chicken_wrap_q', name: 'Chicken Caesar wrap', icon: '🌯', category: 'lunch', cal: 480, c: 40, p: 28, f: 22, aliases: [] },
+  { id: 'falafel_wrap_q', name: 'Veggie wrap', icon: '🌯', category: 'lunch', cal: 420, c: 52, p: 12, f: 18, aliases: [] },
+  { id: 'lobster_roll', name: 'Lobster roll', icon: '🦞', category: 'lunch', cal: 380, c: 28, p: 22, f: 18, aliases: [] },
+  { id: 'po_boy', name: 'Po boy sandwich', icon: '🥖', category: 'lunch', cal: 580, c: 52, p: 28, f: 28, aliases: [] },
+  { id: 'croque_madame', name: 'Croque madame', icon: '🍳', category: 'lunch', cal: 620, c: 38, p: 30, f: 38, aliases: [] },
+  { id: 'pita_chicken', name: 'Chicken pita', icon: '🌮', category: 'lunch', cal: 420, c: 42, p: 28, f: 14, aliases: [] },
+  { id: 'open_sandwich', name: 'Open sandwich (smørrebrød)', icon: '🥪', category: 'lunch', cal: 280, c: 22, p: 14, f: 14, aliases: [] },
+  { id: 'tortellini', name: 'Tortellini + sauce', icon: '🍝', category: 'italian', cal: 520, c: 56, p: 22, f: 20, aliases: [] },
+  { id: 'manicotti', name: 'Manicotti', icon: '🍝', category: 'italian', cal: 480, c: 48, p: 22, f: 21, aliases: [] },
+  { id: 'baked_ziti', name: 'Baked ziti', icon: '🍝', category: 'italian', cal: 480, c: 60, p: 22, f: 16, aliases: [] },
+  { id: 'cannelloni', name: 'Cannelloni', icon: '🍝', category: 'italian', cal: 460, c: 44, p: 20, f: 22, aliases: [] },
+  { id: 'orecchiette', name: 'Orecchiette + broccoli', icon: '🍝', category: 'italian', cal: 440, c: 64, p: 14, f: 14, aliases: [] },
+  { id: 'linguine_clams', name: 'Linguine alle vongole', icon: '🍝', category: 'italian', cal: 480, c: 58, p: 22, f: 14, aliases: ['linguine clams'] },
+  { id: 'pasta_primavera', name: 'Pasta primavera', icon: '🍝', category: 'italian', cal: 420, c: 64, p: 12, f: 12, aliases: [] },
+  { id: 'seafood_pasta', name: 'Seafood pasta', icon: '🦐', category: 'italian', cal: 520, c: 56, p: 28, f: 16, aliases: [] },
+  { id: 'puttanesca', name: 'Pasta puttanesca', icon: '🍝', category: 'italian', cal: 460, c: 64, p: 14, f: 14, aliases: [] },
+  { id: 'amatriciana', name: 'Bucatini all\'amatriciana', icon: '🍝', category: 'italian', cal: 580, c: 64, p: 20, f: 22, aliases: [] },
+  { id: 'spaghetti_meatballs', name: 'Spaghetti + meatballs', icon: '🍝', category: 'italian', cal: 620, c: 64, p: 32, f: 22, aliases: [] },
+  { id: 'singapore_noodles', name: 'Singapore noodles', icon: '🍜', category: 'asian', cal: 480, c: 60, p: 22, f: 14, aliases: [] },
+  { id: 'lo_mein', name: 'Lo mein', icon: '🍜', category: 'asian', cal: 460, c: 64, p: 18, f: 12, aliases: [] },
+  { id: 'drunken_noodles', name: 'Drunken noodles', icon: '🍜', category: 'asian', cal: 520, c: 64, p: 20, f: 18, aliases: ['pad kee mao'] },
+  { id: 'soba_noodles', name: 'Soba noodles', icon: '🍜', category: 'asian', cal: 380, c: 64, p: 14, f: 6, aliases: [] },
+  { id: 'udon', name: 'Udon noodles', icon: '🍜', category: 'asian', cal: 420, c: 70, p: 12, f: 8, aliases: [] },
+  { id: 'japchae', name: 'Japchae (Korean glass noodles)', icon: '🍜', category: 'asian', cal: 420, c: 56, p: 14, f: 14, aliases: [] },
+  { id: 'tteokbokki', name: 'Tteokbokki (Korean rice cakes)', icon: '🌶️', category: 'asian', cal: 380, c: 70, p: 8, f: 8, aliases: [] },
+  { id: 'beef_broccoli', name: 'Beef and broccoli + rice', icon: '🥦', category: 'asian', cal: 560, c: 58, p: 32, f: 18, aliases: [] },
+  { id: 'kung_pao', name: 'Kung pao chicken + rice', icon: '🌶️', category: 'asian', cal: 580, c: 60, p: 32, f: 22, aliases: [] },
+  { id: 'general_tso', name: 'General Tso\'s chicken + rice', icon: '🍗', category: 'asian', cal: 680, c: 72, p: 32, f: 28, aliases: [] },
+  { id: 'orange_chicken', name: 'Orange chicken + rice', icon: '🍊', category: 'asian', cal: 660, c: 78, p: 28, f: 24, aliases: [] },
+  { id: 'mongolian_beef', name: 'Mongolian beef + rice', icon: '🥩', category: 'asian', cal: 620, c: 68, p: 32, f: 22, aliases: [] },
+  { id: 'cashew_chicken', name: 'Cashew chicken + rice', icon: '🥜', category: 'asian', cal: 580, c: 60, p: 30, f: 22, aliases: [] },
+  { id: 'green_curry', name: 'Green curry + rice', icon: '🌶️', category: 'asian', cal: 560, c: 62, p: 26, f: 22, aliases: [] },
+  { id: 'red_curry', name: 'Red curry + rice', icon: '🌶️', category: 'asian', cal: 580, c: 64, p: 26, f: 24, aliases: [] },
+  { id: 'massaman', name: 'Massaman curry + rice', icon: '🌶️', category: 'asian', cal: 620, c: 60, p: 28, f: 28, aliases: [] },
+  { id: 'thai_basil', name: 'Thai basil chicken + rice', icon: '🌿', category: 'asian', cal: 560, c: 62, p: 32, f: 18, aliases: ['pad krapow'] },
+  { id: 'papaya_salad', name: 'Papaya salad (som tum)', icon: '🥗', category: 'asian', cal: 180, c: 36, p: 5, f: 3, aliases: [] },
+  { id: 'larb', name: 'Larb (Thai minced meat)', icon: '🌿', category: 'asian', cal: 320, c: 12, p: 32, f: 16, aliases: [] },
+  { id: 'panang', name: 'Panang curry + rice', icon: '🌶️', category: 'asian', cal: 580, c: 60, p: 28, f: 25, aliases: [] },
+  { id: 'tempura', name: 'Tempura set + rice', icon: '🍤', category: 'asian', cal: 580, c: 70, p: 24, f: 22, aliases: [] },
+  { id: 'chicken_teriyaki', name: 'Chicken teriyaki + rice', icon: '🍗', category: 'asian', cal: 580, c: 70, p: 32, f: 16, aliases: [] },
+  { id: 'beef_teriyaki', name: 'Beef teriyaki + rice', icon: '🥩', category: 'asian', cal: 620, c: 70, p: 32, f: 22, aliases: [] },
+  { id: 'chashu_don', name: 'Chashu donburi', icon: '🍚', category: 'asian', cal: 620, c: 76, p: 30, f: 22, aliases: [] },
+  { id: 'gyudon', name: 'Gyudon (beef bowl)', icon: '🍚', category: 'asian', cal: 580, c: 78, p: 26, f: 18, aliases: [] },
+  { id: 'katsudon', name: 'Katsudon', icon: '🍚', category: 'asian', cal: 720, c: 78, p: 32, f: 30, aliases: [] },
+  { id: 'oyakodon', name: 'Oyakodon', icon: '🍚', category: 'asian', cal: 580, c: 72, p: 30, f: 18, aliases: [] },
+  { id: 'dim_sum_var', name: 'Dim sum (mixed, 6 pieces)', icon: '🥟', category: 'asian', cal: 380, c: 38, p: 18, f: 17, aliases: [] },
+  { id: 'peking_duck', name: 'Peking duck pancakes (4)', icon: '🦆', category: 'asian', cal: 580, c: 54, p: 28, f: 26, aliases: [] },
+  { id: 'crispy_duck', name: 'Crispy duck + pancakes', icon: '🦆', category: 'asian', cal: 620, c: 56, p: 32, f: 28, aliases: [] },
+  { id: 'hot_pot', name: 'Hot pot (small)', icon: '🍲', category: 'asian', cal: 480, c: 38, p: 32, f: 22, aliases: [] },
+  { id: 'korean_bbq', name: 'Korean BBQ meat platter', icon: '🥩', category: 'asian', cal: 680, c: 8, p: 56, f: 48, aliases: [] },
+  { id: 'kimchi_jjigae', name: 'Kimchi stew + rice', icon: '🌶️', category: 'asian', cal: 480, c: 56, p: 22, f: 18, aliases: ['kimchi jjigae'] },
+  { id: 'bulgogi', name: 'Bulgogi + rice', icon: '🥩', category: 'asian', cal: 580, c: 66, p: 32, f: 18, aliases: [] },
+  { id: 'vietnamese_vermicelli', name: 'Vietnamese vermicelli bowl', icon: '🍜', category: 'asian', cal: 460, c: 62, p: 24, f: 12, aliases: ['bun thit nuong'] },
+  { id: 'vietnamese_summer', name: 'Summer rolls (3) + peanut sauce', icon: '🌿', category: 'asian', cal: 280, c: 42, p: 9, f: 9, aliases: [] },
+  { id: 'chicken_korma', name: 'Chicken korma + rice', icon: '🍛', category: 'indian', cal: 680, c: 70, p: 32, f: 28, aliases: [] },
+  { id: 'vindaloo', name: 'Lamb vindaloo + rice', icon: '🌶️', category: 'indian', cal: 620, c: 62, p: 30, f: 28, aliases: [] },
+  { id: 'jalfrezi', name: 'Chicken jalfrezi + rice', icon: '🌶️', category: 'indian', cal: 560, c: 64, p: 32, f: 18, aliases: [] },
+  { id: 'saag', name: 'Saag aloo + rice', icon: '🥬', category: 'indian', cal: 460, c: 62, p: 10, f: 17, aliases: [] },
+  { id: 'rogan_josh', name: 'Rogan josh + rice', icon: '🌶️', category: 'indian', cal: 620, c: 60, p: 32, f: 26, aliases: [] },
+  { id: 'madras', name: 'Chicken madras + rice', icon: '🌶️', category: 'indian', cal: 580, c: 60, p: 32, f: 22, aliases: [] },
+  { id: 'balti', name: 'Chicken balti + naan', icon: '🌶️', category: 'indian', cal: 720, c: 74, p: 36, f: 30, aliases: [] },
+  { id: 'chicken_dopiaza', name: 'Chicken dopiaza + rice', icon: '🍛', category: 'indian', cal: 540, c: 64, p: 28, f: 18, aliases: [] },
+  { id: 'chicken_dhansak', name: 'Chicken dhansak + rice', icon: '🍛', category: 'indian', cal: 560, c: 66, p: 28, f: 18, aliases: [] },
+  { id: 'lamb_madras', name: 'Lamb madras + rice', icon: '🌶️', category: 'indian', cal: 640, c: 60, p: 28, f: 30, aliases: [] },
+  { id: 'mushroom_masala', name: 'Mushroom masala + rice', icon: '🍄', category: 'indian', cal: 480, c: 64, p: 12, f: 18, aliases: [] },
+  { id: 'kadhai_paneer', name: 'Kadhai paneer + naan', icon: '🧀', category: 'indian', cal: 680, c: 64, p: 24, f: 32, aliases: [] },
+  { id: 'malai_kofta', name: 'Malai kofta + rice', icon: '🥥', category: 'indian', cal: 580, c: 56, p: 16, f: 28, aliases: [] },
+  { id: 'chicken_pakora', name: 'Chicken pakora (6)', icon: '🍗', category: 'indian', cal: 380, c: 22, p: 22, f: 22, aliases: [] },
+  { id: 'vegetable_pakora', name: 'Vegetable pakora (6)', icon: '🥦', category: 'indian', cal: 340, c: 36, p: 8, f: 18, aliases: [] },
+  { id: 'idli_sambar', name: 'Idli + sambar (3)', icon: '🥞', category: 'indian', cal: 280, c: 50, p: 9, f: 5, aliases: [] },
+  { id: 'uttapam', name: 'Uttapam + chutney', icon: '🥞', category: 'indian', cal: 320, c: 50, p: 10, f: 9, aliases: [] },
+  { id: 'vada_sambar', name: 'Vada + sambar', icon: '🍩', category: 'indian', cal: 360, c: 38, p: 10, f: 18, aliases: [] },
+  { id: 'chicken_biryani_lamb', name: 'Lamb biryani', icon: '🍛', category: 'indian', cal: 620, c: 70, p: 26, f: 26, aliases: [] },
+  { id: 'hyderabadi_biryani', name: 'Hyderabadi biryani', icon: '🍛', category: 'indian', cal: 640, c: 70, p: 28, f: 26, aliases: [] },
+  { id: 'chapati_curry', name: 'Chapati + curry', icon: '🫓', category: 'indian', cal: 480, c: 62, p: 14, f: 18, aliases: [] },
+  { id: 'roti_curry', name: 'Roti + curry', icon: '🫓', category: 'indian', cal: 460, c: 60, p: 14, f: 16, aliases: [] },
+  { id: 'puri_curry', name: 'Puri + curry', icon: '🫓', category: 'indian', cal: 520, c: 56, p: 14, f: 25, aliases: [] },
+  { id: 'thali', name: 'Indian thali platter', icon: '🍱', category: 'indian', cal: 720, c: 92, p: 24, f: 28, aliases: [] },
+  { id: 'sri_lankan_curry', name: 'Sri Lankan curry + rice', icon: '🍛', category: 'indian', cal: 580, c: 70, p: 26, f: 22, aliases: [] },
+  { id: 'chicken_65', name: 'Chicken 65', icon: '🌶️', category: 'indian', cal: 380, c: 12, p: 32, f: 22, aliases: [] },
+  { id: 'butter_paneer', name: 'Butter paneer + rice', icon: '🧀', category: 'indian', cal: 680, c: 70, p: 22, f: 32, aliases: [] },
+  { id: 'manakish', name: 'Manakish (za\'atar)', icon: '🥖', category: 'middle-eastern', cal: 380, c: 48, p: 9, f: 16, aliases: [] },
+  { id: 'sfeeha', name: 'Sfeeha (meat pies, 4)', icon: '🥖', category: 'middle-eastern', cal: 420, c: 38, p: 18, f: 21, aliases: [] },
+  { id: 'mansaf', name: 'Mansaf', icon: '🥘', category: 'middle-eastern', cal: 720, c: 70, p: 38, f: 30, aliases: [] },
+  { id: 'maqluba', name: 'Maqluba', icon: '🥘', category: 'middle-eastern', cal: 580, c: 68, p: 22, f: 22, aliases: [] },
+  { id: 'ful_medames', name: 'Ful medames + bread', icon: '🫘', category: 'middle-eastern', cal: 380, c: 56, p: 18, f: 9, aliases: [] },
+  { id: 'shish_taouk', name: 'Shish taouk + rice', icon: '🍗', category: 'middle-eastern', cal: 580, c: 64, p: 38, f: 17, aliases: [] },
+  { id: 'lamb_shawarma_plate', name: 'Lamb shawarma plate', icon: '🍖', category: 'middle-eastern', cal: 680, c: 64, p: 38, f: 30, aliases: [] },
+  { id: 'chicken_shawarma_plate', name: 'Chicken shawarma plate', icon: '🍗', category: 'middle-eastern', cal: 580, c: 64, p: 40, f: 18, aliases: [] },
+  { id: 'musakhan', name: 'Musakhan', icon: '🍗', category: 'middle-eastern', cal: 620, c: 64, p: 32, f: 26, aliases: [] },
+  { id: 'koshary_short', name: 'Koshary', icon: '🥘', category: 'middle-eastern', cal: 620, c: 96, p: 22, f: 18, aliases: [] },
+  { id: 'moroccan_lamb', name: 'Moroccan lamb + couscous', icon: '🥘', category: 'middle-eastern', cal: 680, c: 70, p: 32, f: 28, aliases: [] },
+  { id: 'chicken_tagine_q', name: 'Lemon chicken tagine', icon: '🍋', category: 'middle-eastern', cal: 480, c: 38, p: 32, f: 22, aliases: [] },
+  { id: 'hummus_full', name: 'Hummus + falafel plate', icon: '🥙', category: 'middle-eastern', cal: 580, c: 64, p: 22, f: 26, aliases: [] },
+  { id: 'mujadara', name: 'Mujadara (lentils + rice)', icon: '🍲', category: 'middle-eastern', cal: 420, c: 70, p: 16, f: 9, aliases: [] },
+  { id: 'enchiladas', name: 'Enchiladas (3)', icon: '🌶️', category: 'mexican', cal: 580, c: 56, p: 28, f: 26, aliases: [] },
+  { id: 'quesadilla_chicken', name: 'Chicken quesadilla', icon: '🌮', category: 'mexican', cal: 560, c: 42, p: 32, f: 26, aliases: [] },
+  { id: 'quesadilla_cheese', name: 'Cheese quesadilla', icon: '🧀', category: 'mexican', cal: 480, c: 42, p: 20, f: 26, aliases: [] },
+  { id: 'chimichanga', name: 'Chimichanga', icon: '🌯', category: 'mexican', cal: 680, c: 60, p: 28, f: 36, aliases: [] },
+  { id: 'empanada', name: 'Empanadas (2)', icon: '🥟', category: 'mexican', cal: 480, c: 48, p: 18, f: 24, aliases: [] },
+  { id: 'arepa', name: 'Arepa + filling', icon: '🌽', category: 'mexican', cal: 420, c: 56, p: 18, f: 14, aliases: [] },
+  { id: 'ceviche', name: 'Ceviche', icon: '🐟', category: 'mexican', cal: 280, c: 24, p: 32, f: 7, aliases: [] },
+  { id: 'mole', name: 'Chicken mole + rice', icon: '🍫', category: 'mexican', cal: 620, c: 68, p: 32, f: 24, aliases: [] },
+  { id: 'feijoada', name: 'Feijoada + rice', icon: '🫘', category: 'mexican', cal: 620, c: 68, p: 32, f: 22, aliases: [] },
+  { id: 'pupusa', name: 'Pupusas (3) + slaw', icon: '🌽', category: 'mexican', cal: 520, c: 72, p: 18, f: 18, aliases: [] },
+  { id: 'chiles_rellenos', name: 'Chiles rellenos', icon: '🌶️', category: 'mexican', cal: 520, c: 38, p: 22, f: 28, aliases: [] },
+  { id: 'huevos_rancheros', name: 'Huevos rancheros', icon: '🍳', category: 'mexican', cal: 480, c: 38, p: 22, f: 24, aliases: [] },
+  { id: 'tamale', name: 'Tamales (2)', icon: '🌽', category: 'mexican', cal: 420, c: 54, p: 14, f: 16, aliases: [] },
+  { id: 'elote', name: 'Elote (Mexican street corn)', icon: '🌽', category: 'mexican', cal: 280, c: 36, p: 8, f: 12, aliases: [] },
+  { id: 'churrasco', name: 'Churrasco + chimichurri', icon: '🥩', category: 'mexican', cal: 580, c: 8, p: 56, f: 36, aliases: [] },
+  { id: 'jollof_rice', name: 'Jollof rice + chicken', icon: '🍚', category: 'african', cal: 620, c: 78, p: 28, f: 22, aliases: [] },
+  { id: 'jerk_chicken', name: 'Jerk chicken + rice and peas', icon: '🌶️', category: 'african', cal: 620, c: 72, p: 38, f: 18, aliases: [] },
+  { id: 'plantain_beans', name: 'Plantain + beans', icon: '🍌', category: 'african', cal: 480, c: 76, p: 16, f: 12, aliases: [] },
+  { id: 'injera_tibs', name: 'Injera + tibs', icon: '🍞', category: 'african', cal: 580, c: 64, p: 32, f: 22, aliases: [] },
+  { id: 'doro_wat', name: 'Doro wat + injera', icon: '🌶️', category: 'african', cal: 620, c: 60, p: 32, f: 26, aliases: [] },
+  { id: 'bobotie', name: 'Bobotie', icon: '🥩', category: 'african', cal: 520, c: 32, p: 28, f: 30, aliases: [] },
+  { id: 'bunny_chow', name: 'Bunny chow', icon: '🍞', category: 'african', cal: 680, c: 80, p: 22, f: 28, aliases: [] },
+  { id: 'moroccan_couscous', name: 'Moroccan vegetable couscous', icon: '🥘', category: 'african', cal: 480, c: 78, p: 14, f: 12, aliases: [] },
+  { id: 'curry_goat', name: 'Curry goat + rice', icon: '🍛', category: 'african', cal: 620, c: 60, p: 38, f: 25, aliases: [] },
+  { id: 'ackee_saltfish', name: 'Ackee + saltfish', icon: '🐟', category: 'african', cal: 480, c: 24, p: 28, f: 30, aliases: [] },
+  { id: 'sauerbraten', name: 'Sauerbraten + spätzle', icon: '🥩', category: 'european', cal: 680, c: 56, p: 38, f: 32, aliases: [] },
+  { id: 'bratwurst', name: 'Bratwurst + sauerkraut', icon: '🌭', category: 'european', cal: 480, c: 18, p: 24, f: 35, aliases: [] },
+  { id: 'pierogi', name: 'Pierogi (6)', icon: '🥟', category: 'european', cal: 480, c: 64, p: 16, f: 16, aliases: [] },
+  { id: 'borscht', name: 'Borscht', icon: '🥣', category: 'european', cal: 220, c: 32, p: 8, f: 7, aliases: [] },
+  { id: 'blini', name: 'Blini + smoked salmon', icon: '🥞', category: 'european', cal: 320, c: 28, p: 16, f: 16, aliases: [] },
+  { id: 'stroganoff', name: 'Beef stroganoff + rice', icon: '🥩', category: 'european', cal: 620, c: 62, p: 32, f: 26, aliases: [] },
+  { id: 'goulash_q', name: 'Hungarian goulash + bread', icon: '🥘', category: 'european', cal: 520, c: 48, p: 32, f: 21, aliases: [] },
+  { id: 'ratatouille', name: 'Ratatouille + bread', icon: '🍆', category: 'european', cal: 280, c: 38, p: 6, f: 12, aliases: [] },
+  { id: 'bouillabaisse', name: 'Bouillabaisse', icon: '🐟', category: 'european', cal: 380, c: 18, p: 32, f: 18, aliases: [] },
+  { id: 'coq_au_vin', name: 'Coq au vin + mash', icon: '🍷', category: 'european', cal: 580, c: 38, p: 36, f: 25, aliases: [] },
+  { id: 'beef_bourguignon', name: 'Beef bourguignon + mash', icon: '🍷', category: 'european', cal: 620, c: 38, p: 38, f: 28, aliases: [] },
+  { id: 'cassoulet', name: 'Cassoulet', icon: '🫘', category: 'european', cal: 580, c: 48, p: 32, f: 26, aliases: [] },
+  { id: 'quiche_lorraine_q', name: 'Quiche Lorraine + salad', icon: '🥧', category: 'european', cal: 480, c: 30, p: 16, f: 30, aliases: [] },
+  { id: 'raclette', name: 'Raclette plate', icon: '🧀', category: 'european', cal: 720, c: 30, p: 32, f: 56, aliases: [] },
+  { id: 'fondue', name: 'Cheese fondue', icon: '🧀', category: 'european', cal: 620, c: 22, p: 32, f: 46, aliases: [] },
+  { id: 'hot_smorgasbord', name: 'Smörgåsbord plate', icon: '🥪', category: 'european', cal: 480, c: 32, p: 24, f: 26, aliases: [] },
+  { id: 'fried_chicken', name: 'Fried chicken + sides', icon: '🍗', category: 'american', cal: 720, c: 56, p: 38, f: 36, aliases: [] },
+  { id: 'bbq_brisket', name: 'BBQ brisket + sides', icon: '🥩', category: 'american', cal: 680, c: 38, p: 48, f: 36, aliases: [] },
+  { id: 'pulled_pork', name: 'Pulled pork sandwich', icon: '🍔', category: 'american', cal: 580, c: 56, p: 28, f: 22, aliases: [] },
+  { id: 'chili', name: 'Chili con carne', icon: '🌶️', category: 'american', cal: 480, c: 38, p: 32, f: 18, aliases: [] },
+  { id: 'jambalaya', name: 'Jambalaya', icon: '🍤', category: 'american', cal: 580, c: 68, p: 30, f: 18, aliases: [] },
+  { id: 'gumbo', name: 'Gumbo + rice', icon: '🍲', category: 'american', cal: 480, c: 56, p: 22, f: 18, aliases: [] },
+  { id: 'etouffee', name: 'Crawfish étouffée + rice', icon: '🦐', category: 'american', cal: 520, c: 60, p: 24, f: 18, aliases: [] },
+  { id: 'clam_chowder_full', name: 'Clam chowder + crackers', icon: '🍲', category: 'american', cal: 480, c: 38, p: 18, f: 26, aliases: [] },
+  { id: 'philly_q', name: 'Philly cheesesteak + chips', icon: '🥖', category: 'american', cal: 880, c: 78, p: 42, f: 42, aliases: [] },
+  { id: 'lobster_roll_full', name: 'Lobster roll + chips', icon: '🦞', category: 'american', cal: 680, c: 58, p: 28, f: 36, aliases: [] },
+  { id: 'cobb_q', name: 'Cobb salad (large)', icon: '🥗', category: 'american', cal: 580, c: 18, p: 38, f: 36, aliases: [] },
+  { id: 'chicken_caesar_us', name: 'Chicken Caesar (large)', icon: '🥗', category: 'american', cal: 580, c: 22, p: 42, f: 36, aliases: [] },
+  { id: 'blt_chips', name: 'BLT + chips', icon: '🥓', category: 'american', cal: 680, c: 70, p: 18, f: 38, aliases: [] },
+  { id: 'grilled_cheese_soup', name: 'Grilled cheese + tomato soup', icon: '🧀', category: 'american', cal: 580, c: 52, p: 18, f: 32, aliases: [] },
+  { id: 'mac_chicken', name: 'Mac & cheese with chicken', icon: '🧀', category: 'american', cal: 680, c: 60, p: 36, f: 32, aliases: [] },
+  { id: 'chicken_pot_pie', name: 'Chicken pot pie', icon: '🥧', category: 'american', cal: 560, c: 48, p: 24, f: 30, aliases: [] },
+  { id: 'meatloaf', name: 'Meatloaf + mash', icon: '🥩', category: 'american', cal: 580, c: 36, p: 32, f: 32, aliases: [] },
+  { id: 'chicken_parm', name: 'Chicken parmigiana + pasta', icon: '🍝', category: 'american', cal: 880, c: 78, p: 56, f: 36, aliases: [] },
+  { id: 'reuben_chips', name: 'Reuben + chips', icon: '🥪', category: 'american', cal: 880, c: 70, p: 32, f: 52, aliases: [] },
+  { id: 'cheeseburger_q', name: 'Cheeseburger + fries', icon: '🍔', category: 'american', cal: 880, c: 78, p: 42, f: 46, aliases: [] },
+  { id: 'double_cheeseburger', name: 'Double cheeseburger + fries', icon: '🍔', category: 'american', cal: 1140, c: 78, p: 62, f: 62, aliases: [] },
+  { id: 'chicken_burger', name: 'Chicken burger + fries', icon: '🍔', category: 'american', cal: 780, c: 78, p: 32, f: 38, aliases: [] },
+  { id: 'pizza_hawaiian', name: 'Pizza Hawaiian', icon: '🍍', category: 'italian', cal: 780, c: 90, p: 32, f: 30, aliases: [] },
+  { id: 'pizza_veggie', name: 'Pizza vegetable', icon: '🍕', category: 'italian', cal: 680, c: 88, p: 24, f: 24, aliases: [] },
+  { id: 'pizza_meat', name: 'Pizza meat lovers', icon: '🍕', category: 'italian', cal: 920, c: 88, p: 42, f: 46, aliases: [] },
+  { id: 'pizza_bbq_chicken', name: 'Pizza BBQ chicken', icon: '🍕', category: 'italian', cal: 820, c: 92, p: 38, f: 30, aliases: [] },
+  { id: 'pizza_supreme', name: 'Pizza supreme', icon: '🍕', category: 'italian', cal: 860, c: 92, p: 36, f: 36, aliases: [] },
+  { id: 'pizza_quattro', name: 'Pizza quattro formaggi', icon: '🧀', category: 'italian', cal: 760, c: 76, p: 34, f: 36, aliases: [] },
+  { id: 'pizza_white', name: 'White pizza', icon: '🍕', category: 'italian', cal: 720, c: 74, p: 28, f: 32, aliases: [] },
+  { id: 'calzone', name: 'Calzone', icon: '🥟', category: 'italian', cal: 720, c: 78, p: 32, f: 30, aliases: [] },
+  { id: 'focaccia', name: 'Focaccia + olive oil', icon: '🍞', category: 'italian', cal: 380, c: 52, p: 9, f: 14, aliases: [] },
+  { id: 'garlic_bread', name: 'Garlic bread', icon: '🥖', category: 'italian', cal: 320, c: 38, p: 7, f: 16, aliases: [] },
+  { id: 'bruschetta', name: 'Bruschetta (3 pieces)', icon: '🍅', category: 'italian', cal: 280, c: 38, p: 8, f: 11, aliases: [] },
+  { id: 'antipasti', name: 'Antipasti platter', icon: '🧀', category: 'italian', cal: 480, c: 18, p: 22, f: 36, aliases: [] },
+  { id: 'mozzarella_sticks', name: 'Mozzarella sticks (6)', icon: '🧀', category: 'snacks', cal: 420, c: 32, p: 18, f: 22, aliases: [] },
+  { id: 'onion_rings', name: 'Onion rings (8)', icon: '🧅', category: 'snacks', cal: 380, c: 48, p: 5, f: 18, aliases: [] },
+  { id: 'jalapeno_poppers', name: 'Jalapeño poppers (6)', icon: '🌶️', category: 'snacks', cal: 460, c: 24, p: 14, f: 35, aliases: [] },
+  { id: 'potato_skins', name: 'Potato skins (4)', icon: '🥔', category: 'snacks', cal: 380, c: 38, p: 12, f: 21, aliases: [] },
+  { id: 'cheese_crackers', name: 'Cheese + crackers', icon: '🧀', category: 'snacks', cal: 380, c: 22, p: 14, f: 26, aliases: [] },
+  { id: 'charcuterie', name: 'Charcuterie board (small)', icon: '🥓', category: 'snacks', cal: 480, c: 18, p: 22, f: 36, aliases: [] },
+  { id: 'deviled_eggs', name: 'Deviled eggs (4 halves)', icon: '🥚', category: 'snacks', cal: 240, c: 2, p: 14, f: 18, aliases: [] },
+  { id: 'crisps_small', name: 'Crisps (small bag, 25g)', icon: '🥔', category: 'snacks', cal: 130, c: 14, p: 2, f: 8, aliases: ['chips'] },
+  { id: 'crisps_large', name: 'Crisps (large bag, 75g)', icon: '🥔', category: 'snacks', cal: 390, c: 42, p: 6, f: 24, aliases: [] },
+  { id: 'popcorn_sweet', name: 'Sweet popcorn (cinema)', icon: '🍿', category: 'snacks', cal: 420, c: 80, p: 4, f: 12, aliases: [] },
+  { id: 'popcorn_salted', name: 'Salted popcorn (cinema)', icon: '🍿', category: 'snacks', cal: 380, c: 50, p: 5, f: 22, aliases: [] },
+  { id: 'pretzels', name: 'Pretzels (50g)', icon: '🥨', category: 'snacks', cal: 190, c: 38, p: 5, f: 2, aliases: [] },
+  { id: 'mixed_nuts', name: 'Mixed nuts (handful)', icon: '🥜', category: 'snacks', cal: 220, c: 8, p: 7, f: 19, aliases: [] },
+  { id: 'peanuts', name: 'Peanuts (handful)', icon: '🥜', category: 'snacks', cal: 200, c: 6, p: 9, f: 17, aliases: [] },
+  { id: 'cashews', name: 'Cashews (handful)', icon: '🥜', category: 'snacks', cal: 210, c: 12, p: 6, f: 17, aliases: [] },
+  { id: 'trail_mix', name: 'Trail mix (handful)', icon: '🥜', category: 'snacks', cal: 240, c: 22, p: 6, f: 14, aliases: [] },
+  { id: 'apple_peanut', name: 'Apple + peanut butter', icon: '🍎', category: 'snacks', cal: 280, c: 28, p: 9, f: 16, aliases: [] },
+  { id: 'protein_balls', name: 'Protein balls (3)', icon: '🍡', category: 'snacks', cal: 280, c: 28, p: 12, f: 13, aliases: ['energy balls'] },
+  { id: 'hummus_carrots', name: 'Hummus + carrots', icon: '🥕', category: 'snacks', cal: 220, c: 22, p: 7, f: 12, aliases: [] },
+  { id: 'hummus_pita', name: 'Hummus + pita', icon: '🫓', category: 'snacks', cal: 380, c: 50, p: 12, f: 14, aliases: [] },
+  { id: 'cheese_string', name: 'String cheese', icon: '🧀', category: 'snacks', cal: 80, c: 1, p: 7, f: 6, aliases: [] },
+  { id: 'greek_yogurt', name: 'Greek yoghurt (150g)', icon: '🥄', category: 'snacks', cal: 95, c: 6, p: 15, f: 0, aliases: [] },
+  { id: 'cottage_cheese', name: 'Cottage cheese (150g)', icon: '🧀', category: 'snacks', cal: 130, c: 5, p: 17, f: 5, aliases: [] },
+  { id: 'ice_cream_2', name: 'Ice cream (2 scoops)', icon: '🍨', category: 'dessert', cal: 280, c: 32, p: 5, f: 14, aliases: [] },
+  { id: 'ice_cream_3', name: 'Ice cream (3 scoops)', icon: '🍨', category: 'dessert', cal: 420, c: 48, p: 7, f: 21, aliases: [] },
+  { id: 'gelato_2', name: 'Gelato (2 scoops)', icon: '🍨', category: 'dessert', cal: 220, c: 36, p: 5, f: 6, aliases: [] },
+  { id: 'sorbet', name: 'Sorbet (2 scoops)', icon: '🍧', category: 'dessert', cal: 180, c: 44, p: 1, f: 0, aliases: [] },
+  { id: 'frozen_yogurt', name: 'Frozen yoghurt (medium)', icon: '🍦', category: 'dessert', cal: 220, c: 38, p: 6, f: 5, aliases: [] },
+  { id: 'milkshake', name: 'Milkshake', icon: '🥤', category: 'dessert', cal: 480, c: 76, p: 12, f: 16, aliases: [] },
+  { id: 'creme_brulee', name: 'Crème brûlée', icon: '🍮', category: 'dessert', cal: 380, c: 36, p: 5, f: 24, aliases: [] },
+  { id: 'panna_cotta', name: 'Panna cotta', icon: '🍮', category: 'dessert', cal: 280, c: 24, p: 4, f: 19, aliases: [] },
+  { id: 'eclair', name: 'Chocolate éclair', icon: '🍫', category: 'dessert', cal: 280, c: 26, p: 5, f: 18, aliases: [] },
+  { id: 'profiterole', name: 'Profiteroles (3)', icon: '🍫', category: 'dessert', cal: 320, c: 28, p: 6, f: 21, aliases: [] },
+  { id: 'millefeuille', name: 'Mille-feuille', icon: '🥐', category: 'dessert', cal: 380, c: 38, p: 6, f: 24, aliases: [] },
+  { id: 'macarons', name: 'Macarons (4)', icon: '🍪', category: 'dessert', cal: 280, c: 38, p: 4, f: 13, aliases: [] },
+  { id: 'donut_plain', name: 'Donut plain', icon: '🍩', category: 'dessert', cal: 220, c: 28, p: 3, f: 12, aliases: [] },
+  { id: 'donut_glazed', name: 'Donut glazed', icon: '🍩', category: 'dessert', cal: 280, c: 38, p: 3, f: 14, aliases: [] },
+  { id: 'donut_jam', name: 'Jam donut', icon: '🍩', category: 'dessert', cal: 320, c: 44, p: 4, f: 14, aliases: [] },
+  { id: 'churros', name: 'Churros + chocolate', icon: '🍫', category: 'dessert', cal: 480, c: 56, p: 7, f: 26, aliases: [] },
+  { id: 'cookie_choc', name: 'Chocolate chip cookie', icon: '🍪', category: 'dessert', cal: 180, c: 24, p: 2, f: 9, aliases: [] },
+  { id: 'cookie_oatmeal', name: 'Oatmeal cookie', icon: '🍪', category: 'dessert', cal: 160, c: 24, p: 2, f: 7, aliases: [] },
+  { id: 'chocolate_bar', name: 'Chocolate bar (45g)', icon: '🍫', category: 'dessert', cal: 240, c: 26, p: 3, f: 14, aliases: [] },
+  { id: 'chocolate_dark', name: 'Dark chocolate (45g)', icon: '🍫', category: 'dessert', cal: 240, c: 22, p: 4, f: 16, aliases: [] },
+  { id: 'chocolate_white', name: 'White chocolate (45g)', icon: '🍫', category: 'dessert', cal: 250, c: 28, p: 3, f: 14, aliases: [] },
+  { id: 'lemon_tart', name: 'Lemon tart slice', icon: '🍋', category: 'dessert', cal: 320, c: 38, p: 5, f: 17, aliases: [] },
+  { id: 'victoria_sponge', name: 'Victoria sponge slice', icon: '🍰', category: 'dessert', cal: 320, c: 40, p: 4, f: 16, aliases: [] },
+  { id: 'carrot_cake', name: 'Carrot cake slice', icon: '🥕', category: 'dessert', cal: 420, c: 48, p: 5, f: 24, aliases: [] },
+  { id: 'chocolate_cake', name: 'Chocolate cake slice', icon: '🍫', category: 'dessert', cal: 420, c: 50, p: 5, f: 23, aliases: [] },
+  { id: 'red_velvet', name: 'Red velvet slice', icon: '🍰', category: 'dessert', cal: 380, c: 48, p: 4, f: 19, aliases: [] },
+  { id: 'crumble', name: 'Apple crumble + custard', icon: '🥧', category: 'dessert', cal: 420, c: 60, p: 5, f: 19, aliases: [] },
+  { id: 'sticky_toffee', name: 'Sticky toffee pudding', icon: '🍮', category: 'dessert', cal: 460, c: 62, p: 5, f: 22, aliases: [] },
+  { id: 'treacle_tart', name: 'Treacle tart + cream', icon: '🥧', category: 'dessert', cal: 420, c: 60, p: 5, f: 19, aliases: [] },
+  { id: 'jelly_ice_cream', name: 'Jelly + ice cream', icon: '🍮', category: 'dessert', cal: 240, c: 38, p: 4, f: 8, aliases: [] },
+  { id: 'latte', name: 'Latte (medium)', icon: '☕', category: 'drinks', cal: 150, c: 14, p: 9, f: 6, aliases: [] },
+  { id: 'cappuccino', name: 'Cappuccino (medium)', icon: '☕', category: 'drinks', cal: 110, c: 10, p: 6, f: 5, aliases: [] },
+  { id: 'mocha', name: 'Mocha (medium)', icon: '☕', category: 'drinks', cal: 280, c: 36, p: 11, f: 11, aliases: [] },
+  { id: 'hot_chocolate', name: 'Hot chocolate (medium)', icon: '☕', category: 'drinks', cal: 320, c: 46, p: 11, f: 12, aliases: [] },
+  { id: 'flat_white', name: 'Flat white', icon: '☕', category: 'drinks', cal: 120, c: 9, p: 8, f: 6, aliases: [] },
+  { id: 'chai_latte', name: 'Chai latte (medium)', icon: '☕', category: 'drinks', cal: 240, c: 38, p: 8, f: 6, aliases: [] },
+  { id: 'frappuccino', name: 'Frappuccino (medium)', icon: '🥤', category: 'drinks', cal: 380, c: 56, p: 6, f: 14, aliases: [] },
+  { id: 'orange_juice', name: 'Orange juice (250ml)', icon: '🍊', category: 'drinks', cal: 110, c: 26, p: 2, f: 0, aliases: [] },
+  { id: 'apple_juice', name: 'Apple juice (250ml)', icon: '🍎', category: 'drinks', cal: 115, c: 28, p: 0, f: 0, aliases: [] },
+  { id: 'coca_cola', name: 'Coca-Cola (330ml can)', icon: '🥤', category: 'drinks', cal: 140, c: 35, p: 0, f: 0, aliases: ['coke'] },
+  { id: 'coca_cola_diet', name: 'Diet Coke (330ml)', icon: '🥤', category: 'drinks', cal: 1, c: 0, p: 0, f: 0, aliases: ['diet coke'] },
+  { id: 'lemonade', name: 'Lemonade (330ml)', icon: '🥤', category: 'drinks', cal: 130, c: 33, p: 0, f: 0, aliases: [] },
+  { id: 'beer_pint', name: 'Beer (1 pint)', icon: '🍺', category: 'drinks', cal: 220, c: 20, p: 2, f: 0, aliases: [] },
+  { id: 'wine_glass', name: 'Wine (175ml)', icon: '🍷', category: 'drinks', cal: 160, c: 6, p: 0, f: 0, aliases: [] },
+  { id: 'gin_tonic', name: 'Gin & tonic', icon: '🍸', category: 'drinks', cal: 180, c: 16, p: 0, f: 0, aliases: [] },
+  { id: 'cocktail_mojito', name: 'Mojito', icon: '🍹', category: 'drinks', cal: 220, c: 28, p: 0, f: 0, aliases: [] },
+  { id: 'cocktail_pina', name: 'Piña colada', icon: '🍹', category: 'drinks', cal: 380, c: 42, p: 1, f: 8, aliases: [] },
+  { id: 'cocktail_marg', name: 'Margarita', icon: '🍹', category: 'drinks', cal: 270, c: 22, p: 0, f: 0, aliases: [] },
+  { id: 'prosecco', name: 'Prosecco glass', icon: '🥂', category: 'drinks', cal: 120, c: 3, p: 0, f: 0, aliases: [] },
+  { id: 'beer_bottle', name: 'Beer (330ml bottle)', icon: '🍺', category: 'drinks', cal: 140, c: 12, p: 1, f: 0, aliases: [] },
 ];
 
 const HUNGER_INTERVENTIONS = [
@@ -6348,34 +7100,66 @@ function setDishSearch(q) {
 }
 
 // Filter dishes by search query (matches name, aliases, or component words)
+// Returns merged Tier 1 + Tier 2 results, tagged with isQuick flag.
 function filterDishes() {
   const q = (state.dishPickerSearch || '').toLowerCase().trim();
-  if (!q) return COMPOSITE_DISHES;
-  return COMPOSITE_DISHES.filter(d => {
+  const tier1 = COMPOSITE_DISHES.map(d => ({ ...d, isQuick: false }));
+  const tier2 = QUICK_DISHES.map(d => ({ ...d, isQuick: true }));
+  const all = [...tier1, ...tier2];
+  if (!q) return all;
+  return all.filter(d => {
     if (d.name.toLowerCase().includes(q)) return true;
-    if (d.aliases.some(a => a.toLowerCase().includes(q))) return true;
-    if (d.components.some(c => c.name.toLowerCase().includes(q))) return true;
+    if ((d.aliases || []).some(a => a.toLowerCase().includes(q))) return true;
+    // Tier 1 also matches component words
+    if (!d.isQuick && (d.components || []).some(c => c.name.toLowerCase().includes(q))) return true;
     return false;
   });
 }
 
-// Open the review screen for a chosen dish - lets user adjust multipliers per component
+// Open the review screen for a chosen dish - lets user adjust portions
+// Handles both Tier 1 (component breakdown) and Tier 2 (single estimate)
 function selectDishForReview(dishId) {
-  const dish = COMPOSITE_DISHES.find(d => d.id === dishId);
-  if (!dish) return;
-  // Initialise multipliers to 1.0 per component
-  state.dishReviewing = {
-    dishId: dish.id,
-    name: dish.name,
-    icon: dish.icon,
-    components: dish.components.map(c => ({ ...c, mult: 1.0 })),
-  };
-  render();
+  // Try Tier 1 (component-level) first
+  const tier1 = COMPOSITE_DISHES.find(d => d.id === dishId);
+  if (tier1) {
+    state.dishReviewing = {
+      dishId: tier1.id,
+      name: tier1.name,
+      icon: tier1.icon,
+      isQuick: false,
+      components: tier1.components.map(c => ({ ...c, mult: 1.0 })),
+    };
+    render();
+    return;
+  }
+  // Tier 2 (single-entry estimate)
+  const tier2 = QUICK_DISHES.find(d => d.id === dishId);
+  if (tier2) {
+    state.dishReviewing = {
+      dishId: tier2.id,
+      name: tier2.name,
+      icon: tier2.icon,
+      isQuick: true,
+      cal: tier2.cal,
+      c: tier2.c,
+      p: tier2.p,
+      f: tier2.f,
+      mult: 1.0,
+    };
+    render();
+  }
 }
 
 function setDishComponentMult(idx, mult) {
   if (!state.dishReviewing) return;
   state.dishReviewing.components[idx].mult = Math.max(0, Math.min(5, mult));
+  render();
+}
+
+// Set portion multiplier for a Tier 2 quick-estimate dish
+function setDishQuickMult(mult) {
+  if (!state.dishReviewing) return;
+  state.dishReviewing.mult = Math.max(0.25, Math.min(5, mult));
   render();
 }
 
@@ -6390,22 +7174,44 @@ function logCompositeDish() {
   if (!d) return;
   const now = getEntryTimestamp();
   const newEntries = [];
-  for (const c of d.components) {
-    if (c.mult <= 0) continue;
-    const k = Math.round(c.cal * c.mult);
+
+  if (d.isQuick) {
+    // Tier 2 — single estimated entry
+    const m = d.mult || 1.0;
+    const k = Math.round(d.cal * m);
     newEntries.push({
       id: `e_${now}_${Math.random().toString(36).slice(2, 7)}`,
-      name: c.name,
+      name: d.name + (m !== 1.0 ? ` (${m.toFixed(2).replace(/\.?0+$/, '')}×)` : ''),
       timestamp: now,
       calories: k,
       cal: k,
-      carbs: Math.round(c.c * c.mult * 10) / 10,
-      protein: Math.round(c.p * c.mult * 10) / 10,
-      fat: Math.round(c.f * c.mult * 10) / 10,
-      pieces: c.mult,
+      carbs: Math.round(d.c * m * 10) / 10,
+      protein: Math.round(d.p * m * 10) / 10,
+      fat: Math.round(d.f * m * 10) / 10,
+      pieces: m,
       fromDish: d.dishId,
+      isQuickEstimate: true,
     });
+  } else {
+    // Tier 1 — component breakdown
+    for (const c of d.components) {
+      if (c.mult <= 0) continue;
+      const k = Math.round(c.cal * c.mult);
+      newEntries.push({
+        id: `e_${now}_${Math.random().toString(36).slice(2, 7)}`,
+        name: c.name,
+        timestamp: now,
+        calories: k,
+        cal: k,
+        carbs: Math.round(c.c * c.mult * 10) / 10,
+        protein: Math.round(c.p * c.mult * 10) / 10,
+        fat: Math.round(c.f * c.mult * 10) / 10,
+        pieces: c.mult,
+        fromDish: d.dishId,
+      });
+    }
   }
+
   state.entries = [...state.entries, ...newEntries];
   saveEntries(state.entries);
   closeDishPicker();
@@ -13275,6 +14081,16 @@ function renderDishGridView() {
     mexican: 'Mexican',
     'middle-eastern': 'Middle Eastern',
     healthy: 'Salads & bowls',
+    breakfast: 'Breakfast & brunch',
+    lunch: 'Sandwiches & lunch',
+    european: 'European',
+    american: 'American',
+    african: 'African & Caribbean',
+    soups: 'Soups',
+    salads: 'Salads',
+    snacks: 'Snacks & sides',
+    dessert: 'Desserts',
+    drinks: 'Drinks',
   };
   return `
     <div class="modal-overlay" onclick="if(event.target===this) closeDishPicker()">
@@ -13287,7 +14103,7 @@ function renderDishGridView() {
           <button class="icon-btn" onclick="closeDishPicker()" aria-label="Close">${icons.x}</button>
         </div>
         <div class="dp-search-row">
-          <input type="text" class="dp-search" placeholder="Search: bolognese, biryani, bowl..." value="${escapeHtml(state.dishPickerSearch || '')}" oninput="setDishSearch(this.value)" />
+          <input type="text" id="dp-search-input" class="dp-search" placeholder="Search: bolognese, biryani, bowl..." value="${escapeHtml(state.dishPickerSearch || '')}" oninput="setDishSearch(this.value)" />
         </div>
         <div class="dp-scroll">
           ${dishes.length === 0 ? `
@@ -13304,12 +14120,13 @@ function renderDishGridView() {
               <div class="dp-cat-label">${escapeHtml(categoryLabels[cat] || cat)}</div>
               <div class="dp-grid">
                 ${byCategory[cat].map(d => {
-                  const total = d.components.reduce((s, c) => s + c.cal, 0);
+                  const total = d.isQuick ? d.cal : d.components.reduce((s, c) => s + c.cal, 0);
+                  const meta = d.isQuick ? `≈${total} kcal` : `${total} kcal · ${d.components.length} parts`;
                   return `
-                    <button class="dp-tile" onclick="selectDishForReview('${d.id}')">
+                    <button class="dp-tile ${d.isQuick ? 'dp-tile-quick' : ''}" onclick="selectDishForReview('${d.id}')">
                       <div class="dp-tile-icon">${d.icon}</div>
                       <div class="dp-tile-name">${escapeHtml(d.name)}</div>
-                      <div class="dp-tile-meta">${total} kcal · ${d.components.length} components</div>
+                      <div class="dp-tile-meta">${meta}</div>
                     </button>
                   `;
                 }).join('')}
@@ -13329,6 +14146,51 @@ function renderDishGridView() {
 function renderDishReviewView() {
   const r = state.dishReviewing;
   if (!r) return '';
+
+  // Tier 2 — single-estimate review with portion multiplier
+  if (r.isQuick) {
+    const m = r.mult || 1.0;
+    return `
+      <div class="modal-overlay" onclick="if(event.target===this) closeDishPicker()">
+        <div class="dish-picker-modal">
+          <div class="dp-header">
+            <button class="icon-btn" onclick="set({dishReviewing: null})" aria-label="Back">${icons.arrowLeft || '←'}</button>
+            <div style="flex:1; text-align:center">
+              <div class="dp-title">${r.icon} ${escapeHtml(r.name)}</div>
+              <div class="dp-sub">Quick estimate — adjust portion if needed</div>
+            </div>
+            <button class="icon-btn" onclick="closeDishPicker()" aria-label="Close">${icons.x}</button>
+          </div>
+          <div class="dp-totals">
+            <strong>≈${Math.round(r.cal * m)}</strong> kcal · ${Math.round(r.c * m)}g C · ${Math.round(r.p * m)}g P · ${Math.round(r.f * m)}g F
+          </div>
+          <div class="dp-scroll">
+            <div class="dp-quick-portion">
+              <div class="dp-quick-label">Portion size</div>
+              <div class="dp-quick-mult-row">
+                <button class="dp-mult-btn" onclick="setDishQuickMult(${m} - 0.25)" ${m <= 0.25 ? 'disabled' : ''}>−</button>
+                <span class="dp-quick-mult-val">${m.toFixed(2).replace(/\.?0+$/, '')}×</span>
+                <button class="dp-mult-btn" onclick="setDishQuickMult(${m} + 0.25)">+</button>
+              </div>
+              <div class="dp-quick-presets">
+                ${[0.5, 1.0, 1.5, 2.0].map(v => `
+                  <button class="dp-preset-btn ${m === v ? 'active' : ''}" onclick="setDishQuickMult(${v})">${v.toFixed(1).replace(/\.0$/, '')}×</button>
+                `).join('')}
+              </div>
+            </div>
+            <div class="dp-quick-note">
+              These numbers are estimates — exact macros depend on the recipe. After logging you can tap the pencil to fine-tune.
+            </div>
+          </div>
+          <div class="dp-footer">
+            <button class="dp-log-btn" onclick="logCompositeDish()">${icons.checkSm}<span>Log this dish</span></button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Tier 1 — component breakdown
   const totals = r.components.reduce((acc, c) => {
     acc.cal += c.cal * c.mult;
     acc.c += c.c * c.mult;
@@ -13421,7 +14283,7 @@ function renderDishBuilderView() {
             </div>
           ` : ''}
           <div class="dp-builder-search-block">
-            <input type="text" class="dp-search" placeholder="Search ingredients (egg, rice, chicken…)" value="${escapeHtml(state.buildingDishQuery || '')}" oninput="state.buildingDishQuery = this.value; render()" />
+            <input type="text" id="dp-builder-search-input" class="dp-search" placeholder="Search ingredients (egg, rice, chicken…)" value="${escapeHtml(state.buildingDishQuery || '')}" oninput="state.buildingDishQuery = this.value; render()" />
             ${results.length > 0 ? `
               <div class="dp-results">
                 ${results.map(r => `
