@@ -1793,6 +1793,87 @@
   .ptr-input:focus { outline: none; border-color: #c4a06a; }
   .ptr-now { padding: 7px 12px; background: white; color: #2C5F5D; border: 1px solid #DCE9E2; border-radius: 999px; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 500; cursor: pointer; flex-shrink: 0; }
   .ptr-now:active { transform: scale(0.94); background: #EEF4F0; }
+
+  /* Edit entry modal */
+  .entry-actions { display: flex; flex-direction: column; gap: 4px; align-items: center; flex-shrink: 0; }
+  .entry-edit-btn { color: #2C5F5D !important; }
+  .entry-edit-btn:active { background: #EEF4F0 !important; }
+  .edit-entry-modal { background: #FAF8F2; border-radius: 22px; max-width: 440px; width: 92%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+  .ee-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; border-bottom: 1px solid #E5E0D2; flex-shrink: 0; }
+  .ee-title { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500; color: #1E2E2A; }
+  .ee-body { padding: 18px 20px 20px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .ee-label { display: block; font-family: 'Fraunces', serif; font-size: 11px; font-weight: 500; color: #6b6a5c; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px; margin-top: 12px; }
+  .ee-label:first-child, .ee-body > .ee-label:first-of-type { margin-top: 0; }
+  .ee-input { width: 100%; padding: 10px 12px; background: white; border: 1px solid #E5E0D2; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; box-sizing: border-box; }
+  .ee-input:focus { outline: none; border-color: #c4a06a; }
+  .ee-time, .ee-num { max-width: 100%; }
+  .ee-macros { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .ee-actions { display: flex; gap: 8px; margin-top: 22px; }
+  .ee-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 16px; border-radius: 12px; font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; cursor: pointer; border: none; }
+  .ee-save { background: #1E2E2A; color: #F4F2EC; }
+  .ee-save:active { transform: scale(0.985); background: #2C5F5D; }
+  .ee-delete { background: white; color: #B85C38; border: 1px solid #F3DDC5; }
+  .ee-delete:active { background: #FFF5EC; }
+
+  /* DISH PICKER — visual grid of composite dishes */
+  .dish-picker-modal { background: #FAF8F2; border-radius: 22px; max-width: 460px; width: 92%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+  .dp-header { display: flex; align-items: center; gap: 10px; padding: 16px 18px 12px; border-bottom: 1px solid #E5E0D2; flex-shrink: 0; }
+  .dp-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; color: #1E2E2A; }
+  .dp-sub { font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; margin-top: 2px; }
+  .dp-search-row { padding: 12px 18px 0; flex-shrink: 0; }
+  .dp-search { width: 100%; padding: 11px 14px; background: white; border: 1px solid #E5E0D2; border-radius: 12px; font-family: 'Fraunces', serif; font-size: 15px; color: #1E2E2A; box-sizing: border-box; }
+  .dp-search:focus { outline: none; border-color: #c4a06a; }
+  .dp-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 18px; }
+  .dp-category { margin-bottom: 18px; }
+  .dp-cat-label { font-family: 'Fraunces', serif; font-size: 11px; font-weight: 500; color: #8a8975; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .dp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .dp-tile { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 8px; background: white; border: 1px solid #E5E0D2; border-radius: 12px; cursor: pointer; transition: all 0.15s; text-align: center; font-family: inherit; }
+  .dp-tile:active { transform: scale(0.97); background: #EEF4F0; border-color: #2C5F5D; }
+  .dp-tile-icon { font-size: 32px; line-height: 1; }
+  .dp-tile-name { font-family: 'Fraunces', serif; font-size: 13px; font-weight: 500; color: #1E2E2A; line-height: 1.25; }
+  .dp-tile-meta { font-size: 10px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; }
+  .dp-empty { text-align: center; padding: 36px 16px; }
+  .dp-empty-emoji { font-size: 38px; margin-bottom: 12px; }
+  .dp-empty-text { font-family: 'Fraunces', serif; font-size: 14px; color: #6b6a5c; line-height: 1.45; margin-bottom: 16px; font-style: italic; }
+  .dp-empty-actions { display: flex; flex-direction: column; gap: 8px; }
+  .dp-footer { padding: 12px 18px 18px; border-top: 1px solid #E5E0D2; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+  .dp-build-btn { padding: 11px 16px; background: white; color: #2C5F5D; border: 1.5px dashed #DCE9E2; border-radius: 12px; font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .dp-build-btn:active { transform: scale(0.985); background: #EEF4F0; }
+  .dp-suggest-link { background: transparent; color: #8a8975; border: none; font-family: 'Fraunces', serif; font-size: 12px; font-style: italic; cursor: pointer; padding: 4px 8px; }
+  .dp-suggest-link:active { color: #2C5F5D; }
+  .dp-suggest-btn { padding: 11px 16px; background: transparent; color: #6b6a5c; border: 1px solid #E5E0D2; border-radius: 12px; font-family: 'Fraunces', serif; font-size: 13px; font-style: italic; cursor: pointer; }
+  .dp-log-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 16px; background: #1E2E2A; color: #F4F2EC; border: none; border-radius: 12px; font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; cursor: pointer; }
+  .dp-log-btn:active:not(:disabled) { transform: scale(0.985); background: #2C5F5D; }
+  .dp-log-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Dish review/builder rows */
+  .dp-totals { padding: 12px 18px; background: #EEF4F0; border-bottom: 1px solid #DCE9E2; font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; text-align: center; flex-shrink: 0; }
+  .dp-totals.empty { color: #8a8975; font-style: italic; font-size: 13px; }
+  .dp-totals strong { font-weight: 500; font-size: 18px; color: #2C5F5D; }
+  .dp-comp-row { display: flex; align-items: center; gap: 8px; padding: 12px; background: white; border: 1px solid #E5E0D2; border-radius: 10px; margin-bottom: 7px; }
+  .dp-comp-info { flex: 1; min-width: 0; }
+  .dp-comp-name { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; font-weight: 500; }
+  .dp-comp-vals { font-size: 11px; color: #8a8975; font-family: 'Fraunces', serif; font-style: italic; margin-top: 2px; }
+  .dp-comp-mult { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+  .dp-mult-btn { width: 30px; height: 30px; border-radius: 8px; background: #F4F2EC; border: 1px solid #E5E0D2; font-family: 'Fraunces', serif; font-size: 16px; color: #1E2E2A; cursor: pointer; }
+  .dp-mult-btn:active:not(:disabled) { transform: scale(0.92); background: #c4a06a; color: white; }
+  .dp-mult-btn:disabled { opacity: 0.3; }
+  .dp-mult-val { font-family: 'Fraunces', serif; font-size: 13px; color: #1E2E2A; font-weight: 500; min-width: 36px; text-align: center; }
+  .dp-comp-x { width: 28px; height: 28px; background: transparent; border: 1px solid #E5E0D2; border-radius: 8px; color: #a0a08e; font-size: 16px; cursor: pointer; flex-shrink: 0; }
+  .dp-comp-x:active { background: #FFF5EC; color: #B85C38; }
+  .dp-builder-stack { margin-bottom: 14px; }
+  .dp-builder-search-block { margin-top: 8px; }
+  .dp-results { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+  .dp-result { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: white; border: 1px solid #E5E0D2; border-radius: 9px; font-family: inherit; cursor: pointer; text-align: left; }
+  .dp-result:active { background: #EEF4F0; border-color: #2C5F5D; transform: scale(0.985); }
+  .dp-result-name { font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; }
+  .dp-result-meta { font-family: 'Fraunces', serif; font-size: 12px; color: #8a8975; font-style: italic; }
+  .dp-no-results { padding: 10px; text-align: center; font-size: 12px; color: #8a8975; font-style: italic; font-family: 'Fraunces', serif; }
+  .dp-save-template { margin-top: 14px; padding: 12px; background: #FFF5EC; border: 1px dashed #F3DDC5; border-radius: 12px; }
+  .dp-template-row { display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', serif; font-size: 13px; color: #1E2E2A; cursor: pointer; }
+  .dp-template-row input { width: 18px; height: 18px; }
+  .dp-template-name { width: 100%; margin-top: 10px; padding: 9px 12px; background: white; border: 1px solid #F3DDC5; border-radius: 9px; font-family: 'Fraunces', serif; font-size: 14px; color: #1E2E2A; box-sizing: border-box; }
+  .dp-template-name:focus { outline: none; border-color: #B85C38; }
   .hwi-food { font-size: 13px; color: #5a7a3a; margin-top: 2px; font-style: italic; font-family: 'Fraunces', serif; }
   .hls-food { font-size: 13px; color: #5a7a3a; margin-top: 4px; font-style: italic; font-family: 'Fraunces', serif; }
   .hlab-ranking-footer { font-size: 15px; color: #6b6a5c; line-height: 1.5; font-style: italic; font-family: 'Fraunces', serif; margin-top: 12px; padding-top: 12px; border-top: 1px dashed #f0e8d8; }
@@ -4429,6 +4510,11 @@ const state = {
   hungerPatternsExpanded: false,  // toggle for the "patterns & analytics" collapsible
   lastUnlocked: null,             // most recent achievement unlock (for toast)
   showShareModal: false,          // share-wins modal
+  editingEntry: null,             // when editing an existing entry: { id, name, calories, carbs, protein, fat, timestamp }
+  showDishPicker: false,          // show the visual dish picker modal
+  dishPickerSearch: '',           // search query inside the picker
+  dishReviewing: null,            // when a dish is selected for review: { dishId, name, icon, components[{mult}] }
+  buildingDish: null,             // when user is composing a custom dish: { name, components[], saveAsTemplate }
   tutorialDismissed: {},          // { log: ts, calories: ts, hunger: ts, you: ts }
   mealTimes: null,                // { breakfast: 'HH:MM', lunch, dinner, enabled }
   notifPermission: 'default',     // 'default' | 'granted' | 'denied'
@@ -4496,7 +4582,7 @@ function set(patch) { Object.assign(state, patch); render(); }
 // ============================================================
 // Storage
 // ============================================================
-const PLATE_VERSION = '2026-06-05.2';
+const PLATE_VERSION = '2026-06-06.1';
 const STORAGE_ENTRIES = 'plate-entries-v2';
 const STORAGE_ACHIEVEMENTS = 'plate-achievements';
 const STORAGE_TUTORIAL = 'plate-tutorial-dismissed';
@@ -4626,6 +4712,278 @@ function getCheckinStreak() {
 
 // Safe intervention library — physical & behavioural only
 // No medical/supplement-specific advice. No vagal stimulation framing.
+// ============================================================
+// COMPOSITE DISHES — curated dictionary of common multi-component
+// meals. Tapping a dish auto-expands its components into the log.
+// ============================================================
+const COMPOSITE_DISHES = [
+  // --- ITALIAN ---
+  { id: 'spag_bol', name: 'Spaghetti bolognese', icon: '🍝', category: 'italian',
+    aliases: ['spag bol', 'bolognese', 'spaghetti meat sauce', 'spaghetti bolognaise'],
+    components: [
+      { name: 'Cooked pasta', cal: 252, c: 50, p: 9, f: 1 },
+      { name: 'Beef mince', cal: 250, c: 0, p: 26, f: 16 },
+      { name: 'Tomato sauce', cal: 50, c: 8, p: 2, f: 1 },
+      { name: 'Parmesan', cal: 60, c: 0, p: 5, f: 4 },
+    ]},
+  { id: 'lasagna', name: 'Lasagna', icon: '🍝', category: 'italian',
+    aliases: ['lasagne'],
+    components: [
+      { name: 'Pasta sheets', cal: 220, c: 44, p: 8, f: 1 },
+      { name: 'Beef mince', cal: 250, c: 0, p: 26, f: 16 },
+      { name: 'Tomato sauce', cal: 50, c: 8, p: 2, f: 1 },
+      { name: 'Bechamel sauce', cal: 150, c: 10, p: 4, f: 10 },
+      { name: 'Cheese topping', cal: 110, c: 1, p: 7, f: 9 },
+    ]},
+  { id: 'carbonara', name: 'Spaghetti carbonara', icon: '🍝', category: 'italian',
+    aliases: ['carbonara'],
+    components: [
+      { name: 'Cooked pasta', cal: 252, c: 50, p: 9, f: 1 },
+      { name: 'Pancetta', cal: 130, c: 0, p: 8, f: 11 },
+      { name: 'Egg yolks (2)', cal: 110, c: 1, p: 6, f: 9 },
+      { name: 'Parmesan', cal: 80, c: 0, p: 7, f: 5 },
+    ]},
+  { id: 'pizza_marg', name: 'Pizza margherita', icon: '🍕', category: 'italian',
+    aliases: ['margherita pizza', 'margarita pizza', 'cheese pizza'],
+    components: [
+      { name: 'Pizza base (medium)', cal: 380, c: 70, p: 12, f: 5 },
+      { name: 'Tomato sauce', cal: 50, c: 8, p: 2, f: 1 },
+      { name: 'Mozzarella', cal: 200, c: 2, p: 14, f: 15 },
+    ]},
+  { id: 'pizza_pepp', name: 'Pizza pepperoni', icon: '🍕', category: 'italian',
+    aliases: ['pepperoni pizza'],
+    components: [
+      { name: 'Pizza base (medium)', cal: 380, c: 70, p: 12, f: 5 },
+      { name: 'Tomato sauce', cal: 50, c: 8, p: 2, f: 1 },
+      { name: 'Mozzarella', cal: 200, c: 2, p: 14, f: 15 },
+      { name: 'Pepperoni', cal: 140, c: 1, p: 7, f: 12 },
+    ]},
+  { id: 'risotto', name: 'Risotto', icon: '🍚', category: 'italian',
+    aliases: ['mushroom risotto', 'chicken risotto'],
+    components: [
+      { name: 'Arborio rice', cal: 350, c: 75, p: 7, f: 1 },
+      { name: 'Butter', cal: 100, c: 0, p: 0, f: 11 },
+      { name: 'Parmesan', cal: 80, c: 0, p: 7, f: 5 },
+      { name: 'Stock/wine', cal: 30, c: 2, p: 1, f: 0 },
+    ]},
+  { id: 'pesto_pasta', name: 'Pesto pasta', icon: '🌿', category: 'italian',
+    aliases: ['pasta pesto'],
+    components: [
+      { name: 'Cooked pasta', cal: 252, c: 50, p: 9, f: 1 },
+      { name: 'Pesto sauce', cal: 190, c: 4, p: 3, f: 18 },
+      { name: 'Parmesan', cal: 50, c: 0, p: 4, f: 3 },
+    ]},
+
+  // --- BRITISH ---
+  { id: 'full_english', name: 'Full English breakfast', icon: '🍳', category: 'british',
+    aliases: ['english breakfast', 'fry up', 'full breakfast'],
+    components: [
+      { name: 'Bacon (2 rashers)', cal: 130, c: 0, p: 11, f: 9 },
+      { name: 'Sausage', cal: 145, c: 5, p: 6, f: 11 },
+      { name: 'Fried egg', cal: 90, c: 0, p: 6, f: 7 },
+      { name: 'Baked beans', cal: 95, c: 17, p: 5, f: 1 },
+      { name: 'Toast (1 slice)', cal: 90, c: 17, p: 3, f: 1 },
+      { name: 'Mushrooms', cal: 11, c: 1, p: 2, f: 0 },
+      { name: 'Grilled tomato', cal: 10, c: 2, p: 0, f: 0 },
+    ]},
+  { id: 'fish_chips', name: 'Fish and chips', icon: '🐟', category: 'british',
+    aliases: ['fish chips'],
+    components: [
+      { name: 'Battered cod', cal: 380, c: 25, p: 28, f: 18 },
+      { name: 'Chips', cal: 380, c: 50, p: 5, f: 18 },
+      { name: 'Mushy peas', cal: 80, c: 14, p: 5, f: 1 },
+    ]},
+  { id: 'shepherds_pie', name: 'Shepherd\'s pie', icon: '🥧', category: 'british',
+    aliases: ['shepherds pie'],
+    components: [
+      { name: 'Lamb mince', cal: 280, c: 1, p: 23, f: 20 },
+      { name: 'Mashed potato', cal: 220, c: 35, p: 5, f: 7 },
+      { name: 'Mixed vegetables', cal: 50, c: 10, p: 2, f: 0 },
+      { name: 'Gravy', cal: 25, c: 4, p: 1, f: 1 },
+    ]},
+  { id: 'cottage_pie', name: 'Cottage pie', icon: '🥧', category: 'british',
+    aliases: [],
+    components: [
+      { name: 'Beef mince', cal: 250, c: 0, p: 26, f: 16 },
+      { name: 'Mashed potato', cal: 220, c: 35, p: 5, f: 7 },
+      { name: 'Mixed vegetables', cal: 50, c: 10, p: 2, f: 0 },
+      { name: 'Gravy', cal: 25, c: 4, p: 1, f: 1 },
+    ]},
+  { id: 'sunday_roast', name: 'Sunday roast', icon: '🍗', category: 'british',
+    aliases: ['roast dinner', 'roast'],
+    components: [
+      { name: 'Roast chicken (with skin)', cal: 240, c: 0, p: 30, f: 13 },
+      { name: 'Roast potatoes', cal: 220, c: 32, p: 4, f: 9 },
+      { name: 'Yorkshire pudding', cal: 110, c: 14, p: 4, f: 5 },
+      { name: 'Mixed vegetables', cal: 60, c: 12, p: 3, f: 0 },
+      { name: 'Gravy', cal: 30, c: 5, p: 1, f: 1 },
+    ]},
+  { id: 'bangers_mash', name: 'Bangers & mash', icon: '🌭', category: 'british',
+    aliases: ['sausage and mash'],
+    components: [
+      { name: 'Sausages (2)', cal: 290, c: 10, p: 12, f: 22 },
+      { name: 'Mashed potato', cal: 220, c: 35, p: 5, f: 7 },
+      { name: 'Gravy', cal: 30, c: 5, p: 1, f: 1 },
+      { name: 'Peas', cal: 60, c: 10, p: 4, f: 0 },
+    ]},
+  { id: 'burger_chips', name: 'Burger & chips', icon: '🍔', category: 'british',
+    aliases: ['cheeseburger', 'hamburger'],
+    components: [
+      { name: 'Burger bun', cal: 180, c: 32, p: 6, f: 3 },
+      { name: 'Beef patty', cal: 250, c: 0, p: 22, f: 18 },
+      { name: 'Cheese slice', cal: 70, c: 1, p: 4, f: 5 },
+      { name: 'Lettuce + tomato', cal: 10, c: 2, p: 0, f: 0 },
+      { name: 'Chips', cal: 380, c: 50, p: 5, f: 18 },
+    ]},
+
+  // --- INDIAN ---
+  { id: 'chicken_tikka', name: 'Chicken tikka masala + rice', icon: '🍛', category: 'indian',
+    aliases: ['tikka masala', 'ctm'],
+    components: [
+      { name: 'Chicken tikka', cal: 250, c: 5, p: 30, f: 12 },
+      { name: 'Tikka masala sauce', cal: 180, c: 12, p: 4, f: 13 },
+      { name: 'Basmati rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'lamb_curry', name: 'Lamb curry + rice', icon: '🍛', category: 'indian',
+    aliases: ['lamb rogan josh', 'lamb madras'],
+    components: [
+      { name: 'Lamb curry', cal: 380, c: 10, p: 28, f: 25 },
+      { name: 'Basmati rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'dal', name: 'Dal + rice', icon: '🍲', category: 'indian',
+    aliases: ['dahl', 'lentil curry', 'dhal'],
+    components: [
+      { name: 'Lentil dal', cal: 200, c: 28, p: 12, f: 5 },
+      { name: 'Basmati rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'biryani', name: 'Chicken biryani', icon: '🍛', category: 'indian',
+    aliases: ['biriyani', 'briyani'],
+    components: [
+      { name: 'Basmati rice (biryani-spiced)', cal: 320, c: 62, p: 8, f: 5 },
+      { name: 'Chicken pieces', cal: 200, c: 0, p: 28, f: 9 },
+      { name: 'Yoghurt raita', cal: 50, c: 5, p: 3, f: 2 },
+    ]},
+  { id: 'butter_chicken', name: 'Butter chicken + rice', icon: '🍛', category: 'indian',
+    aliases: ['murgh makhani'],
+    components: [
+      { name: 'Butter chicken', cal: 380, c: 8, p: 28, f: 27 },
+      { name: 'Basmati rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+
+  // --- ASIAN ---
+  { id: 'pad_thai', name: 'Pad thai', icon: '🍜', category: 'asian',
+    aliases: ['phat thai'],
+    components: [
+      { name: 'Rice noodles', cal: 220, c: 50, p: 4, f: 0 },
+      { name: 'Egg', cal: 70, c: 0, p: 6, f: 5 },
+      { name: 'Chicken/prawn', cal: 130, c: 0, p: 20, f: 5 },
+      { name: 'Peanuts + sauce', cal: 180, c: 18, p: 6, f: 11 },
+      { name: 'Vegetables + lime', cal: 30, c: 6, p: 1, f: 0 },
+    ]},
+  { id: 'stir_fry', name: 'Stir-fry with rice', icon: '🥡', category: 'asian',
+    aliases: ['chicken stir fry', 'vegetable stir fry'],
+    components: [
+      { name: 'Chicken/tofu', cal: 180, c: 0, p: 28, f: 7 },
+      { name: 'Stir-fried vegetables', cal: 80, c: 12, p: 3, f: 3 },
+      { name: 'Soy/teriyaki sauce', cal: 60, c: 12, p: 2, f: 0 },
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+    ]},
+  { id: 'ramen', name: 'Ramen', icon: '🍜', category: 'asian',
+    aliases: [],
+    components: [
+      { name: 'Ramen noodles', cal: 280, c: 56, p: 9, f: 1 },
+      { name: 'Pork chashu', cal: 180, c: 0, p: 18, f: 12 },
+      { name: 'Soft-boiled egg', cal: 70, c: 0, p: 6, f: 5 },
+      { name: 'Broth + vegetables', cal: 80, c: 8, p: 4, f: 3 },
+    ]},
+  { id: 'sushi', name: 'Sushi (8 pieces)', icon: '🍣', category: 'asian',
+    aliases: ['sushi roll', 'maki'],
+    components: [
+      { name: 'Sushi rice', cal: 220, c: 48, p: 4, f: 0 },
+      { name: 'Salmon/tuna', cal: 140, c: 0, p: 20, f: 6 },
+      { name: 'Nori + accompaniments', cal: 30, c: 4, p: 2, f: 1 },
+    ]},
+  { id: 'fried_rice', name: 'Egg fried rice', icon: '🍚', category: 'asian',
+    aliases: ['fried rice'],
+    components: [
+      { name: 'Cooked rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Egg', cal: 90, c: 0, p: 7, f: 6 },
+      { name: 'Mixed vegetables', cal: 50, c: 10, p: 2, f: 0 },
+      { name: 'Soy sauce + oil', cal: 80, c: 2, p: 1, f: 8 },
+    ]},
+
+  // --- MEXICAN ---
+  { id: 'burrito', name: 'Burrito', icon: '🌯', category: 'mexican',
+    aliases: ['chicken burrito', 'beef burrito'],
+    components: [
+      { name: 'Tortilla wrap', cal: 200, c: 32, p: 6, f: 5 },
+      { name: 'Rice', cal: 140, c: 30, p: 3, f: 0 },
+      { name: 'Black beans', cal: 100, c: 18, p: 6, f: 0 },
+      { name: 'Chicken/beef', cal: 180, c: 0, p: 25, f: 8 },
+      { name: 'Cheese + salsa', cal: 110, c: 4, p: 5, f: 8 },
+    ]},
+  { id: 'fajitas', name: 'Chicken fajitas', icon: '🌯', category: 'mexican',
+    aliases: ['fajita'],
+    components: [
+      { name: 'Tortilla wraps (2)', cal: 240, c: 38, p: 7, f: 6 },
+      { name: 'Chicken strips', cal: 220, c: 0, p: 35, f: 9 },
+      { name: 'Peppers + onions', cal: 60, c: 13, p: 2, f: 0 },
+      { name: 'Sour cream + cheese', cal: 110, c: 3, p: 4, f: 9 },
+    ]},
+
+  // --- MIDDLE EASTERN ---
+  { id: 'falafel_wrap', name: 'Falafel wrap', icon: '🌯', category: 'middle-eastern',
+    aliases: ['falafel pita', 'falafel'],
+    components: [
+      { name: 'Pita bread', cal: 180, c: 36, p: 6, f: 1 },
+      { name: 'Falafel balls (4)', cal: 200, c: 18, p: 8, f: 11 },
+      { name: 'Hummus', cal: 100, c: 8, p: 4, f: 6 },
+      { name: 'Salad + tahini', cal: 80, c: 6, p: 2, f: 6 },
+    ]},
+  { id: 'kebab_rice', name: 'Kebab + rice', icon: '🍢', category: 'middle-eastern',
+    aliases: ['shish kebab', 'doner', 'lamb kebab'],
+    components: [
+      { name: 'Lamb/chicken kebab', cal: 320, c: 2, p: 30, f: 22 },
+      { name: 'Rice', cal: 280, c: 60, p: 6, f: 1 },
+      { name: 'Salad + sauce', cal: 80, c: 8, p: 2, f: 5 },
+    ]},
+  { id: 'shawarma', name: 'Shawarma wrap', icon: '🌯', category: 'middle-eastern',
+    aliases: [],
+    components: [
+      { name: 'Flatbread/pita', cal: 200, c: 38, p: 7, f: 2 },
+      { name: 'Shawarma meat', cal: 280, c: 0, p: 28, f: 18 },
+      { name: 'Garlic sauce', cal: 80, c: 2, p: 1, f: 8 },
+      { name: 'Salad', cal: 30, c: 5, p: 1, f: 1 },
+    ]},
+
+  // --- HEALTHY / SALADS ---
+  { id: 'buddha_bowl', name: 'Buddha bowl', icon: '🥗', category: 'healthy',
+    aliases: ['grain bowl', 'power bowl'],
+    components: [
+      { name: 'Grains (rice/quinoa)', cal: 220, c: 45, p: 6, f: 2 },
+      { name: 'Roasted vegetables', cal: 120, c: 18, p: 3, f: 5 },
+      { name: 'Protein (chicken/tofu/egg)', cal: 180, c: 2, p: 25, f: 7 },
+      { name: 'Sauce/dressing', cal: 100, c: 4, p: 2, f: 9 },
+    ]},
+  { id: 'caesar_salad', name: 'Caesar salad with chicken', icon: '🥗', category: 'healthy',
+    aliases: ['chicken caesar'],
+    components: [
+      { name: 'Romaine lettuce', cal: 20, c: 4, p: 2, f: 0 },
+      { name: 'Grilled chicken', cal: 180, c: 0, p: 30, f: 6 },
+      { name: 'Caesar dressing', cal: 160, c: 2, p: 2, f: 16 },
+      { name: 'Croutons', cal: 70, c: 12, p: 2, f: 2 },
+      { name: 'Parmesan', cal: 40, c: 0, p: 4, f: 3 },
+    ]},
+  { id: 'greek_salad', name: 'Greek salad', icon: '🥗', category: 'healthy',
+    aliases: [],
+    components: [
+      { name: 'Tomato + cucumber', cal: 30, c: 6, p: 1, f: 0 },
+      { name: 'Feta cheese', cal: 130, c: 2, p: 8, f: 10 },
+      { name: 'Olives', cal: 80, c: 2, p: 1, f: 8 },
+      { name: 'Olive oil + onion', cal: 80, c: 2, p: 0, f: 9 },
+    ]},
+];
+
 const HUNGER_INTERVENTIONS = [
   { id: 'water', label: 'Water', emoji: '💧', desc: '500 ml water, then wait 10 min', detail: 'Volume → stomach stretch → fullness signal', waitMinutes: 10 },
   { id: 'volume', label: 'Low-cal volume', emoji: '🍓', desc: 'Fruit or veg over 15 min', detail: 'For cravings: high volume, low cal, sweet without big sugar load', requiresFood: true, kcalCap: 100, eatMinutes: 15, waitMinutes: 15, suggestedFoods: ['strawberries', 'watermelon', 'cucumber', 'apple', 'berries', 'carrot sticks', 'bell pepper', 'cherry tomatoes', 'celery', 'orange', 'melon'] },
@@ -4648,6 +5006,9 @@ function saveHungerTrials(list) {
 
 // Start a new trial — record initial hunger
 function startHungerTrial(initialHunger) {
+  // Capture current context (sleep, stress, protein, weekend, hour) so
+  // ridge regression can train on these features later.
+  const ctx = getBanditContext();
   const trial = {
     id: 'ht_' + Date.now(),
     startTimestamp: Date.now(),
@@ -4658,6 +5019,14 @@ function startHungerTrial(initialHunger) {
     outcome: null, // 'skipped_meal', 'ate_less', 'ate_normally', 'binged'
     notes: '',
     redFlag: false,
+    contextSnapshot: {
+      hour: ctx.hour,
+      isEvening: ctx.isEvening,
+      sleepShort: ctx.sleepShort,
+      stressHigh: ctx.stressHigh,
+      proteinLow: ctx.proteinLow,
+      isWeekend: ctx.isWeekend,
+    },
   };
   state.hungerTrial = trial;
   // If user came from bandit recommendation, jump straight to that intervention
@@ -5961,6 +6330,189 @@ function loadSavedMeals() {
   catch { return []; }
 }
 function saveSavedMeals(m) { try { localStorage.setItem(STORAGE_SAVED_MEALS, JSON.stringify(m)); } catch {} }
+
+// ============================================================
+// DISH PICKER — visual grid of common composite dishes, search,
+// build-your-own fallback, suggest-a-dish feedback. Solves the
+// "pasta with mince + cheese + sauce" multi-ingredient problem.
+// ============================================================
+function openDishPicker() {
+  set({ showDishPicker: true, dishPickerSearch: '', dishReviewing: null, buildingDish: null });
+}
+function closeDishPicker() {
+  set({ showDishPicker: false, dishPickerSearch: '', dishReviewing: null, buildingDish: null });
+}
+function setDishSearch(q) {
+  state.dishPickerSearch = q;
+  render();
+}
+
+// Filter dishes by search query (matches name, aliases, or component words)
+function filterDishes() {
+  const q = (state.dishPickerSearch || '').toLowerCase().trim();
+  if (!q) return COMPOSITE_DISHES;
+  return COMPOSITE_DISHES.filter(d => {
+    if (d.name.toLowerCase().includes(q)) return true;
+    if (d.aliases.some(a => a.toLowerCase().includes(q))) return true;
+    if (d.components.some(c => c.name.toLowerCase().includes(q))) return true;
+    return false;
+  });
+}
+
+// Open the review screen for a chosen dish - lets user adjust multipliers per component
+function selectDishForReview(dishId) {
+  const dish = COMPOSITE_DISHES.find(d => d.id === dishId);
+  if (!dish) return;
+  // Initialise multipliers to 1.0 per component
+  state.dishReviewing = {
+    dishId: dish.id,
+    name: dish.name,
+    icon: dish.icon,
+    components: dish.components.map(c => ({ ...c, mult: 1.0 })),
+  };
+  render();
+}
+
+function setDishComponentMult(idx, mult) {
+  if (!state.dishReviewing) return;
+  state.dishReviewing.components[idx].mult = Math.max(0, Math.min(5, mult));
+  render();
+}
+
+function removeDishComponent(idx) {
+  if (!state.dishReviewing) return;
+  state.dishReviewing.components.splice(idx, 1);
+  render();
+}
+
+function logCompositeDish() {
+  const d = state.dishReviewing;
+  if (!d) return;
+  const now = getEntryTimestamp();
+  const newEntries = [];
+  for (const c of d.components) {
+    if (c.mult <= 0) continue;
+    const k = Math.round(c.cal * c.mult);
+    newEntries.push({
+      id: `e_${now}_${Math.random().toString(36).slice(2, 7)}`,
+      name: c.name,
+      timestamp: now,
+      calories: k,
+      cal: k,
+      carbs: Math.round(c.c * c.mult * 10) / 10,
+      protein: Math.round(c.p * c.mult * 10) / 10,
+      fat: Math.round(c.f * c.mult * 10) / 10,
+      pieces: c.mult,
+      fromDish: d.dishId,
+    });
+  }
+  state.entries = [...state.entries, ...newEntries];
+  saveEntries(state.entries);
+  closeDishPicker();
+  try { checkAchievements(); } catch {}
+}
+
+// Start building a custom dish from scratch
+function startBuildingDish() {
+  state.buildingDish = { name: '', components: [], saveAsTemplate: false };
+  render();
+}
+
+function setBuildingDishName(name) {
+  if (!state.buildingDish) return;
+  state.buildingDish.name = name;
+}
+
+function addToBuiltDish(food) {
+  if (!state.buildingDish) return;
+  state.buildingDish.components.push({
+    name: food.display || food.name,
+    cal: food.cal || 0,
+    c: food.c || 0,
+    p: food.p || 0,
+    f: food.f || 0,
+    mult: 1.0,
+  });
+  render();
+}
+
+function removeBuiltDishComponent(idx) {
+  if (!state.buildingDish) return;
+  state.buildingDish.components.splice(idx, 1);
+  render();
+}
+
+function setBuiltDishComponentMult(idx, mult) {
+  if (!state.buildingDish) return;
+  state.buildingDish.components[idx].mult = Math.max(0, Math.min(5, mult));
+  render();
+}
+
+function saveAndLogBuiltDish() {
+  const d = state.buildingDish;
+  if (!d || d.components.length === 0) {
+    alert('Add at least one component first.');
+    return;
+  }
+  const dishName = (d.name || 'My custom dish').trim();
+  // Save as a saved meal if user requested
+  if (d.saveAsTemplate && dishName) {
+    const meal = {
+      id: `sm_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      name: dishName,
+      components: d.components.map(c => ({
+        name: c.name,
+        cal: Math.round(c.cal * c.mult),
+        c: Math.round(c.c * c.mult * 10) / 10,
+        p: Math.round(c.p * c.mult * 10) / 10,
+        f: Math.round(c.f * c.mult * 10) / 10,
+        pieces: 1,
+      })),
+      createdAt: Date.now(),
+      useCount: 0,
+    };
+    state.savedMeals = [meal, ...(state.savedMeals || [])];
+    saveSavedMeals(state.savedMeals);
+  }
+  // Log all components now
+  const now = getEntryTimestamp();
+  const newEntries = [];
+  for (const c of d.components) {
+    if (c.mult <= 0) continue;
+    const k = Math.round(c.cal * c.mult);
+    newEntries.push({
+      id: `e_${now}_${Math.random().toString(36).slice(2, 7)}`,
+      name: c.name,
+      timestamp: now,
+      calories: k,
+      cal: k,
+      carbs: Math.round(c.c * c.mult * 10) / 10,
+      protein: Math.round(c.p * c.mult * 10) / 10,
+      fat: Math.round(c.f * c.mult * 10) / 10,
+      pieces: c.mult,
+      fromDish: 'custom',
+    });
+  }
+  state.entries = [...state.entries, ...newEntries];
+  saveEntries(state.entries);
+  closeDishPicker();
+  try { checkAchievements(); } catch {}
+}
+
+// Suggest a dish — adds to the feedback clipboard for Hisham to review
+function suggestDish() {
+  const name = (prompt('What dish should Plate include? (e.g. "Moroccan tagine", "Korean bibimbap")') || '').trim();
+  if (!name) return;
+  const stamp = new Date().toISOString();
+  const payload = `=== PLATE DISH SUGGESTION ===\n${name}\nSuggested at: ${stamp}`;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(payload).then(() => {
+      alert(`Thanks. "${name}" was copied to your clipboard — paste it into a message back to whoever sent you Plate, and they\'ll add it to a future build.`);
+    }).catch(() => alert('Suggestion noted — message it to whoever sent you Plate.'));
+  } else {
+    alert(`Thanks. Message "${name}" to whoever sent you Plate so they can add it.`);
+  }
+}
 
 function logSavedMeal(mealId) {
   const meal = (state.savedMeals || []).find(m => m.id === mealId);
@@ -9063,9 +9615,67 @@ function sampleStudentT(df, mean, scale) {
 
 function getBanditContext() {
   const h = new Date().getHours();
+  const now = Date.now();
+  const day = 86400000;
+
+  // Sleep last night — pull most recent check-in within 24h
+  let sleepShort = 0;
+  const recentCheckin = (state.dailyCheckins || [])
+    .filter(c => c.sleepHours != null && c.timestamp > now - 2 * day)
+    .sort((a, b) => b.timestamp - a.timestamp)[0];
+  if (recentCheckin && recentCheckin.sleepHours < 6.5) sleepShort = 1;
+
+  // Stress — recent check-in
+  let stressHigh = 0;
+  const stressCheckin = (state.dailyCheckins || [])
+    .filter(c => c.stress != null && c.timestamp > now - 2 * day)
+    .sort((a, b) => b.timestamp - a.timestamp)[0];
+  if (stressCheckin && stressCheckin.stress >= 3) stressHigh = 1;
+
+  // Protein today vs target (1.4g/kg) — under 70% counts as low-protein day
+  const profile = state.profile || { weight: state.userWeight || 70 };
+  const proteinTarget = (profile.weight || 70) * 1.4;
+  const today = todayISO();
+  const proteinToday = state.entries
+    .filter(e => entryDate(e.timestamp) === today && e.type !== 'activity')
+    .reduce((s, e) => s + (e.protein || 0), 0);
+  const proteinLow = proteinToday < proteinTarget * 0.7 ? 1 : 0;
+
+  // Day-of-week bucket — weekend vs weekday (eating patterns differ)
+  const isWeekend = ([0, 6].includes(new Date().getDay())) ? 1 : 0;
+
   return {
     timeOfDay: h >= 17 ? 'evening' : h >= 12 ? 'afternoon' : 'morning',
     isEvening: h >= 17 ? 1 : 0,
+    sleepShort,
+    stressHigh,
+    proteinLow,
+    isWeekend,
+    hour: h,
+  };
+}
+
+// Extract feature vector from a single trial (for ridge regression training)
+function trialFeatures(t) {
+  const ts = t.startTimestamp || t.completedTimestamp;
+  const d = new Date(ts);
+  const hr = d.getHours();
+  // Bucketed/binary features — keeps the model simple and interpretable.
+  // Captures the hypotheses Plate cares about:
+  // - hunger interventions degrade in the evening (sleep pressure + decision fatigue)
+  // - high initial hunger is harder to interrupt
+  // - sleep debt elevates ghrelin → makes interruption harder
+  // - stress elevates cortisol-driven craving → makes interruption harder
+  // - low-protein days = lower satiety reserves
+  return {
+    bias: 1,
+    isEvening: hr >= 17 ? 1 : 0,
+    initialHunger: t.initialHunger || 0,
+    highHunger: (t.initialHunger || 0) >= 7 ? 1 : 0,
+    sleepShort: t.contextSnapshot?.sleepShort || 0,
+    stressHigh: t.contextSnapshot?.stressHigh || 0,
+    proteinLow: t.contextSnapshot?.proteinLow || 0,
+    isWeekend: t.contextSnapshot?.isWeekend || 0,
   };
 }
 
@@ -9198,11 +9808,35 @@ function getBanditRecommendation(k = 3) {
   });
   // Rank by Thompson sample
   samples.sort((a, b) => b.sample - a.sample);
+
+  // Once Stage B (ridge regression) is ready, blend its predictions
+  // into the ranking. Stage B's posteriorMean prediction is more
+  // context-aware (factors sleep/stress/protein), so when available
+  // it should take over from raw Thompson sampling.
+  const stageB = getStageBRanking(ctx.assumedInitialHunger || 6);
+  if (stageB && stageB.modelReady) {
+    // Re-score: blend Thompson sample with Stage B predicted drop
+    // weight by sqrt(n) so Stage B's voice grows as more data accumulates
+    for (const s of samples) {
+      const sb = stageB.ranked.find(r => r.interventionId === s.interv.id);
+      if (sb) {
+        const w = Math.min(0.8, Math.sqrt(sb.n) / (Math.sqrt(sb.n) + 3));
+        s.stageBPrediction = sb.predictedDrop;
+        s.blendedScore = w * sb.predictedDrop + (1 - w) * s.sample;
+      } else {
+        s.blendedScore = s.sample;
+      }
+    }
+    samples.sort((a, b) => (b.blendedScore || b.sample) - (a.blendedScore || a.sample));
+  }
+
   return {
     timeOfDay: ctx.timeOfDay,
     totalTrials,
+    stageBReady: !!(stageB && stageB.modelReady),
     recommendations: samples.slice(0, k),
     allRanked: samples,
+    context: ctx,
   };
 }
 
@@ -9419,52 +10053,160 @@ function trainStageAModel() {
 }
 
 // ============================================================
-// HUNGER INSIGHTS — Stage B (per-trial prediction)
-// Gated at >= 30 trials. Predicts P(>= 2 point hunger drop) given context.
+// HUNGER INSIGHTS — Stage B (per-intervention ridge regression)
+// Gated at ≥30 trials. For each intervention with enough data,
+// trains a small ridge regression that predicts EXPECTED HUNGER
+// DROP from context features (evening, initial hunger, sleep,
+// stress, protein, weekend). At prediction time we plug in the
+// user's current context and rank interventions by predicted drop.
+//
+// This replaces an earlier "per-intervention logistic regression"
+// stub that actually just computed split success rates.
 // ============================================================
+
+// Closed-form ridge regression: β = (XᵀX + λI)⁻¹ Xᵀy
+// For very small feature sets (8 features) this is cheap and stable.
+function fitRidge(X, y, lambda) {
+  const n = X.length;
+  if (n === 0) return null;
+  const p = X[0].length;
+  // XᵀX (p×p) and Xᵀy (p)
+  const XtX = Array.from({length: p}, () => new Array(p).fill(0));
+  const Xty = new Array(p).fill(0);
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < p; j++) {
+      Xty[j] += X[i][j] * y[i];
+      for (let k = 0; k < p; k++) {
+        XtX[j][k] += X[i][j] * X[i][k];
+      }
+    }
+  }
+  // Add λI (skip bias term — don't regularize the intercept)
+  for (let j = 0; j < p; j++) {
+    if (j > 0) XtX[j][j] += lambda;
+  }
+  // Solve via Gauss-Jordan elimination — small p so this is fine
+  const aug = XtX.map((row, i) => [...row, Xty[i]]);
+  for (let i = 0; i < p; i++) {
+    let pivot = aug[i][i];
+    if (Math.abs(pivot) < 1e-10) {
+      // Try to swap with a non-zero row below
+      let swapped = false;
+      for (let r = i + 1; r < p; r++) {
+        if (Math.abs(aug[r][i]) > 1e-10) {
+          [aug[i], aug[r]] = [aug[r], aug[i]];
+          pivot = aug[i][i];
+          swapped = true;
+          break;
+        }
+      }
+      if (!swapped) return null; // singular
+    }
+    for (let j = 0; j <= p; j++) aug[i][j] /= pivot;
+    for (let r = 0; r < p; r++) {
+      if (r === i) continue;
+      const factor = aug[r][i];
+      for (let j = 0; j <= p; j++) aug[r][j] -= factor * aug[i][j];
+    }
+  }
+  return aug.map(row => row[p]); // last column is the solution
+}
 
 function trainStageBModel() {
   const trials = (state.hungerTrials || []).filter(t => t.completedTimestamp && !t.redFlag);
   if (trials.length < 30) {
     return { ready: false, reason: 'need_more_trials', have: trials.length, need: 30 };
   }
-  // Build per-trial features
-  const rows = trials.map(t => {
-    const ts = t.startTimestamp || t.completedTimestamp;
-    const d = new Date(ts);
-    return {
-      interventionId: t.interventionId,
-      initialHunger: t.initialHunger,
-      hour: d.getHours(),
-      dow: d.getDay(),
-      isEvening: d.getHours() >= 17 ? 1 : 0,
-      success: (t.initialHunger - t.finalHunger) >= 2 ? 1 : 0,
-    };
-  });
-  // Per-intervention logistic regression on hour + initialHunger
+  // Group by intervention
   const byInterv = {};
-  for (const r of rows) {
-    if (!byInterv[r.interventionId]) byInterv[r.interventionId] = [];
-    byInterv[r.interventionId].push(r);
+  for (const t of trials) {
+    if (!byInterv[t.interventionId]) byInterv[t.interventionId] = [];
+    byInterv[t.interventionId].push(t);
   }
+  const featNames = ['bias', 'isEvening', 'initialHunger', 'highHunger', 'sleepShort', 'stressHigh', 'proteinLow', 'isWeekend'];
   const results = {};
   for (const id of Object.keys(byInterv)) {
     const obs = byInterv[id];
-    if (obs.length < 3) continue;
-    const successRate = obs.filter(o => o.success).length / obs.length;
-    // Simple: split by morning/evening, low/high hunger
-    const eveningSucc = obs.filter(o => o.isEvening).filter(o => o.success).length / Math.max(1, obs.filter(o => o.isEvening).length);
-    const morningSucc = obs.filter(o => !o.isEvening).filter(o => o.success).length / Math.max(1, obs.filter(o => !o.isEvening).length);
-    const highHungerSucc = obs.filter(o => o.initialHunger >= 7).filter(o => o.success).length / Math.max(1, obs.filter(o => o.initialHunger >= 7).length);
-    results[id] = {
-      n: obs.length,
-      overall: Math.round(successRate * 100),
-      evening: obs.filter(o => o.isEvening).length >= 2 ? Math.round(eveningSucc * 100) : null,
-      morning: obs.filter(o => !o.isEvening).length >= 2 ? Math.round(morningSucc * 100) : null,
-      highHunger: obs.filter(o => o.initialHunger >= 7).length >= 2 ? Math.round(highHungerSucc * 100) : null,
-    };
+    if (obs.length < 5) {
+      // Not enough data for a per-intervention model; fall back to descriptive stats
+      const drops = obs.map(t => (t.initialHunger || 0) - (t.finalHunger || 0));
+      const mean = drops.reduce((s, d) => s + d, 0) / Math.max(1, drops.length);
+      results[id] = { n: obs.length, model: null, meanDrop: mean, intercept: mean };
+      continue;
+    }
+    // Build feature matrix X and target y
+    const X = obs.map(t => {
+      const f = trialFeatures(t);
+      return featNames.map(name => f[name]);
+    });
+    const y = obs.map(t => (t.initialHunger || 0) - (t.finalHunger || 0));
+    // Ridge regression with moderate λ — small sample sizes need shrinkage
+    const beta = fitRidge(X, y, 2.0);
+    if (!beta) {
+      // Fall back to overall mean if matrix is singular
+      const mean = y.reduce((s, d) => s + d, 0) / Math.max(1, y.length);
+      results[id] = { n: obs.length, model: null, meanDrop: mean };
+      continue;
+    }
+    // Build human-readable coefficients
+    const coeffs = {};
+    featNames.forEach((name, i) => { coeffs[name] = beta[i]; });
+    const mean = y.reduce((s, d) => s + d, 0) / y.length;
+    results[id] = { n: obs.length, model: beta, coeffs, meanDrop: mean, featNames };
   }
-  return { ready: true, totalTrials: trials.length, perIntervention: results };
+  return { ready: true, totalTrials: trials.length, perIntervention: results, featNames };
+}
+
+// Predict expected hunger drop for an intervention given current context.
+// Returns predicted drop in hunger points (higher = better intervention).
+function predictHungerDrop(interventionId, ctx) {
+  const m = trainStageBModel();
+  if (!m.ready) return null;
+  const r = m.perIntervention[interventionId];
+  if (!r) return null;
+  if (!r.model) return r.meanDrop; // no model, return mean
+  // Build feature vector for current context
+  // Need a synthetic "trial-like" object; we have ctx + an assumed initial hunger
+  const initial = ctx.assumedInitialHunger || 6; // default mid-high
+  const features = {
+    bias: 1,
+    isEvening: ctx.isEvening || 0,
+    initialHunger: initial,
+    highHunger: initial >= 7 ? 1 : 0,
+    sleepShort: ctx.sleepShort || 0,
+    stressHigh: ctx.stressHigh || 0,
+    proteinLow: ctx.proteinLow || 0,
+    isWeekend: ctx.isWeekend || 0,
+  };
+  let pred = 0;
+  for (const name of m.featNames) pred += r.model[m.featNames.indexOf(name)] * features[name];
+  // Clip to reasonable hunger drop range
+  return Math.max(-2, Math.min(10, pred));
+}
+
+// Get current top picks using Stage B prediction (when enough data) or
+// fall back to Thompson sampling bandit (when not enough data yet).
+function getStageBRanking(currentHunger) {
+  const m = trainStageBModel();
+  if (!m.ready) return null;
+  const ctx = { ...getBanditContext(), assumedInitialHunger: currentHunger || 6 };
+  const ranked = [];
+  for (const interv of HUNGER_INTERVENTIONS) {
+    const r = m.perIntervention[interv.id];
+    if (!r) continue;
+    const predDrop = predictHungerDrop(interv.id, ctx);
+    if (predDrop == null) continue;
+    ranked.push({
+      interventionId: interv.id,
+      intervention: interv,
+      predictedDrop: predDrop,
+      n: r.n,
+      hasModel: !!r.model,
+      meanDrop: r.meanDrop,
+    });
+  }
+  ranked.sort((a, b) => b.predictedDrop - a.predictedDrop);
+  return { ranked, totalTrials: m.totalTrials, modelReady: true };
 }
 
 // ============================================================
@@ -12433,6 +13175,327 @@ function deleteEntry(id) {
   saveEntries(ne);
   set({ entries: ne });
 }
+
+// ============================================================
+// EDIT ENTRY — open a modal to adjust name / time / macros of an
+// already-logged entry. Recalculates totals automatically since
+// the entry stays in place in state.entries.
+// ============================================================
+function openEditEntry(id) {
+  const e = state.entries.find(en => en.id === id);
+  if (!e) return;
+  state.editingEntry = {
+    id: e.id,
+    name: e.name || '',
+    calories: entryCalories(e),
+    carbs: e.carbs || 0,
+    protein: e.protein || 0,
+    fat: e.fat || 0,
+    timestamp: e.timestamp,
+    type: e.type,  // preserve 'activity' if present
+  };
+  render();
+}
+function closeEditEntry() {
+  state.editingEntry = null;
+  render();
+}
+function updateEditField(field, value) {
+  if (!state.editingEntry) return;
+  if (field === 'name') {
+    state.editingEntry.name = value;
+  } else if (field === 'timestamp') {
+    state.editingEntry.timestamp = parseTimeInputToTimestamp(value, state.editingEntry.timestamp);
+    render();
+  } else {
+    const n = parseFloat(value);
+    state.editingEntry[field] = isNaN(n) ? 0 : n;
+  }
+}
+function saveEditedEntry() {
+  const ed = state.editingEntry;
+  if (!ed) return;
+  const newEntries = state.entries.map(e => {
+    if (e.id !== ed.id) return e;
+    return {
+      ...e,
+      name: (ed.name || '').trim() || e.name,
+      calories: Math.round(ed.calories) || 0,
+      cal: Math.round(ed.calories) || 0,
+      carbs: Math.round(ed.carbs * 10) / 10,
+      protein: Math.round(ed.protein * 10) / 10,
+      fat: Math.round(ed.fat * 10) / 10,
+      timestamp: ed.timestamp,
+      edited: true,
+      editedAt: Date.now(),
+    };
+  });
+  saveEntries(newEntries);
+  state.entries = newEntries;
+  state.editingEntry = null;
+  render();
+}
+function deleteFromEdit() {
+  if (!state.editingEntry) return;
+  if (!confirm('Delete this entry?')) return;
+  const id = state.editingEntry.id;
+  state.editingEntry = null;
+  deleteEntry(id);
+}
+
+// ============================================================
+// DISH PICKER UI — three views inside one modal:
+// 1. Picker (default): grid of dishes + search + suggest
+// 2. Reviewing: chosen dish with adjustable component portions
+// 3. Building: custom dish from Plate's 1,600+ foods
+// ============================================================
+function renderDishPickerModal() {
+  if (!state.showDishPicker) return '';
+  // View 3: building custom dish
+  if (state.buildingDish) return renderDishBuilderView();
+  // View 2: reviewing a selected dish
+  if (state.dishReviewing) return renderDishReviewView();
+  // View 1: picker grid
+  return renderDishGridView();
+}
+
+function renderDishGridView() {
+  const dishes = filterDishes();
+  // Group by category for clearer browsing
+  const byCategory = {};
+  for (const d of dishes) {
+    if (!byCategory[d.category]) byCategory[d.category] = [];
+    byCategory[d.category].push(d);
+  }
+  const categoryLabels = {
+    italian: 'Italian',
+    british: 'British',
+    indian: 'Indian',
+    asian: 'Asian',
+    mexican: 'Mexican',
+    'middle-eastern': 'Middle Eastern',
+    healthy: 'Salads & bowls',
+  };
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) closeDishPicker()">
+      <div class="dish-picker-modal">
+        <div class="dp-header">
+          <div>
+            <div class="dp-title">Pick a dish</div>
+            <div class="dp-sub">Plate fills in all the components for you.</div>
+          </div>
+          <button class="icon-btn" onclick="closeDishPicker()" aria-label="Close">${icons.x}</button>
+        </div>
+        <div class="dp-search-row">
+          <input type="text" class="dp-search" placeholder="Search: bolognese, biryani, bowl..." value="${escapeHtml(state.dishPickerSearch || '')}" oninput="setDishSearch(this.value)" />
+        </div>
+        <div class="dp-scroll">
+          ${dishes.length === 0 ? `
+            <div class="dp-empty">
+              <div class="dp-empty-emoji">🤷</div>
+              <div class="dp-empty-text">No dishes match "${escapeHtml(state.dishPickerSearch)}".</div>
+              <div class="dp-empty-actions">
+                <button class="dp-build-btn" onclick="startBuildingDish()">+ Build your own</button>
+                <button class="dp-suggest-btn" onclick="suggestDish()">Suggest this dish</button>
+              </div>
+            </div>
+          ` : Object.keys(byCategory).map(cat => `
+            <div class="dp-category">
+              <div class="dp-cat-label">${escapeHtml(categoryLabels[cat] || cat)}</div>
+              <div class="dp-grid">
+                ${byCategory[cat].map(d => {
+                  const total = d.components.reduce((s, c) => s + c.cal, 0);
+                  return `
+                    <button class="dp-tile" onclick="selectDishForReview('${d.id}')">
+                      <div class="dp-tile-icon">${d.icon}</div>
+                      <div class="dp-tile-name">${escapeHtml(d.name)}</div>
+                      <div class="dp-tile-meta">${total} kcal · ${d.components.length} components</div>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="dp-footer">
+          <button class="dp-build-btn" onclick="startBuildingDish()">+ Build your own</button>
+          <button class="dp-suggest-link" onclick="suggestDish()">Suggest a dish ›</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderDishReviewView() {
+  const r = state.dishReviewing;
+  if (!r) return '';
+  const totals = r.components.reduce((acc, c) => {
+    acc.cal += c.cal * c.mult;
+    acc.c += c.c * c.mult;
+    acc.p += c.p * c.mult;
+    acc.f += c.f * c.mult;
+    return acc;
+  }, { cal: 0, c: 0, p: 0, f: 0 });
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) closeDishPicker()">
+      <div class="dish-picker-modal">
+        <div class="dp-header">
+          <button class="icon-btn" onclick="set({dishReviewing: null})" aria-label="Back">${icons.arrowLeft || '←'}</button>
+          <div style="flex:1; text-align:center">
+            <div class="dp-title">${r.icon} ${escapeHtml(r.name)}</div>
+            <div class="dp-sub">Adjust portions if different from typical</div>
+          </div>
+          <button class="icon-btn" onclick="closeDishPicker()" aria-label="Close">${icons.x}</button>
+        </div>
+        <div class="dp-totals">
+          <strong>${Math.round(totals.cal)}</strong> kcal · ${Math.round(totals.c)}g C · ${Math.round(totals.p)}g P · ${Math.round(totals.f)}g F
+        </div>
+        <div class="dp-scroll">
+          ${r.components.map((c, idx) => `
+            <div class="dp-comp-row">
+              <div class="dp-comp-info">
+                <div class="dp-comp-name">${escapeHtml(c.name)}</div>
+                <div class="dp-comp-vals">${Math.round(c.cal * c.mult)} kcal · ${Math.round(c.p * c.mult)}g P</div>
+              </div>
+              <div class="dp-comp-mult">
+                <button class="dp-mult-btn" onclick="setDishComponentMult(${idx}, ${c.mult} - 0.25)" ${c.mult <= 0 ? 'disabled' : ''}>−</button>
+                <span class="dp-mult-val">${c.mult.toFixed(2).replace(/\.?0+$/, '')}×</span>
+                <button class="dp-mult-btn" onclick="setDishComponentMult(${idx}, ${c.mult} + 0.25)">+</button>
+              </div>
+              <button class="dp-comp-x" onclick="removeDishComponent(${idx})" aria-label="Remove">×</button>
+            </div>
+          `).join('')}
+        </div>
+        <div class="dp-footer">
+          <button class="dp-log-btn" onclick="logCompositeDish()">${icons.checkSm}<span>Log this dish</span></button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderDishBuilderView() {
+  const b = state.buildingDish;
+  if (!b) return '';
+  const totals = b.components.reduce((acc, c) => {
+    acc.cal += c.cal * c.mult;
+    acc.c += c.c * c.mult;
+    acc.p += c.p * c.mult;
+    acc.f += c.f * c.mult;
+    return acc;
+  }, { cal: 0, c: 0, p: 0, f: 0 });
+  // Quick food search results
+  const query = (state.buildingDishQuery || '').toLowerCase().trim();
+  const results = query.length >= 2 ? findLocalMatches(query).slice(0, 6) : [];
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) closeDishPicker()">
+      <div class="dish-picker-modal">
+        <div class="dp-header">
+          <button class="icon-btn" onclick="set({buildingDish: null})" aria-label="Back">${icons.arrowLeft || '←'}</button>
+          <div style="flex:1; text-align:center">
+            <div class="dp-title">Build your dish</div>
+            <div class="dp-sub">Add ingredients one at a time</div>
+          </div>
+          <button class="icon-btn" onclick="closeDishPicker()" aria-label="Close">${icons.x}</button>
+        </div>
+        <div class="dp-totals ${totals.cal === 0 ? 'empty' : ''}">
+          ${totals.cal === 0 ? 'No ingredients yet — search below' : `<strong>${Math.round(totals.cal)}</strong> kcal · ${Math.round(totals.c)}g C · ${Math.round(totals.p)}g P · ${Math.round(totals.f)}g F`}
+        </div>
+        <div class="dp-scroll">
+          ${b.components.length > 0 ? `
+            <div class="dp-builder-stack">
+              ${b.components.map((c, idx) => `
+                <div class="dp-comp-row">
+                  <div class="dp-comp-info">
+                    <div class="dp-comp-name">${escapeHtml(c.name)}</div>
+                    <div class="dp-comp-vals">${Math.round(c.cal * c.mult)} kcal</div>
+                  </div>
+                  <div class="dp-comp-mult">
+                    <button class="dp-mult-btn" onclick="setBuiltDishComponentMult(${idx}, ${c.mult} - 0.25)" ${c.mult <= 0 ? 'disabled' : ''}>−</button>
+                    <span class="dp-mult-val">${c.mult.toFixed(2).replace(/\.?0+$/, '')}×</span>
+                    <button class="dp-mult-btn" onclick="setBuiltDishComponentMult(${idx}, ${c.mult} + 0.25)">+</button>
+                  </div>
+                  <button class="dp-comp-x" onclick="removeBuiltDishComponent(${idx})" aria-label="Remove">×</button>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+          <div class="dp-builder-search-block">
+            <input type="text" class="dp-search" placeholder="Search ingredients (egg, rice, chicken…)" value="${escapeHtml(state.buildingDishQuery || '')}" oninput="state.buildingDishQuery = this.value; render()" />
+            ${results.length > 0 ? `
+              <div class="dp-results">
+                ${results.map(r => `
+                  <button class="dp-result" onclick="addToBuiltDish(${JSON.stringify(r.food).replace(/"/g, '&quot;')}); state.buildingDishQuery = ''; render()">
+                    <span class="dp-result-name">${escapeHtml(r.food.display || r.food.name)}</span>
+                    <span class="dp-result-meta">${r.food.cal} kcal</span>
+                  </button>
+                `).join('')}
+              </div>
+            ` : query.length >= 2 ? `<div class="dp-no-results">No matches in Plate's food database.</div>` : ''}
+          </div>
+          ${b.components.length > 0 ? `
+            <div class="dp-save-template">
+              <label class="dp-template-row">
+                <input type="checkbox" ${b.saveAsTemplate ? 'checked' : ''} onchange="state.buildingDish.saveAsTemplate = this.checked; render()"/>
+                <span>Save as "My usual ___" for one-tap logging next time</span>
+              </label>
+              ${b.saveAsTemplate ? `<input type="text" class="dp-template-name" placeholder="Name (e.g. My breakfast bowl)" value="${escapeHtml(b.name || '')}" oninput="setBuildingDishName(this.value)" />` : ''}
+            </div>
+          ` : ''}
+        </div>
+        <div class="dp-footer">
+          <button class="dp-log-btn" onclick="saveAndLogBuiltDish()" ${b.components.length === 0 ? 'disabled' : ''}>${icons.checkSm}<span>${b.saveAsTemplate ? 'Save & log' : 'Log it'}</span></button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderEditEntryModal() {
+  if (!state.editingEntry) return '';
+  const e = state.editingEntry;
+  return `
+    <div class="modal-overlay" onclick="if(event.target===this) closeEditEntry()">
+      <div class="edit-entry-modal">
+        <div class="ee-header">
+          <div class="ee-title">Edit entry</div>
+          <button class="icon-btn" onclick="closeEditEntry()" aria-label="Close">${icons.x}</button>
+        </div>
+        <div class="ee-body">
+          <label class="ee-label">Name</label>
+          <input type="text" class="ee-input" value="${escapeHtml(e.name)}" oninput="updateEditField('name', this.value)"/>
+
+          <label class="ee-label">Time</label>
+          <input type="time" class="ee-input ee-time" value="${formatTimestampForInput(e.timestamp)}" onchange="updateEditField('timestamp', this.value)"/>
+
+          <div class="ee-macros">
+            <div>
+              <label class="ee-label">Calories</label>
+              <input type="number" class="ee-input ee-num" value="${Math.round(e.calories)}" min="0" step="1" oninput="updateEditField('calories', this.value)"/>
+            </div>
+            <div>
+              <label class="ee-label">Carbs (g)</label>
+              <input type="number" class="ee-input ee-num" value="${e.carbs}" min="0" step="0.5" oninput="updateEditField('carbs', this.value)"/>
+            </div>
+            <div>
+              <label class="ee-label">Protein (g)</label>
+              <input type="number" class="ee-input ee-num" value="${e.protein}" min="0" step="0.5" oninput="updateEditField('protein', this.value)"/>
+            </div>
+            <div>
+              <label class="ee-label">Fat (g)</label>
+              <input type="number" class="ee-input ee-num" value="${e.fat}" min="0" step="0.5" oninput="updateEditField('fat', this.value)"/>
+            </div>
+          </div>
+
+          <div class="ee-actions">
+            <button class="ee-btn ee-delete" onclick="deleteFromEdit()">${icons.trash}<span>Delete</span></button>
+            <button class="ee-btn ee-save" onclick="saveEditedEntry()">${icons.checkSm}<span>Save changes</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
 function submitText() {
   const v = state.textInputValue.trim();
   if (!v) return;
@@ -12798,6 +13861,8 @@ const icons = {
   download: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
   chat: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
   trophy: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>',
+  edit: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  upload: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
 };
 
 // ============================================================
@@ -13179,6 +14244,10 @@ function renderInput() {
           <span class="im-icon">⌨</span>
           <span class="im-label">Type</span>
         </button>
+        <button class="input-mode" onclick="openDishPicker()" ${state.isListening ? 'disabled' : ''} aria-label="Pick a dish">
+          <span class="im-icon">🍝</span>
+          <span class="im-label">Dish</span>
+        </button>
         <button class="input-mode" onclick="startActivity()" ${state.isListening ? 'disabled' : ''} aria-label="Log exercise">
           <span class="im-icon">${icons.run}</span>
           <span class="im-label">Exercise</span>
@@ -13239,7 +14308,10 @@ function renderEntries() {
           </div>
           <div class="entry-cal"><div class="n">${e.calories}</div><div class="u">kcal</div></div>
         </div>
-        <button class="icon-btn entry-del-btn" onclick="event.stopPropagation(); if(confirm('Delete this entry?')) deleteEntry('${e.id}')" aria-label="Delete">${icons.trash}</button>
+        <div class="entry-actions">
+          <button class="icon-btn entry-edit-btn" onclick="event.stopPropagation(); openEditEntry('${e.id}')" aria-label="Edit">${icons.edit || '✎'}</button>
+          <button class="icon-btn entry-del-btn" onclick="event.stopPropagation(); if(confirm('Delete this entry?')) deleteEntry('${e.id}')" aria-label="Delete">${icons.trash}</button>
+        </div>
         ${isExpanded ? `
           <div class="entry-memory">
             ${hasMemory ? `
@@ -18180,6 +19252,8 @@ function render() {
     ${renderBarcodeScannerModal()}
     ${renderLabelScanner()}
     ${renderShareModal()}
+    ${renderEditEntryModal()}
+    ${renderDishPickerModal()}
     ${renderUnlockToast()}
     ${renderMealReminderBanner()}
     `;
